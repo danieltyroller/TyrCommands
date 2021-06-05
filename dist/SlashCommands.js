@@ -60,6 +60,9 @@ var SlashCommands = /** @class */ (function () {
                 return __generator(this, function (_a) {
                     member = interaction.member, data = interaction.data, guild_id = interaction.guild_id, channel_id = interaction.channel_id;
                     name = data.name, options = data.options;
+                    if(!name) {
+                        name = 'button'
+                    }
                     command = name.toLowerCase();
                     guild = this._client.guilds.cache.get(guild_id);
                     args = this.getArrayFromOptions(guild, options);
