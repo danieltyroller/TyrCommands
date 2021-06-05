@@ -1,0 +1,204 @@
+{
+    "LANGUAGE_NOT_SUPPORTED": {
+      "deutsch": "Dieser Bot unterstützt {LANGUAGE} derzeit nicht.",
+      "english": "This bot does not have support for {LANGUAGE} at this time.",
+      "espanol": "Este bot no es compatible con {LANGUAGE} en este momento.",
+      "portugues": "Este bot não é compatível com {LANGUAGE} por enquanto."
+    },
+    "CURRENT_LANGUAGE": {
+      "deutsch": "Die Sprach ist auf {LANGUAGE} eingestellt.",
+      "english": "The current language is set to {LANGUAGE}.",
+      "espanol": "El idioma actual está establecido en {LANGUAGE}.",
+      "portugues": "O idioma atual está definido como {LANGUAGE}."
+    },
+    "NEW_LANGUAGE": {
+      "deutsch": "Die Sprache wurde auf {LANGUAGE} eingestellt.",
+      "english": "Language set to {LANGUAGE}.",
+      "espanol": "Idioma configurado en {LANGUAGE}.",
+      "portugues": "Idioma configurado para {LANGUAGE}."
+    },
+    "BOT_OWNERS_ONLY": {
+      "deutsch": "Nur der Bot-Besitzer kann diesen Befehl ausführen.",
+      "english": "Only the bot owner can run this command.",
+      "espanol": "Solo el propietario del bot puede ejecutar este comando.",
+      "portugues": "Apenas o proprietário do bot pode executar este comando."
+    },
+    "DISABLED_COMMAND": {
+      "deutsch": "Dieser Befehl ist derzeit auf diesem Server deaktiviert.",
+      "english": "That command is currently disabled in this server.",
+      "espanol": "Ese comando está actualmente deshabilitado en este servidor.",
+      "portugues": "Este comando está atualmente desabilitado neste servidor."
+    },
+    "MISSING_PERMISSION": {
+      "deutsch": "Du must über die {PERM} Berechtigung verfügen, um diesen Befehl verwenden zu können.",
+      "english": "You must have the {PERM} permission in order to use this command.",
+      "espanol": "Debe tener el permiso {PERM} para poder utilizar este comando.",
+      "portugues": "Você precisa ter a permissão {PERM} para utilizar este comando."
+    },
+    "MISSING_ROLES": {
+      "deutsch": "Du hast nicht die erforderlichen Rollen, um diesen Befehl zu verwenden!",
+      "english": "You do not have the required roles to use this command!",
+      "espanol": "¡No tienes los roles necesarios para usar este comando!",
+      "portugues": "Você não tem o cargo necessário para usar este comando!"
+    },
+    "COOLDOWN": {
+      "deutsch": "Sie müssen {COOLDOWN} warten, bevor Sie diesen Befehl erneut verwenden können.",
+      "english": "You must wait {COOLDOWN} before using that command again.",
+      "espanol": "Debe esperar {COOLDOWN} antes de usar ese comando nuevamente.",
+      "portugues": "Você precisa esperar {COOLDOWN} antes de usar este comando novamente."
+    },
+    "ENABLE_DISABLE_STATE": {
+      "deutsch": "Der Zustand muss entweder \"aktiviert\" oder \"deaktiviert\" sein.",
+      "english": "The state must be either \"enable\" or \"disable\".",
+      "espanol": "El estado debe ser \"habilitar\" o \"deshabilitar\".",
+      "portugues": "O estado deve ser \"ativado\" ou \"desativado\"."
+    },
+    "CANNOT_ENABLE_DISABLE_IN_DMS": {
+      "deutsch": "Sie können Befehle in direkt Nachrichten nicht aktivieren oder deaktivieren.",
+      "english": "You cannot enable or disable commands in direct messages.",
+      "espanol": "No puede habilitar o deshabilitar comandos en mensajes privados.",
+      "portugues": "Você não pode ativar ou desativar comandos em mensagens privadas."
+    },
+    "COMMAND_ALREADY_ENABLED": {
+      "deutsch": "Dieser Befehl ist bereits aktiviert!",
+      "english": "That command is already enabled!",
+      "espanol": "¡Ese comando ya está habilitado!",
+      "portugues": "Este comando já está ativado!"
+    },
+    "COMMAND_ALREADY_DISABLED": {
+      "deutsch": "Dieser Befehl ist bereits deaktiviert!",
+      "english": "That command is already disabled!",
+      "espanol": "¡Ese comando ya está desactivado!",
+      "portugues": "Este comando já está desativado!"
+    },
+    "COMMAND_NOW_ENABLED": {
+      "deutsch": "{COMMAND} ist jetzt aktiviert!",
+      "english": "{COMMAND} is now enabled!",
+      "espanol": "¡{COMMAND} ahora está habilitado!",
+      "portugues": "{COMMAND} agora está ativado!"
+    },
+    "COMMAND_NOW_DISABLED": {
+      "deutsch": "{COMMAND} ist jetzt deaktiviert!",
+      "english": "{COMMAND} is now disabled!",
+      "espanol": "¡{COMMAND} ahora está deshabilitada!",
+      "portugues": "{COMMAND} agora está desativado!"
+    },
+    "UNKNOWN_COMMAND": {
+      "deutsch": "Konnte keinen Befehl {COMMAND} finden.",
+      "english": "Could not find command {COMMAND}!",
+      "espanol": "¡No se pudo encontrar el comando {COMMAND}!",
+      "portugues": "Não foi possível encontrar o comando {COMMAND}!"
+    },
+    "CURRENT_PREFIX": {
+      "deutsch": "Das aktuelle Prefix ist {PREFIX}.",
+      "english": "The current prefix is {PREFIX}.",
+      "espanol": "El prefijo actual es {PREFIX}.",
+      "portugues": "O prefixo atual é {PREFIX}."
+    },
+    "SET_PREFIX": {
+      "deutsch": "Das Befehls Prefix wurde auf {PREFIX} gesetzt.",
+      "english": "Set the command prefix to {PREFIX}.",
+      "espanol": "Establezca el prefijo del comando en {PREFIX}.",
+      "portugues": "Prefixo definido para {PREFIX}."
+    },
+    "CANNOT_SET_PREFIX_IN_DMS": {
+      "deutsch": "Du kannst in einer direkt Nachricht kein Prefix festlegen.",
+      "english": "You cannot set a prefix in a direct message.",
+      "espanol": "No puede establecer un prefijo en un mensaje privado.",
+      "portugues": "Você não pode definir um prefixo em uma mensagem privada"
+    },
+    "CANNOT_CHANGE_REQUIRED_ROLES_IN_DMS": {
+      "deutsch": "Du kannst die erforderlichen Rollen in direkt Nachrichten nicht ändern.",
+      "english": "You cannot change required roles in direct messages.",
+      "espanol": "No puede cambiar los roles requeridos en los mensajes privados.",
+      "portugues": "Você não pode alterar as funções necessárias em mensagens privadas"
+    },
+    "REMOVED_ALL_REQUIRED_ROLES": {
+      "deutsch": "Alle erforderlichen Rollen wurden vom {COMMAND} Befehl entfernt.",
+      "english": "Removed all required roles from command {COMMAND}.",
+      "espanol": "Se eliminaron todos los roles requeridos del comando {COMMAND}.",
+      "portugues": "Removidas todas as permissões necessárias para o comando {COMMAND}."
+    },
+    "ADDED_REQUIRED_ROLE": {
+      "deutsch": "{ROLE} Rolle zum {COMMAND} Befehl hinzugefügt.",
+      "english": "Added role {ROLE} to command {COMMAND}.",
+      "espanol": "Se agregó el rol {ROLE} al comando {COMMAND}.",
+      "portugues": "Adicionado o cargo {ROLE} para o comando {COMMAND}."
+    },
+    "SYNTAX_ERROR": {
+      "deutsch": "Falsche Verwendung! Bitte verwende \"{PREFIX} {COMMAND} {ARGUMENTS}\"",
+      "english": "Incorrect usage! Please use \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
+      "espanol": "¡Uso incorrecto! Utilice \"{PREFIX} {COMMAND} {ARGUMENTS}\"",
+      "portugues": "Uso incorreto! Utilize \"{PREFIX} {COMMAND} {ARGUMENTS}\""
+    },
+    "NO_DATABASE_FOUND": {
+      "deutsch": "Keine Datenbankverbindung gefunden!",
+      "english": "No database connection found!",
+      "espanol": "¡No se encontró conexión a la base de datos!",
+      "portugues": "Conexão ao banco de dados não econtrada!"
+    },
+    "GUILD_ONLY_COMMAND": {
+      "deutsch": "Dieser Befehl kann nur innerhalb eines Servers verwendet werden.",
+      "english": "This command can only be used within a server.",
+      "espanol": "Este comando solo se puede utilizar dentro de un servidor.",
+      "portugues": "Este comando só pode ser usado em um servidor."
+    },
+    "NO_REACT_PERMS": {
+      "deutsch": "Dieser Bot braucht die Berechtigung \"Reaktionen hinzufügen\", um das Help Menü verwenden zu können.",
+      "english": "This bot needs the \"Add Reactions\" permission to use the help menu.",
+      "espanol": "Este bot precisa da permissão \"Adicionar reações\" para usar o menu de ajuda.",
+      "portugues": "Este bot precisa da permissão \"Adicionar reações\" para usar o menu de ajuda."
+    },
+    "EXCEPTION": {
+      "deutsch": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten! Dieser Fehler wurde den Entwicklern gemeldet.",
+      "english": "An error occurred when running this command! This error has been reported to the developers.",
+      "espanol": "¡Se produjo un error al ejecutar este comando! Se ha informado de este error a los desarrolladores.",
+      "portugues": "Ocorreu um erro ao executar este comando! Este erro foi relatado aos desenvolvedores."
+    },
+    "HELP_MENU": {
+      "TITLE": {
+        "deutsch": "Help Menü",
+        "english": "Help Menu",
+        "espanol": "Menú de ayuda",
+        "portugues": "Menu de ajuda"
+      },
+      "SELECT_A_CATEGORY": {
+        "deutsch": "Bitte wähle eine Befehlskategorie aus, indem du auf die passend Reaktion drückst",
+        "english": "Please select a command category by clicking it's reaction.",
+        "espanol": "Seleccione una categoría de comando haciendo clic en su reacción.",
+        "portugues": "Selecione uma categoria de comando clicando em sua reação."
+      },
+      "COMMANDS": {
+        "deutsch": "Befehle",
+        "english": "commands",
+        "espanol": "comandos",
+        "portugues": "comandos"
+      },
+      "DESCRIPTION_FIRST_LINE": {
+        "deutsch": "Verwende {EMOJI}, um zum vorherigen Menü zurückzukehren.",
+        "english": "Use {EMOJI} to return to the previous menu.",
+        "espanol": "Utilice {EMOJI} para volver al menú anterior.",
+        "portugues": "Use {EMOJI} para retornar ao menu anterior"
+      },
+      "DESCRIPTION_SECOND_LINE": {
+        "deutsch": "Verwende {EMOJI_LEFT} und {EMOJI_RIGHT}, um zwischen den Seiten zu navigieren.",
+        "english": "Use {EMOJI_LEFT} and {EMOJI_RIGHT} to navigate between pages.",
+        "espanol": "Utilice {EMOJI_LEFT} y {EMOJI_RIGHT} para navegar entre páginas.",
+        "portugues": "Use {EMOJI_LEFT} e {EMOJI_RIGHT} para navegar entre as páginas."
+      },
+      "ALIASES": {
+        "deutsch": "Aliase",
+        "english": "Aliases",
+        "espanol": "Alias",
+        "portugues": "Apelidos"
+      },
+      "SYNTAX": {
+        "deutsch": "Syntax",
+        "english": "Syntax",
+        "espanol": "Sintaxis",
+        "portugues": "Sintaxe"
+      }
+    }
+  }
+  
+  
