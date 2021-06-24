@@ -67,7 +67,7 @@ var ReactionHandler = /** @class */ (function () {
         this.emojiName = "";
         this.emojiId = "";
         this.door = "🚪";
-        this.pageLimit = 3;
+        this.pageLimit = 10;
         this.init = function () { return __awaiter(_this, void 0, void 0, function () {
             var _a, embeds, guild;
             return __generator(this, function (_b) {
@@ -134,6 +134,7 @@ var ReactionHandler = /** @class */ (function () {
         this.returnToMainMenu = function () {
             var _a = _get_first_embed_1.default(_this.message, _this.instance), newEmbed = _a.embed, reactions = _a.reactions;
             _this.embed.setDescription(newEmbed.description);
+            if(_this.message.author.id !== this.guild.me.id) return
             _this.message.edit(_this.embed);
             if (_this.canBotRemoveReaction()) {
                 _this.message.reactions.removeAll();
@@ -205,6 +206,7 @@ var ReactionHandler = /** @class */ (function () {
             }
             desc += "\n\nPage " + page + " / " + maxPages + ".";
             _this.embed.setDescription(desc);
+            if(_this.message.author.id !== this.guild.me.id) return
             _this.message.edit(_this.embed);
             if (_this.canBotRemoveReaction()) {
                 _this.message.reactions.removeAll();
