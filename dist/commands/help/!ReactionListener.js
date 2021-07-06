@@ -60,9 +60,10 @@ var /**
     }
 };
 exports.addReactions = addReactions;
+var _this
 var ReactionHandler = /** @class */ (function () {
     function ReactionHandler(instance, reaction, user) {
-        var _this = this;
+        _this = this;
         this.guild = null;
         this.emojiName = "";
         this.emojiId = "";
@@ -106,16 +107,6 @@ var ReactionHandler = /** @class */ (function () {
          * @returns If the user is allowed to interact with this help menu
          */
         this.canUserInteract = function () {
-            // Check if the title of the embed is correct
-            var displayName = _this.instance.displayName
-                ? _this.instance.displayName + " "
-                : "";
-            var isSameTitle = _this.embed.title ===
-                "" + displayName + _this.instance.messageHandler.getEmbed(_this.guild, "HELP_MENU", "TITLE");
-            if (!isSameTitle) {
-                return false;
-            }
-            // Check if the user's ID is in the footer
             if (_this.embed.footer) {
                 var text = _this.embed.footer.text;
                 var id = text === null || text === void 0 ? void 0 : text.split("#")[1];
@@ -183,9 +174,9 @@ var ReactionHandler = /** @class */ (function () {
         this.generateMenu = function (page, maxPages) {
             var _a = _this.getCommands(), length = _a.length, commands = _a.commands, commandsString = _a.commandsString, category = _a.category;
             var hasMultiplePages = length > _this.pageLimit;
-            var desc = category + " " + commandsString + "\n\n" + _this.instance.messageHandler.getEmbed(_this.guild, "HELP_MENU", "DESCRIPTION_FIRST_LINE", {
+            var desc = _this.instance.messageHandler.getEmbed(_this.guild, "HELP_MENU", "DESCRIPTION_FIRST_LINE", {
                 EMOJI: '🚪'
-            });
+            }) + "\n";
             if (hasMultiplePages) {
                 desc += "\n\n" + _this.instance.messageHandler.getEmbed(_this.guild, "HELP_MENU", "DESCRIPTION_SECOND_LINE", {
                     EMOJI_LEFT: '<a:LP_left:838002818568814622>',
@@ -201,10 +192,10 @@ var ReactionHandler = /** @class */ (function () {
                         // @ts-ignore
                         names = __spreadArrays(names);
                     }
-                    desc += "\n\n#" + ++counter + ") " + ReactionHandler.getHelp(command, _this.instance, _this.guild);
+                    desc += ReactionHandler.getHelp(command, _this.instance, _this.guild);
                 }
             }
-            desc += "\n\nPage " + page + " / " + maxPages + ".";
+            _this.embed.setTitle("__" + category + "__")
             _this.embed.setDescription(desc);
             if(_this.message.author.id !== this.guild.me.id) return
             _this.message.edit(_this.embed);
@@ -256,13 +247,9 @@ var ReactionHandler = /** @class */ (function () {
         this.init();
     }
     ReactionHandler.getHelp = function (command, instance, guild) {
-        var description = command.description, syntax = command.syntax, names = command.names;
+        var description = command.description, names = command.names;
         var mainName = typeof names === "string" ? names : names.shift();
-        var desc = "**" + mainName + "**" + (description ? " - " : "") + description;
-        if (names.length && typeof names !== "string") {
-            desc += "\n" + instance.messageHandler.getEmbed(guild, "HELP_MENU", "ALIASES") + ": \"" + names.join('", "') + "\"";
-        }
-        desc += "\n" + instance.messageHandler.getEmbed(guild, "HELP_MENU", "SYNTAX") + ": \"" + instance.getPrefix(guild) + mainName + (syntax ? " " : "") + (syntax || "") + "\"";
+        var desc = "\n• | " + "\`" + instance.getPrefix(guild) + mainName + "\`" + (description ? " - " : "") + "\*" + description + "\*";
         return desc;
     };
     return ReactionHandler;

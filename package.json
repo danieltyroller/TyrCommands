@@ -1,28 +1,60 @@
 {
-  "name": "tyrcommands",
-  "version": "1.3.2",
+  "_from": "tyrcommands@^1.4.2",
+  "_id": "tyrcommands@1.4.2",
+  "_inBundle": false,
+  "_integrity": "sha512-4Iw+8jNpvSX921hpFJI4ipXnssgn6Ks8Sg34e7GebPVvA1xA2MKjdiAqYtayNq5gv2TBSIhizxJWaUTWJyrsiw==",
+  "_location": "/tyrcommands",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "tyrcommands@^1.4.2",
+    "name": "tyrcommands",
+    "escapedName": "tyrcommands",
+    "rawSpec": "^1.4.2",
+    "saveSpec": null,
+    "fetchSpec": "^1.4.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/tyrcommands/-/tyrcommands-1.4.2.tgz",
+  "_shasum": "99546c25c5a3d7125c74b43dbf7b90ff0573a8f1",
+  "_spec": "tyrcommands@^1.4.2",
+  "_where": "C:\\Users\\Administrator\\Documents\\Programmieren\\js\\discord.js\\Lotus_Penthaus",
+  "author": {
+    "name": "Daniel Tyroller"
+  },
+  "bugs": {
+    "url": "https://github.com/danieltyroller/TyrCommands/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
+    "mongoose": "^5.12.14"
+  },
+  "deprecated": false,
+  "description": "An easy to use command handler for Discord.JS",
+  "devDependencies": {
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^15.12.4",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.3.4"
+  },
+  "homepage": "https://github.com/danieltyroller/TyrCommands#readme",
+  "keywords": [],
+  "license": "ISC",
   "main": "dist/index.js",
+  "name": "tyrcommands",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danieltyroller/TyrCommands.git"
+  },
   "scripts": {
     "compile": "tsc && node index.js",
     "dev": "nodemon -e ts --exec \"npm run compile\""
   },
-  "keywords": [],
-  "author": "Daniel TYroller",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^12.5.0",
-    "dotenv": "^8.2.0",
-    "mongoose": "^5.10.15"
-  },
-  "devDependencies": {
-    "@types/mongoose": "^5.10.1",
-    "@types/node": "^14.14.9",
-    "ts-node-dev": "^1.0.0",
-    "typescript": "^4.1.2"
-  },
-  "description": "An easy to use command handler for Discord.JS",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/danieltyroller/TyrCommands"
-  }
+  "version": "1.4.2"
 }

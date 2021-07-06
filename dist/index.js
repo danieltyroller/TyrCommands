@@ -148,8 +148,7 @@ var TyrCommands = /** @class */ (function (_super) {
         _this._commandHandler = new CommandHandler_1.default(_this, client, _this._commandsDir, disabledDefaultCommands);
         _this._featureHandler = new FeatureHandler_1.default(client, _this, _this._featuresDir);
         _this._messageHandler = new message_handler_1.default(_this, messagesPath || "");
-        _this.setCategorySettings("Settings", "⚙️");
-        _this.setCategorySettings("Help", "❓");
+        _this.setCategorySettings("Einstellungen", "⚙️");
         setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
             var results, _i, results_1, result, _id, prefix;
             return __generator(this, function (_a) {
@@ -196,7 +195,7 @@ var TyrCommands = /** @class */ (function (_super) {
      * @deprecated Please use the messages.json file instead of this method.
      */
     TyrCommands.prototype.setSyntaxError = function (syntaxError) {
-        console.warn("TyrCommands > The setSyntaxError method is deprecated. Please use messages.json instead. See https://www.npmjs.com/package/TyrCommands#language-support for more information");
+        console.warn("TyrCommands > The setSyntaxError method is deprecated.");
         return this;
     };
     Object.defineProperty(TyrCommands.prototype, "client", {
@@ -273,7 +272,7 @@ var TyrCommands = /** @class */ (function (_super) {
         var emoji = this._categories.get(category) || "";
         if (typeof emoji === "object") {
             // @ts-ignore
-            return "<:" + emoji.name + ":" + emoji.id + ">";
+            return "<a:" + emoji.name + ":" + emoji.id + ">";
         }
         return emoji;
     };
@@ -310,7 +309,7 @@ var TyrCommands = /** @class */ (function (_super) {
         else {
             for (var _i = 0, category_1 = category; _i < category_1.length; _i++) {
                 var _a = category_1[_i], emoji_1 = _a.emoji, name_1 = _a.name, hidden = _a.hidden, customEmoji = _a.customEmoji;
-                if (emoji_1.startsWith("<:") && emoji_1.endsWith(">")) {
+                if (emoji_1.startsWith("<a:") && emoji_1.endsWith(">")) {
                     customEmoji = true;
                     emoji_1 = emoji_1.split(":")[2];
                     emoji_1 = emoji_1.substring(0, emoji_1.length - 1);

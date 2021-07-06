@@ -46,7 +46,7 @@ module.exports = {
     expectedArgs: '<"aktivieren" or "deaktivieren"> <Command Name>',
     requiredPermissions: ['ADMINISTRATOR'],
     description: 'Aktiviert oder deaktiviert einen Befehl für diese Server',
-    category: 'Settings',
+    category: 'Einstellungen',
     callback: function (options) { return __awaiter(void 0, void 0, void 0, function () {
         var message, args, instance, guild, newState, name, command, mainCommand, isDisabled;
         var _a;

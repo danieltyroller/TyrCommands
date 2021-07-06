@@ -47,7 +47,7 @@ module.exports = {
     expectedArgs: '<Befehl Name> <"none" | getaggte Rolle | Rollen ID String>',
     requiredPermissions: ['ADMINISTRATOR'],
     description: 'Gibt an, welche Rolle jeder Befehl benötigt.',
-    category: 'Settings',
+    category: 'Einstellungen',
     callback: function (options) { return __awaiter(void 0, void 0, void 0, function () {
         var message, args, instance, name, roleId, guild, command;
         return __generator(this, function (_a) {

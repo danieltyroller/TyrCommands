@@ -45,7 +45,7 @@ module.exports = {
     expectedArgs: '[Neues Prefix]',
     requiredPermissions: ['ADMINISTRATOR'],
     description: 'Zeigt oder legt das Prefix für den Server fest.',
-    category: 'Settings',
+    category: 'Einstellungen',
     callback: function (options) { return __awaiter(void 0, void 0, void 0, function () {
         var message, args, text, prefix, instance, guild, id;
         return __generator(this, function (_a) {

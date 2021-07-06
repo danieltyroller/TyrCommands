@@ -47,7 +47,7 @@ module.exports = {
     expectedArgs: "[Language]",
     requiredPermissions: ["ADMINISTRATOR"],
     description: "Zeigt oder legt die Sprach für diesen Server fest.",
-    category: "Settings",
+    category: "Einstellungen",
     callback: function (options) { return __awaiter(void 0, void 0, void 0, function () {
         var message, text, instance, guild, messageHandler, lang;
         return __generator(this, function (_a) {
