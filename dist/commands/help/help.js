@@ -112,7 +112,7 @@ module.exports = {
             }));
             return;
         }
-        var description = _ReactionListener_1.default.getHelp(command, instance, guild);
+        var description = _ReactionListener_1.default.argHelp(command, instance, guild);
         var embed = new discord_js_1.MessageEmbed()
             .setTitle(instance.displayName + " " + instance.messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE') + " - " + arg)
             .setDescription(description);

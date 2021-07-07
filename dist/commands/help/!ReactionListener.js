@@ -125,6 +125,7 @@ var ReactionHandler = /** @class */ (function () {
         this.returnToMainMenu = function () {
             var _a = _get_first_embed_1.default(_this.message, _this.instance), newEmbed = _a.embed, reactions = _a.reactions;
             _this.embed.setDescription(newEmbed.description);
+            _this.embed.setTitle(_this.instance.messageHandler.getEmbed(_this.guild, "HELP_MENU", "TITLE"))
             if(_this.message.author.id !== this.guild.me.id) return
             _this.message.edit(_this.embed);
             if (_this.canBotRemoveReaction()) {
@@ -252,6 +253,16 @@ var ReactionHandler = /** @class */ (function () {
         var desc = "\n• | " + "\`" + instance.getPrefix(guild) + mainName + "\`" + (description ? " - " : "") + "\*" + description + "\*";
         return desc;
     };
+    ReactionHandler.argHelp = function (command, instance, guild) {
+        var description = command.description, syntax = command.syntax, names = command.names;
+        var mainName = typeof names === "string" ? names : names.shift();
+        var desc = "\n• | " + "\`" + instance.getPrefix(guild) + mainName + "\`" + (description ? " - " : "") + "\*" + description + "\*";
+        if (names.length && typeof names !== "string") {
+            desc += "\n" + instance.messageHandler.getEmbed(guild, "HELP_MENU", "ALIASES") + ": \"" + names.join('", "') + "\"";
+        }
+        desc += "\n" + instance.messageHandler.getEmbed(guild, "HELP_MENU", "SYNTAX") + ": \"" + instance.getPrefix(guild) + mainName + (syntax ? " " : "") + (syntax || "") + "\"";
+        return desc;
+    }
     return ReactionHandler;
 }());
 exports.default = ReactionHandler;

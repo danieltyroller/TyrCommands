@@ -56,5 +56,5 @@
     "compile": "tsc && node index.js",
     "dev": "nodemon -e ts --exec \"npm run compile\""
   },
-  "version": "1.4.3"
+  "version": "1.4.2"
 }

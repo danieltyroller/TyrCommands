@@ -12,16 +12,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function (o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
+    Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+}) : (function (o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function (o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
+}) : function (o, v) {
     o["default"] = v;
 });
 var __importStar = (this && this.__importStar) || function (mod) {
@@ -41,8 +41,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -104,7 +104,7 @@ var TyrCommands = /** @class */ (function (_super) {
             throw new Error("No Discord JS Client provided as first argument!");
         }
         _this._client = client;
-        var _a = options.commandsDir, commandsDir = _a === void 0 ? "" : _a, _b = options.commandDir, commandDir = _b === void 0 ? "" : _b, _c = options.featuresDir, featuresDir = _c === void 0 ? "" : _c, _d = options.featureDir, featureDir = _d === void 0 ? "" : _d, messagesPath = options.messagesPath, _e = options.showWarns, showWarns = _e === void 0 ? true : _e, _f = options.del, del = _f === void 0 ? -1 : _f, _g = options.ignoreBots, ignoreBots = _g === void 0 ? true : _g, dbOptions = options.dbOptions, testServers = options.testServers, _h = options.disabledDefaultCommands, disabledDefaultCommands = _h === void 0 ? [] : _h;
+        var _a = options.commandsDir, commandsDir = _a === void 0 ? "" : _a, _b = options.commandDir, commandDir = _b === void 0 ? "" : _b, _c = options.featuresDir, featuresDir = _c === void 0 ? "" : _c, _d = options.featureDir, featureDir = _d === void 0 ? "" : _d, messagesPath = options.messagesPath, _e = options.showWarns, showWarns = _e === void 0 ? true : _e, _f = options.del, del = _f === void 0 ? -1 : _f, _g = options.defaultLanguage, defaultLanguage = _g === void 0 ? "deutsch": _g, _h = options.ignoreBots, ignoreBots = _h === void 0 ? true : _h, dbOptions = options.dbOptions, testServers = options.testServers, _j = options.disabledDefaultCommands, disabledDefaultCommands = _j === void 0 ? [] : _j;
         var partials = client.options.partials;
         _this._commandsDir = commandsDir || commandDir || _this._commandsDir;
         _this._featuresDir = featuresDir || featureDir || _this._featuresDir;
@@ -140,6 +140,7 @@ var TyrCommands = /** @class */ (function (_super) {
         }
         _this._showWarns = showWarns;
         _this._del = del;
+        _this._defaultLanguage = defaultLanguage.toLowerCase();
         _this._ignoreBots = ignoreBots;
         if (typeof disabledDefaultCommands === "string") {
             disabledDefaultCommands = [disabledDefaultCommands];
@@ -149,35 +150,37 @@ var TyrCommands = /** @class */ (function (_super) {
         _this._featureHandler = new FeatureHandler_1.default(client, _this, _this._featuresDir);
         _this._messageHandler = new message_handler_1.default(_this, messagesPath || "");
         _this.setCategorySettings("Einstellungen", "⚙️");
-        setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
-            var results, _i, results_1, result, _id, prefix;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!this._mongo) return [3 /*break*/, 3];
-                        return [4 /*yield*/, mongo_1.default(this._mongo, this, dbOptions)];
-                    case 1:
-                        _a.sent();
-                        this._mongoConnection = mongo_1.getMongoConnection();
-                        return [4 /*yield*/, prefixes_1.default.find({})];
-                    case 2:
-                        results = _a.sent();
-                        for (_i = 0, results_1 = results; _i < results_1.length; _i++) {
-                            result = results_1[_i];
-                            _id = result._id, prefix = result.prefix;
-                            this._prefixes[_id] = prefix;
-                        }
-                        return [3 /*break*/, 4];
-                    case 3:
-                        if (showWarns) {
-                            console.warn("TyrCommands > No MongoDB connection URI provided. Some features might not work! See this for more details:\nhttps://github.com/AlexzanderFlores/TyrCommands#setup");
-                        }
-                        this.emit(Events_1.default.DATABASE_CONNECTED, null, "");
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
-                }
+        setTimeout(function () {
+            return __awaiter(_this, void 0, void 0, function () {
+                var results, _i, results_1, result, _id, prefix;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!this._mongo) return [3 /*break*/, 3];
+                            return [4 /*yield*/, mongo_1.default(this._mongo, this, dbOptions)];
+                        case 1:
+                            _a.sent();
+                            this._mongoConnection = mongo_1.getMongoConnection();
+                            return [4 /*yield*/, prefixes_1.default.find({})];
+                        case 2:
+                            results = _a.sent();
+                            for (_i = 0, results_1 = results; _i < results_1.length; _i++) {
+                                result = results_1[_i];
+                                _id = result._id, prefix = result.prefix;
+                                this._prefixes[_id] = prefix;
+                            }
+                            return [3 /*break*/, 4];
+                        case 3:
+                            if (showWarns) {
+                                console.warn("TyrCommands > No MongoDB connection URI provided.");
+                            }
+                            this.emit(Events_1.default.DATABASE_CONNECTED, null, "");
+                            _a.label = 4;
+                        case 4: return [2 /*return*/];
+                    }
+                });
             });
-        }); }, 500);
+        }, 500);
         return _this;
     }
     Object.defineProperty(TyrCommands.prototype, "mongoPath", {
@@ -309,6 +312,11 @@ var TyrCommands = /** @class */ (function (_super) {
         else {
             for (var _i = 0, category_1 = category; _i < category_1.length; _i++) {
                 var _a = category_1[_i], emoji_1 = _a.emoji, name_1 = _a.name, hidden = _a.hidden, customEmoji = _a.customEmoji;
+                if (emoji_1.startsWith("<:") && emoji_1.endsWith(">")) {
+                    customEmoji = true;
+                    emoji_1 = emoji_1.split(":")[2];
+                    emoji_1 = emoji_1.substring(0, emoji_1.length - 1);
+                }
                 if (emoji_1.startsWith("<a:") && emoji_1.endsWith(">")) {
                     customEmoji = true;
                     emoji_1 = emoji_1.split(":")[2];
@@ -318,7 +326,9 @@ var TyrCommands = /** @class */ (function (_super) {
                     emoji_1 = this._client.emojis.cache.get(emoji_1);
                 }
                 if (this.isEmojiUsed(emoji_1)) {
-                    console.warn("TyrCommands > The emoji \"" + emoji_1 + "\" for category \"" + name_1 + "\" is already used.");
+                    if (this.showWarns) {
+                        console.warn("TyrCommands > The emoji \"" + emoji_1 + "\" for category \"" + name_1 + "\" is already used.");
+                    }
                 }
                 this._categories.set(name_1, emoji_1 || this.categories.get(name_1) || "");
                 if (hidden) {
