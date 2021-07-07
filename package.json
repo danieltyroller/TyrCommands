@@ -1,6 +1,6 @@
 {
-  "_from": "tyrcommands@^1.4.2",
-  "_id": "tyrcommands@1.4.2",
+  "_from": "tyrcommands@^1.4.4",
+  "_id": "tyrcommands@1.4.4",
   "_inBundle": false,
   "_integrity": "sha512-4Iw+8jNpvSX921hpFJI4ipXnssgn6Ks8Sg34e7GebPVvA1xA2MKjdiAqYtayNq5gv2TBSIhizxJWaUTWJyrsiw==",
   "_location": "/tyrcommands",
@@ -8,7 +8,7 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "tyrcommands@^1.4.2",
+    "raw": "tyrcommands@^1.4.4",
     "name": "tyrcommands",
     "escapedName": "tyrcommands",
     "rawSpec": "^1.4.2",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/tyrcommands/-/tyrcommands-1.4.2.tgz",
   "_shasum": "99546c25c5a3d7125c74b43dbf7b90ff0573a8f1",
-  "_spec": "tyrcommands@^1.4.2",
+  "_spec": "tyrcommands@^1.4.4",
   "_where": "C:\\Users\\Administrator\\Documents\\Programmieren\\js\\discord.js\\Lotus_Penthaus",
   "author": {
     "name": "Daniel Tyroller"
@@ -56,5 +56,5 @@
     "compile": "tsc && node index.js",
     "dev": "nodemon -e ts --exec \"npm run compile\""
   },
-  "version": "1.4.2"
+  "version": "1.4.4"
 }
