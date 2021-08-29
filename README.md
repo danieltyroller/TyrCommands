@@ -11,7 +11,7 @@ TyrCommands is a Discord.js command handler developed by [Daniel Tyroller](https
 **NPM**
 
 ```bash
-npm install wokcommands
+npm install tyrcommands
 ```
 
 Development Build
