@@ -1,23 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var discord_js_1 = require("discord.js");
-var getFirstEmbed = function (message, instance) {
-    var guild = message.guild
-    var commands = instance.commandHandler.commands, messageHandler = instance.messageHandler;
-    var embed = new discord_js_1.MessageEmbed()
-        .setTitle(instance.displayName + " " + messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE'))
+const discord_js_1 = require("discord.js");
+const getFirstEmbed = function (instance, guild) {
+    const { messageHandler, } = instance;
+    const commands = instance.commandHandler.getCommands();
+    const embed = new discord_js_1.MessageEmbed()
+        .setTitle(`${instance.displayName} ${messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE')}`)
         .setDescription(messageHandler.getEmbed(guild, 'HELP_MENU', 'SELECT_A_CATEGORY'))
-    // .setFooter("ID #" + message.author.id)
     if (instance.color) {
         embed.setColor(instance.color);
     }
-    var categories = {};
-    // var isAdmin = member && member.hasPermission('ADMINISTRATOR');
-    for (var _i = 0, commands_1 = commands; _i < commands_1.length; _i++) {
-        var _a = commands_1[_i], category = _a.category, testOnly = _a.testOnly;
+    const categories = {};
+    for (const { category, testOnly } of commands) {
         if (!category ||
             (testOnly && guild && !instance.testServers.includes(guild.id)) ||
-            (/*!isAdmin && */instance.hiddenCategories.includes(category))) {
+            (instance.hiddenCategories.includes(category))) {
             continue;
         }
         if (categories[category]) {
@@ -30,28 +27,26 @@ var getFirstEmbed = function (message, instance) {
             };
         }
     }
-    var reactions = [];
-    var keys = Object.keys(categories);
-    for (var a = 0; a < keys.length; ++a) {
-        var key = keys[a];
-        var emoji = categories[key].emoji;
+    const keys = Object.keys(categories);
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const { emoji } = categories[key];
         if (!emoji) {
-            console.warn("TyrCommands > Kategorie \"" + key + "\" hat kein Emoji-Symbol.");
+            console.warn(`TyrCommands > Category "${key}" does not have an emoji icon.`);
             continue;
         }
-        var visibleCommands = instance.commandHandler.getCommandsByCategory(key, true);
-        var amount = visibleCommands.length;
+        const visibleCommands = instance.commandHandler.getCommandsByCategory(key, true);
+
+        const amount = visibleCommands.length;
         if (amount === 0) {
             continue;
         }
-        var reaction = emoji;
-        reactions.push(reaction);
-        embed.setDescription(embed.description + ("\n\n**" + reaction + " - " + key + "** - " + amount + " Befehl" + (amount === 1 ? '' : 'e')));
+
+        embed.setDescription(embed.description + `\n\n**${emoji} - ${key}** - ${amount} Befehl${amount === 1 ? '' : 'e'}`);
     }
-    // embed.setDescription(embed.description + "\n\n" + "<@" + message.author + ">")
     return {
-        embed: embed,
-        reactions: reactions,
+        embed,
+        keys,
     };
 };
 exports.default = getFirstEmbed;
