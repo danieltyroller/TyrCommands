@@ -1,0 +1,29 @@
+{
+  "name": "tyrcommands",
+  "version": "1.6.0",
+  "main": "dist/index.js",
+  "typings": "./typings.d.ts",
+  "scripts": {
+    "tsc": "tsc -w --outDir dist --rootDir src --skipLibCheck",
+    "compile": "tsc && node index.js",
+    "dev": "nodemon -e ts --exec \"npm run compile\""
+  },
+  "keywords": [],
+  "author": "Daniel Tyroller",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^5.13.9"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  },
+  "description": "A Command Handler for Discord.js v13",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danieltyroller/TyrCommands"
+  }
+}
