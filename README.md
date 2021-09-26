@@ -4,7 +4,7 @@
 
 # TyrCommands
 
-TyrCommands is a Discord.js command handler developed by [Daniel Tyroller](https://github.com/danieltyroller). The point of TyrCommands is to make it as easy as possible to create a bot without having to think about command and event handling
+TyrCommands is a Discord.js command handler developed by [Daniel Tyroller](https://github.com/danieltyroller). The point of TyrCommands is to make it as easy as possible to create a bot without worrying about registering commands and events.
 
 # Installation
 

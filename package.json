@@ -1,6 +1,6 @@
 {
   "name": "tyrcommands",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
   "scripts": {
@@ -14,16 +14,16 @@
   "dependencies": {
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "mongoose": "^5.13.8"
+    "mongoose": "^5.13.9"
   },
   "devDependencies": {
-    "@types/node": "^16.7.1",
+    "@types/node": "^16.9.1",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.3"
   },
-  "description": "An command handler for discord.js v13",
+  "description": "A Command Handler for Discord.js v13",
   "repository": {
     "type": "git",
-    "url": "https://github.com/danieltyroller/tyrcommands"
+    "url": "https://github.com/danieltyroller/TyrCommands"
   }
 }
