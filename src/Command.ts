@@ -294,7 +294,7 @@ class Command {
         return this._ownerOnly
     }
 
-    public verifyDatabaseCooldowns(connected: boolean) {
+    public verifyDatabaseCooldowns() {
         if (
             this._cooldownChar === 'd' ||
             this._cooldownChar === 'h' ||
@@ -302,7 +302,7 @@ class Command {
         ) {
             this._databaseCooldown = true
 
-            if (!connected) {
+            if (!this.instance.isDBConnected()) {
                 console.warn(
                     `TyrCommands > A database connection is STRONGLY RECOMMENDED for cooldowns of 5 minutes or more.`
                 )

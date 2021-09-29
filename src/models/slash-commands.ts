@@ -7,7 +7,10 @@ const reqString = {
 
 const schema = new Schema({
     _id: reqString,
-    nameAndClient: reqString
+    nameAndClient: reqString,
+    guild: reqString,
+    description: String,
+    options: Object
 })
 
 const name = 'tyrcommands-slash-commands'

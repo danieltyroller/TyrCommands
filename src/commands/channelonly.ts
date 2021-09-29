@@ -1,5 +1,3 @@
-import DiscordJS from 'discord.js'
-
 import { ICallbackObject, ICommand } from '../..'
 import channelCommandSchema from '../models/channel-commands'
 
@@ -22,13 +20,13 @@ export = {
         {
             name: 'befehl',
             description: 'Der Befehlsname',
-            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
+            type: 'STRING',
             required: true
         },
         {
             name: 'kanal',
             description: 'Das Tag des Kanals',
-            type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL,
+            type: 'CHANNEL',
             required: false
         }
     ],
