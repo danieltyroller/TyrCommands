@@ -8,7 +8,7 @@ export = {
     category: 'Configuration',
 
     permissions: ['ADMINISTRATOR'],
-    names: ['requiredroles', 'requirerole', 'requireroles'],
+    aliases: ['requiredroles', 'requirerole', 'requireroles'],
 
     minArgs: 2,
     maxArgs: 2,

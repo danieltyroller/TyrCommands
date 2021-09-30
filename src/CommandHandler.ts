@@ -67,10 +67,9 @@ export default class CommandHandler {
         disabledDefaultCommands: string[],
         typeScript = false
     ) {
-        // Register built in commands
+        // Do not pase in TS here because this should always compiled to JS
         for (const [file, fileName] of getAllFiles(
-            path.join(__dirname, 'commands'),
-            typeScript ? '.ts' : ''
+            path.join(__dirname, 'commands')
         )) {
             if (disabledDefaultCommands.includes(fileName)) {
                 continue
@@ -79,9 +78,9 @@ export default class CommandHandler {
             this.registerCommand(instance, client, file, fileName, true)
         }
 
+        // Do not pase in TS here because this should always compiled to JS
         for (const [file, fileName] of getAllFiles(
-            path.join(__dirname, 'command-checks'),
-            typeScript ? '.ts' : '.js'
+            path.join(__dirname, 'command-checks')
         )) {
             this._commandChecks.set(fileName, require(file))
         }
@@ -244,6 +243,7 @@ export default class CommandHandler {
             permissions,
             slash,
             expectedArgs,
+            expectedArgsTypes,
             minArgs,
             options = [],
         } = configuration
@@ -373,7 +373,10 @@ export default class CommandHandler {
                     options.push({
                         name: item.replace(/ /g, '-').toLowerCase(),
                         description: item,
-                        type: 3,
+                        type:
+                            expectedArgsTypes && expectedArgsTypes.length >= i
+                                ? expectedArgsTypes[i]
+                                : 'STRING',
                         required: i < minArgs
                     })
                 }
