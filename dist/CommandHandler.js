@@ -47,14 +47,15 @@ class CommandHandler {
         this.setUp(instance, client, dir, disabledDefaultCommands, typeScript);
     }
     async setUp(instance, client, dir, disabledDefaultCommands, typeScript = false) {
-        // Register built in commands
-        for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'commands'), typeScript ? '.ts' : '')) {
+        // Do not pase in TS here because this should always compiled to JS
+        for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'commands'))) {
             if (disabledDefaultCommands.includes(fileName)) {
                 continue;
             }
             this.registerCommand(instance, client, file, fileName, true);
         }
-        for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'), typeScript ? '.ts' : '.js')) {
+        // Do not pase in TS here because this should always compiled to JS
+        for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'))) {
             this._commandChecks.set(fileName, require(file));
         }
         if (dir) {
@@ -153,7 +154,7 @@ class CommandHandler {
         if (configuration.default && Object.keys(configuration).length === 1) {
             configuration = configuration.default;
         }
-        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, expectedArgs, minArgs, options = [], } = configuration;
+        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, expectedArgs, expectedArgsTypes, minArgs, options = [], } = configuration;
         let { testOnly } = configuration;
         if (builtIn) {
             if (testOnly === undefined && instance.testServers.length) {
@@ -234,7 +235,9 @@ class CommandHandler {
                     options.push({
                         name: item.replace(/ /g, '-').toLowerCase(),
                         description: item,
-                        type: 3,
+                        type: expectedArgsTypes && expectedArgsTypes.length >= i
+                            ? expectedArgsTypes[i]
+                            : 'STRING',
                         required: i < minArgs
                     });
                 }

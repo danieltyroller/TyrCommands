@@ -26,7 +26,7 @@ const reqString = {
 const schema = new mongoose_1.Schema({
     _id: reqString,
     nameAndClient: reqString,
-    guild: reqString,
+    guild: String,
     description: String,
     options: Object
 });

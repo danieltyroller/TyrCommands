@@ -47,7 +47,7 @@ module.exports = {
                 guildId: guild?.id,
                 command: commandName,
             });
-            if (results.n === 0) {
+            if (results.deletedCount === 0) {
                 return messageHandler.get(guild, 'NOT_CHANNEL_COMMAND');
             }
             return messageHandler.get(guild, 'NO_LONGER_CHANNEL_COMMAND');

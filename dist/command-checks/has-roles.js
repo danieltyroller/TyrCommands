@@ -47,5 +47,22 @@ module.exports = (guild, command, instance, member, user, reply) => {
             return false;
         }
     }
+    else if (command.doesRequireRoles) {
+        reply(instance.messageHandler.get(guild, 'REQUIRE_ROLES', {
+            PREFIX: instance.getPrefix(guild),
+            COMMAND: command.names[0],
+        })).then((message) => {
+            if (!message) {
+                return;
+            }
+            if (instance.delErrMsgCooldown === -1 || !message.deletable) {
+                return;
+            }
+            setTimeout(() => {
+                message.delete();
+            }, 1000 * instance.delErrMsgCooldown);
+        });
+        return false;
+    }
     return true;
 };
