@@ -62,6 +62,7 @@ export default class TyrCommands extends EventEmitter {
             ignoreBots = true,
             dbOptions,
             testServers,
+            botOwners,
             disabledDefaultCommands = [],
             typeScript = false,
             ephemeral = true,
@@ -119,6 +120,13 @@ export default class TyrCommands extends EventEmitter {
             }
 
             this._testServers = testServers
+        }
+
+        if (botOwners) {
+            if (typeof botOwners === 'string') {
+                botOwners = [botOwners]
+            }
+            this._botOwner = botOwners
         }
 
         this._showWarns = showWarns
@@ -312,7 +320,7 @@ export default class TyrCommands extends EventEmitter {
     }
 
     public get tagPeople(): boolean {
-        return  this._tagPeople
+        return this._tagPeople
     }
 
     public get showWarns(): boolean {
@@ -332,10 +340,14 @@ export default class TyrCommands extends EventEmitter {
     }
 
     public setBotOwner(botOwner: string | string[]): TyrCommands {
-        if(typeof botOwner === 'string') {
+        console.log(
+            'TyrCommands > setBotOwner() is deprecated. Please specify your bot owners in the object constructor instead.'
+        )
+
+        if (typeof botOwner === 'string') {
             botOwner = [botOwner]
         }
-        this._botOwner= botOwner
+        this._botOwner = botOwner
         return this
     }
 
