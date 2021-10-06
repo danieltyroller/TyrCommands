@@ -71,7 +71,7 @@ class SlashCommands {
                         return;
                     }
                 }
-                this.invokeCommand(interaction, commandName, options, args, member, guild, channel);
+                this.invokeCommand(interaction, commandName, options, args);
             });
         }
     }
@@ -88,6 +88,13 @@ class SlashCommands {
         }
         return new Map();
     }
+    didOptionsChange(command, options) {
+        return (command.options?.filter((opt, index) => {
+            return (opt?.required !== options[index]?.required &&
+                opt?.name !== options[index]?.name &&
+                opt?.options?.length !== options.length);
+        }).length !== 0);
+    }
     async create(name, description, options, guildId) {
         let commands;
         if (guildId) {
@@ -103,10 +110,10 @@ class SlashCommands {
         await commands.fetch();
         const cmd = commands.cache.find((cmd) => cmd.name === name);
         if (cmd) {
-            const optionsChanged = cmd.options?.filter((opt, index) => opt?.required !== options[index]?.required);
+            const optionsChanged = this.didOptionsChange(cmd, options);
             if (cmd.description !== description ||
                 cmd.options.length !== options.length ||
-                optionsChanged.length) {
+                optionsChanged) {
                 console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} slash command "${name}"`);
                 return commands?.edit(cmd.id, {
                     name,
@@ -138,22 +145,22 @@ class SlashCommands {
         }
         return Promise.resolve(undefined);
     }
-    async invokeCommand(interaction, commandName, options, args, member, guild, channel) {
+    async invokeCommand(interaction, commandName, options, args) {
         const command = this._instance.commandHandler.getCommand(commandName);
         if (!command || !command.callback) {
             return;
         }
         const reply = await command.callback({
-            member,
-            guild,
-            channel,
+            member: interaction.member,
+            guild: interaction.guild,
+            channel: interaction.channel,
             args,
             text: args.join(' '),
             client: this._client,
             instance: this._instance,
             interaction,
             options,
-            user: member.user
+            user: interaction.user
         });
         if (reply) {
             if (typeof reply === 'string') {

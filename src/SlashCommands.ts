@@ -7,7 +7,8 @@ import {
     CommandInteractionOptionResolver,
     Guild,
     GuildMember,
-    MessageEmbed
+    MessageEmbed,
+    User
 } from 'discord.js'
 import path from 'path'
 
@@ -116,15 +117,7 @@ class SlashCommands {
                     }
                 }
 
-                this.invokeCommand(
-                    interaction,
-                    commandName,
-                    options,
-                    args,
-                    member,
-                    guild,
-                    channel
-                )
+                this.invokeCommand(interaction, commandName, options, args)
             })
         }
     }
@@ -144,6 +137,21 @@ class SlashCommands {
         }
 
         return new Map()
+    }
+
+    private didOptionsChange(
+        command: ApplicationCommand,
+        options: ApplicationCommandOptionData[]
+    ): boolean {
+        return (
+            command.options?.filter((opt, index) => {
+                return (
+                    opt?.required !== options[index]?.required &&
+                    opt?.name !== options[index]?.name &&
+                    opt?.options?.length !== options.length
+                )
+            }).length !== 0
+        )
     }
 
     public async create(
@@ -172,14 +180,12 @@ class SlashCommands {
         ) as ApplicationCommand
 
         if (cmd) {
-            const optionsChanged = cmd.options?.filter(
-                (opt, index) => opt?.required !== options[index]?.required
-            )
+            const optionsChanged = this.didOptionsChange(cmd, options)
 
             if (
                 cmd.description !== description ||
                 cmd.options.length !== options.length ||
-                optionsChanged.length
+                optionsChanged
             ) {
                 console.log(
                     `TyrCommands > Updating${guildId ? ' guild' : ''
@@ -239,10 +245,7 @@ class SlashCommands {
         interaction: CommandInteraction,
         commandName: string,
         options: CommandInteractionOptionResolver,
-        args: string[],
-        member: GuildMember,
-        guild: Guild | null,
-        channel: Channel | null
+        args: string[]
     ) {
         const command = this._instance.commandHandler.getCommand(commandName)
 
@@ -251,16 +254,16 @@ class SlashCommands {
         }
 
         const reply = await command.callback({
-            member,
-            guild,
-            channel,
+            member: interaction.member,
+            guild: interaction.guild,
+            channel: interaction.channel,
             args,
             text: args.join(' '),
             client: this._client,
             instance: this._instance,
             interaction,
             options,
-            user: member.user
+            user: interaction.user
         })
 
         if (reply) {
