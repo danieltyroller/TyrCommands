@@ -331,7 +331,7 @@ class Command {
                         map.set(key, value)
                     }
 
-                    if (this._databaseCooldown && this.instance.isDBConnected) {
+                    if (this._databaseCooldown && this.instance.isDBConnected()) {
                         this.updateDatabaseCooldowns(`${this.names[0]}-${key}`, value)
                     }
                 })
@@ -498,7 +498,7 @@ class Command {
     public setRequiredChannels(
         guild: Guild | null,
         command: string,
-        channels: string[],
+        channels: String[]
     ) {
         if (!guild) {
             return

@@ -7,13 +7,13 @@ import {
     CommandInteractionOptionResolver,
     Guild,
     GuildMember,
-    MessageEmbed
+    MessageEmbed,
+    User
 } from 'discord.js'
 import path from 'path'
 
 import getAllFiles from './get-all-files'
 import TyrCommands from '.'
-import slashCommands from './models/slash-commands'
 
 class SlashCommands {
     private _client: Client
@@ -117,15 +117,7 @@ class SlashCommands {
                     }
                 }
 
-                this.invokeCommand(
-                    interaction,
-                    commandName,
-                    options,
-                    args,
-                    member,
-                    guild,
-                    channel
-                )
+                this.invokeCommand(interaction, commandName, options, args)
             })
         }
     }
@@ -147,71 +139,67 @@ class SlashCommands {
         return new Map()
     }
 
+    private didOptionsChange(
+        command: ApplicationCommand,
+        options: ApplicationCommandOptionData[]
+    ): boolean {
+        return (
+            command.options?.filter((opt, index) => {
+                return (
+                    opt?.required !== options[index]?.required &&
+                    opt?.name !== options[index]?.name &&
+                    opt?.options?.length !== options.length
+                )
+            }).length !== 0
+        )
+    }
+
     public async create(
         name: string,
         description: string,
         options: ApplicationCommandOptionData[],
         guildId?: string
     ): Promise<ApplicationCommand<{}> | undefined> {
-        if (!this._instance.isDBConnected()) {
-            console.log(
-                `TyrCommands > Cannot register slash command "${name}" without a database connection.`
-            )
-            return
-        }
-
-        // @ts-ignore
-        const nameAndClient = `${name}-${this._client.user.id}`
-        const query = { nameAndClient } as { [key: string]: string }
         let commands
 
         if (guildId) {
             commands = this._client.guilds.cache.get(guildId)?.commands
-            query.guild = guildId
         } else {
             commands = this._client.application?.commands
         }
 
-        const alreadyCreated = await slashCommands.findOne(query)
-        if (alreadyCreated) {
-            try {
-                const cmd = (await commands?.fetch(
-                    alreadyCreated._id
-                )) as ApplicationCommand
+        if (!commands) {
+            return
+        }
 
-                if (
-                    cmd.description !== description ||
-                    cmd.options.length !== options.length
-                ) {
-                    console.log(
-                        `TyrCommands > Updating${guildId ? ' guild' : ''
-                        } slash command "${name}"`
-                    )
+        // @ts-ignore
+        await commands.fetch()
 
-                    await slashCommands.findOneAndUpdate(
-                        {
-                            _id: cmd.id
-                        },
-                        {
-                            description,
-                            options: cmd.options
-                        }
-                    )
+        const cmd = commands.cache.find(
+            (cmd) => cmd.name === name
+        ) as ApplicationCommand
 
-                    return commands?.edit(cmd.id, {
-                        name,
-                        description,
-                        options
-                    })
-                }
+        if (cmd) {
+            const optionsChanged = this.didOptionsChange(cmd, options)
 
-                return Promise.resolve(cmd)
-            } catch (e) {
-                console.error(e)
-                await slashCommands.deleteOne({ nameAndClient })
+            if (
+                cmd.description !== description ||
+                cmd.options.length !== options.length ||
+                optionsChanged
+            ) {
+                console.log(
+                    `TyrCommands > Updating${guildId ? ' guild' : ''
+                    } slash command "${name}"`
+                )
+
+                return commands?.edit(cmd.id, {
+                    name,
+                    description,
+                    options
+                })
             }
 
-            return Promise.resolve(undefined)
+            return Promise.resolve(cmd)
         }
 
         if (commands) {
@@ -226,19 +214,6 @@ class SlashCommands {
                 options
             })
 
-            const data = {
-                _id: newCommand.id,
-                nameAndClient,
-                description,
-                options
-            } as { [key: string]: string | object }
-
-            if (guildId) {
-                data.guild = guildId
-            }
-
-            await new slashCommands(data).save()
-
             return newCommand
         }
 
@@ -249,14 +224,18 @@ class SlashCommands {
         commandId: string,
         guildId?: string
     ): Promise<ApplicationCommand<{}> | undefined> {
-        console.log(
-            `TyrCommands > Deleting${guildId ? ' guild' : ''
-            } slash command "${name}"`
-        )
-
         const commands = this.getCommands(guildId)
         if (commands) {
-            return await commands.cache.get(commandId)?.delete()
+            const cmd = commands.cache.get(commandId)
+            if (cmd) {
+                console.log(
+                    `TyrCommands > Deleting${guildId ? ' guild' : ''
+                    } slash command "${cmd.name
+                    }"`
+                )
+
+                cmd.delete()
+            }
         }
 
         return Promise.resolve(undefined)
@@ -266,10 +245,7 @@ class SlashCommands {
         interaction: CommandInteraction,
         commandName: string,
         options: CommandInteractionOptionResolver,
-        args: string[],
-        member: GuildMember,
-        guild: Guild | null,
-        channel: Channel | null
+        args: string[]
     ) {
         const command = this._instance.commandHandler.getCommand(commandName)
 
@@ -278,16 +254,16 @@ class SlashCommands {
         }
 
         const reply = await command.callback({
-            member,
-            guild,
-            channel,
+            member: interaction.member,
+            guild: interaction.guild,
+            channel: interaction.channel,
             args,
             text: args.join(' '),
             client: this._client,
             instance: this._instance,
             interaction,
             options,
-            user: member.user
+            user: interaction.user
         })
 
         if (reply) {

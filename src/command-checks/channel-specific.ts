@@ -21,6 +21,7 @@ export = (
   const key = `${guild.id}-${command.names[0]}`
 
   const channels = command.requiredChannels.get(key)
+
   if (channels && channels.length && !channels.includes(channel.id)) {
     let channelList = ''
     for (const channel of channels) {

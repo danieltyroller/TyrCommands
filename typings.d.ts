@@ -92,6 +92,7 @@ interface OptionsWithS {
     ignoreBots?: boolean
     dbOptions?: {}
     testServers?: string | string[]
+    botOwners?: string | string[]
     disabledDefaultCommands?: string | string[]
     typeScript?: boolean
     ephemeral?: boolean
@@ -112,6 +113,7 @@ interface OptionsWithoutS {
     ignoreBots?: boolean
     dbOptions?: boolean
     testServers?: string | string[]
+    botOwners?: string | string[]
     disabledDefaultCommands?: string | string[]
     typeScript?: boolean
     ephemeral?: boolean
