@@ -7,7 +7,7 @@ const defaultMessages = require('../messages.json')
 
 export default class MessageHandler {
     private _instance: TyrCommands
-    private _guildLanguage: Map<string, string> = new Map() // <Guild ID, Language
+    private _guildLanguage: Map<string, string> = new Map() // <Guild ID, Language>
     private _languages: string[] = []
     private _messages: {
         [key: string]: {
@@ -32,21 +32,14 @@ export default class MessageHandler {
                     )
                 }
 
-                instance.on(
-                    Events.DATABASE_CONNECTED,
-                    async (connection: any, state: string) => {
-                        if (state !== 'Connected') {
-                            return
-                        }
+                if (instance.isDBConnected()) {
+                    const results = await languageSchema.find()
 
-                        const results = await languageSchema.find()
-
-                        //@ts-ignore
-                        for (const { _id: guildId, language } of results) {
-                            this._guildLanguage.set(guildId, language)
-                        }
+                    // @ts-ignore
+                    for (const { _id: guildId, language } of results) {
+                        this._guildLanguage.set(guildId, language)
                     }
-                )
+                }
             })()
     }
 
