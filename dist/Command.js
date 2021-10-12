@@ -180,18 +180,19 @@ class Command {
             this._cooldownDuration < 60) {
             throw new Error(`Invalid ${type} formate! The minimum duration for a global cooldown is 1m.`);
         }
+        const moreInfo = ' For more information please see https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/commands/command-cooldowns';
         if (this._cooldownDuration < 1) {
-            throw new Error(`Invalid ${type} format! Durations must be at least 1.`);
+            throw new Error(`Invalid ${type} format! Durations must be at least 1.${moreInfo}`);
         }
         if ((this._cooldownChar === 's' || this._cooldownChar === 'm') &&
             this._cooldownDuration > 60) {
-            throw new Error(`Invalid ${type} format! Second or minute durations cannot exceed 60.`);
+            throw new Error(`Invalid ${type} format! Second or minute durations cannot exceed 60.${moreInfo}`);
         }
         if (this._cooldownChar === 'h' && this._cooldownDuration > 24) {
-            throw new Error(`Invalid ${type} format! Hour durations cannot exceed 24.`);
+            throw new Error(`Invalid ${type} format! Hour durations cannot exceed 24.${moreInfo}`);
         }
         if (this._cooldownChar === 'd' && this._cooldownDuration > 365) {
-            throw new Error(`Invalid ${type} format! Day durations cannot exceed 365.`);
+            throw new Error(`Invalid ${type} format! Day durations cannot exceed 365.${moreInfo}`);
         }
     }
     get hidden() {

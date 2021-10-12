@@ -45,40 +45,73 @@ export = {
             return `Slash command with the ID "${text}" has been deleted. This may take up to 1 hour to be seen on all servers using your bot.`
         }
 
-        let allSlashCommands = ''
+        let counter = 0
+        let allSlashCommands: string[] = []
 
         if (global.size) {
             global.forEach((cmd: ApplicationCommand) => {
-                allSlashCommands += `${cmd.name} : ${cmd.id}\n`
+                if (cmd && cmd.name) {
+                    const newString = `${cmd.name}: ${cmd.id}\n`
+
+                    if (
+                        (allSlashCommands[counter] || []).length + newString.length <
+                        1024
+                    ) {
+                        allSlashCommands[counter] ??= ''
+                        allSlashCommands[counter] += newString
+                    } else {
+                        ++counter
+                        allSlashCommands[counter] ??= ''
+                        allSlashCommands[counter] += newString
+                    }
+                }
             })
         } else {
-            allSlashCommands = 'None'
+            allSlashCommands.push('None')
         }
 
-        const embed = new MessageEmbed()
-            .addField(
-                'How to delete a slash command:',
-                `${instance.getPrefix(guild)}slash <command-id>`
+        const embed = new MessageEmbed().addField(
+            'How to delete a slash command:',
+            `${instance.getPrefix(guild)}slash <command-id>`
+        )
+
+        for (let a = 0; a < allSlashCommands.length; a++) {
+            embed.addField(
+                `Global slash commands:${a === 0 ? '' : ' (Continued)'}`,
+                allSlashCommands[a]
             )
-            .addField('List of global slash commands:', allSlashCommands)
+        }
 
         if (guild) {
             const guildOnly = await slashCommands.get(guild.id)
 
-            let guildOnlyCommands = ''
+            counter = 0
+            let guildOnlyCommands: string[] = []
 
             if (guildOnly.size) {
                 guildOnly.forEach((cmd: ApplicationCommand) => {
-                    guildOnlyCommands += `${cmd.name}: ${cmd.id}\n`
+                    if (cmd && cmd.name) {
+                        const newString = `${cmd.name}: ${cmd.id}\n`
+                        
+                        if (
+                            (guildOnlyCommands[counter] || []).length + newString.length <
+                            1024
+                        ) {
+                            guildOnlyCommands[counter] ??= ''
+                            guildOnlyCommands[counter] += newString
+                        }
+                    }
                 })
             } else {
-                guildOnlyCommands = 'None'
+                guildOnlyCommands[0] = 'None'
             }
 
-            embed.addField(
-                'List of slash commands for this guild:',
-                guildOnlyCommands
-            )
+            for (let a = 0; a < guildOnlyCommands.length; a++) {
+                embed.addField(
+                    `Guild slash commands:${a === 0 ? '' : ' (Continued)'}`,
+                    guildOnlyCommands[a]
+                )
+            }
         }
 
         if (instance.color) {

@@ -23,11 +23,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const languages_1 = __importDefault(require("./models/languages"));
-const Events_1 = __importDefault(require("./enums/Events"));
 const defaultMessages = require('../messages.json');
 class MessageHandler {
     _instance;
-    _guildLanguage = new Map(); // <Guild ID, Language
+    _guildLanguage = new Map(); // <Guild ID, Language>
     _languages = [];
     _messages = {};
     constructor(instance, messagePath) {
@@ -42,16 +41,13 @@ class MessageHandler {
             if (!this._languages.includes(instance.defaultLanguage)) {
                 throw new Error('The current default language defined is not supported.');
             }
-            instance.on(Events_1.default.DATABASE_CONNECTED, async (connection, state) => {
-                if (state !== 'Connected') {
-                    return;
-                }
+            if (instance.isDBConnected()) {
                 const results = await languages_1.default.find();
-                //@ts-ignore
+                // @ts-ignore
                 for (const { _id: guildId, language } of results) {
                     this._guildLanguage.set(guildId, language);
                 }
-            });
+            }
         })();
     }
     languages() {

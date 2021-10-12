@@ -5,7 +5,9 @@ import {
     Client,
     Guild,
     GuildMember,
-    CommandInteraction
+    CommandInteraction,
+    TextBasedChannels,
+    User
 } from 'discord.js'
 
 import TyrCommands from '.'
@@ -231,14 +233,14 @@ class SelectMenuListener {
                 }
                 return
             }
-            command.setCooldown(guild, member?.user.id)
+            command.setCooldown(guild, (member?.user as User).id)
         }
         if (guild) {
             const key = `${guild.id}-${command.names[0]}`
             const channels = command.requiredChannels.get(key)
             if (channels &&
                 channels.length &&
-                !channels.includes(interaction?.channel.id) &&
+                !channels.includes((interaction.channel as TextBasedChannels).id ) &&
                 !owner) {
                 let channelList = ''
                 for (const channel of channels) {

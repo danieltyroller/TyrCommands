@@ -11,15 +11,16 @@ const results: {
   3: 'Disconnecting',
 }
 
-const mongo = async (
+export default async (
   mongoPath: string,
   instance: TyrCommands,
   dbOptions = {}
 ) => {
-  await mongoose.connect(mongoPath, {
+  const options = {
     keepAlive: true,
-    ...dbOptions,
-  })
+    ...dbOptions
+  }
+  await mongoose.connect(mongoPath, options)
 
   const { connection } = mongoose
   const state = results[connection.readyState] || 'Unknown'
@@ -29,5 +30,3 @@ const mongo = async (
 export const getMongoConnection = (): Connection => {
   return mongoose.connection
 }
-
-export default mongo
