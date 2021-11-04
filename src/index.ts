@@ -12,7 +12,7 @@ import Events from './enums/Events'
 import CommandHandler from './CommandHandler'
 
 export default class TyrCommands extends EventEmitter {
-    private _client: Client
+    _client: Client
     private _defaultPrefix = '!'
     private _commandsDir = 'commands'
     private _featuresDir = ''
