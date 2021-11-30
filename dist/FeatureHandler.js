@@ -6,7 +6,7 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const get_all_files_1 = __importDefault(require("./get-all-files"));
 class FeatureHandler {
-    _features = new Map(); // <Feature nam, Disabled GuildIDs>
+    _features = new Map(); // <Feature name, Disabled GuildIDs>
     _client;
     _instance;
     constructor(client, instance, dir, typeScript = false) {
@@ -78,7 +78,7 @@ class FeatureHandler {
             return this.isEnabled(guildId, file);
         };
         if (config && config.loadDBFirst === true) {
-            console.warn(`TyrCommands > config.loadDBFirst in features is no longer required. MongoDB is now connected to befor any features or commands are loaded.`);
+            console.warn(`TyrCommands > config.loadDBFirst in features is no longer required. MongoDB is now connected to before any features or commands are loaded.`);
         }
         func(this._client, this._instance, isEnabled);
     };

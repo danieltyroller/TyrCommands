@@ -49,7 +49,7 @@ class TyrCommands extends events_1.EventEmitter {
     _ignoreBots = true;
     _botOwner = [];
     _testServers = [];
-    _defaultLanguage = 'deutsch';
+    _defaultLanguage = '';
     _ephemeral = true;
     _debug = false;
     _messageHandler = null;
@@ -63,7 +63,7 @@ class TyrCommands extends events_1.EventEmitter {
         if (!client) {
             throw new Error('No Discord JS Client provided as first argument!');
         }
-        let { commandsDir = '', commandDir = '', featuresDir = '', featureDir = '', messagesPath, mongoUri, showWarns = true, delErrMsgCooldown = -1, defaultLanguage = 'deutsch', ignoreBots = true, dbOptions, testServers, botOwners, disabledDefaultCommands = [], typeScript = false, ephemeral = true, debug = false } = options || {};
+        let { commandsDir = '', commandDir = '', featuresDir = '', featureDir = '', messagesPath, mongoUri, showWarns = true, delErrMsgCooldown = -1, defaultLanguage = 'de', ignoreBots = true, dbOptions, testServers, botOwners, disabledDefaultCommands = [], typeScript = false, ephemeral = true, debug = false, } = options || {};
         if (mongoUri) {
             await (0, mongo_1.default)(mongoUri, this, dbOptions);
             this._mongoConnection = (0, mongo_1.getMongoConnection)();
@@ -75,7 +75,7 @@ class TyrCommands extends events_1.EventEmitter {
         }
         else {
             if (showWarns) {
-                console.warn('TyrCommands > No MongoDb connection Uri provided. Some features might not work!');
+                console.warn('TyrCommands > No MongoDB connection URI provided. Some features might not work! See this for more details:\nhttps://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/databases/mongodb');
             }
             this.emit(Events_1.default.DATABASE_CONNECTED, null, '');
         }
@@ -85,11 +85,11 @@ class TyrCommands extends events_1.EventEmitter {
         this._debug = debug;
         if (this._commandsDir &&
             !(this._commandsDir.includes('/') || this._commandsDir.includes('\\'))) {
-            throw new Error("TyrCommands > The 'commands' directory must be an absolute path. This can be done by using the 'path' module");
+            throw new Error("TyrCommands > The 'commands' directory must be an absolute path. This can be done by using the 'path' module. More info: https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/setup-and-options-object");
         }
         if (this._featuresDir &&
             !(this._featuresDir.includes('/') || this._featuresDir.includes('\\'))) {
-            throw new Error("TyrCommands > The 'features' directory must be an absolute path. This can be done by using the 'path' module");
+            throw new Error("TyrCommands > The 'features' directory must be an absolute path. This can be done by using the 'path' module. More info: https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/setup-and-options-object");
         }
         if (testServers) {
             if (typeof testServers === 'string') {
@@ -115,7 +115,7 @@ class TyrCommands extends events_1.EventEmitter {
         this._messageHandler = new message_Handler_1.default(this, messagesPath || '');
         this.setCategorySettings([
             {
-                name: 'Configuration',
+                name: 'Einstellungen',
                 emoji: '⚙',
             },
             {
@@ -127,7 +127,7 @@ class TyrCommands extends events_1.EventEmitter {
         console.log('TyrCommands > Your bot is now running.');
     }
     setMongoPath(mongoPath) {
-        console.warn('TyrCommands > .setMongoPath() not longer works as expected. Please pass in your mongo URI as a "mongoUri" property using the options object.');
+        console.warn('TyrCommands > .setMongoPath() no longer works as expected. Please pass in your mongo URI as a "mongoUri" property using the options object. For more information: https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/databases/mongodb');
         return this;
     }
     get client() {
@@ -219,7 +219,7 @@ class TyrCommands extends events_1.EventEmitter {
         }
         let isUsed = false;
         this._categories.forEach((value) => {
-            if (value == emoji) {
+            if (value === emoji) {
                 isUsed = true;
             }
         });
@@ -235,8 +235,8 @@ class TyrCommands extends events_1.EventEmitter {
         const connection = this.mongoConnection;
         return !!(connection && connection.readyState === 1);
     }
-    setTagPeople(targetPeople) {
-        this._tagPeople = targetPeople;
+    setTagPeople(tagPeople) {
+        this._tagPeople = tagPeople;
         return this;
     }
     get tagPeople() {
@@ -255,7 +255,7 @@ class TyrCommands extends events_1.EventEmitter {
         return this._botOwner;
     }
     setBotOwner(botOwner) {
-        console.log('TyrCommands > setBotOwner() is deprecated. Please specify your bot owners in the object constructor instead.');
+        console.log('TyrCommands > setBotOwner() is deprecated. Please specify your bot owners in the object constructor instead. See https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/setup-and-options-object');
         if (typeof botOwner === 'string') {
             botOwner = [botOwner];
         }

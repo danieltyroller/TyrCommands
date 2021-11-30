@@ -23,29 +23,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const languages_1 = __importDefault(require("./models/languages"));
-const defaultMessages = require('../messages.json');
+const defualtMessages = require('../messages.json');
 class MessageHandler {
     _instance;
-    _guildLanguage = new Map(); // <Guild ID, Language>
+    _guildLanguages = new Map(); // <Guild ID, Language>
     _languages = [];
     _messages = {};
     constructor(instance, messagePath) {
         this._instance = instance;
         (async () => {
-            this._messages = messagePath ? await Promise.resolve().then(() => __importStar(require(messagePath))) : defaultMessages;
+            this._messages = messagePath ? await Promise.resolve().then(() => __importStar(require(messagePath))) : defualtMessages;
             for (const messageId of Object.keys(this._messages)) {
                 for (const language of Object.keys(this._messages[messageId])) {
                     this._languages.push(language.toLowerCase());
                 }
             }
             if (!this._languages.includes(instance.defaultLanguage)) {
-                throw new Error('The current default language defined is not supported.');
+                throw new Error(`The current default language defined is not supported.`);
             }
             if (instance.isDBConnected()) {
                 const results = await languages_1.default.find();
                 // @ts-ignore
                 for (const { _id: guildId, language } of results) {
-                    this._guildLanguage.set(guildId, language);
+                    this._guildLanguages.set(guildId, language);
                 }
             }
         })();
@@ -55,12 +55,12 @@ class MessageHandler {
     }
     async setLanguage(guild, language) {
         if (guild) {
-            this._guildLanguage.set(guild.id, language);
+            this._guildLanguages.set(guild.id, language);
         }
     }
     getLanguage(guild) {
         if (guild) {
-            const result = this._guildLanguage.get(guild.id);
+            const result = this._guildLanguages.get(guild.id);
             if (result) {
                 return result;
             }
@@ -71,8 +71,8 @@ class MessageHandler {
         const language = this.getLanguage(guild);
         const translations = this._messages[messageId];
         if (!translations) {
-            console.error(`TyrCommands > Could not find the correct message to send for "${messageId}""`);
-            return 'Die Korrekte Nachricht konnte nicht gefunden werden. Bitte gib das einen der Bot Entwickler weiter.';
+            console.error(`TyrCommands > Could not find the correct message to send for "${messageId}"`);
+            return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         let result = translations[language];
         for (const key of Object.keys(args)) {
@@ -85,13 +85,13 @@ class MessageHandler {
         const language = this.getLanguage(guild);
         const items = this._messages[embedId];
         if (!items) {
-            console.error(`TyrCommands > Could not find the coorect item to send for "${embedId}" -> "${itemId}"`);
-            return 'Die Korrekte Nachricht konnte nicht gefunden werden. Bitte gib das einen der Bot Entwickler weiter.';
+            console.error(`TyrCommands > Could not find the correct item to send for "${embedId}" -> "${itemId}"`);
+            return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         const translations = items[itemId];
         if (!translations) {
             console.error(`TyrCommands > Could not find the correct message to send for "${embedId}"`);
-            return 'Die Korrekte Nachricht konnte nicht gefunden werden. Bitte gib das einen der Bot Entwickler weiter.';
+            return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         let result = translations[language];
         for (const key of Object.keys(args)) {

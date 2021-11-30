@@ -3,7 +3,7 @@ import channelCommandSchema from '../models/channel-commands'
 
 export = {
   description: 'Lässt einen Befehl nur in einigen Kanälen funktionieren.',
-  category: 'Configuration',
+  category: 'Einstellungen',
 
   permissions: ['ADMINISTRATOR'],
 
@@ -94,7 +94,7 @@ export = {
       },
       {
         upsert: true,
-        new: true
+        new: true,
       }
     )
 

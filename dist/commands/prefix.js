@@ -5,20 +5,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const prefixes_1 = __importDefault(require("../models/prefixes"));
 module.exports = {
     description: 'Zeigt das Prefix für das aktuelle Guild an oder legt es fest',
-    category: 'Configuration',
-    permissions: ['ADMINISTRATOR'],
+    category: 'Einstellungen',
     maxArgs: 1,
     expectedArgs: '[prefix]',
     cooldown: '2s',
     slash: 'both',
     callback: async (options) => {
-        const { channel, args, text, instance } = options;
+        const { channel, args, text, instance, member } = options;
         const { guild } = channel;
         if (args.length === 0) {
             return instance.messageHandler.get(guild, 'CURRENT_PREFIX', {
                 PREFIX: instance.getPrefix(guild)
             });
         }
+        if (!member.permissions.has('ADMINISTRATOR'))
+            return instance.messageHandler.get(guild, 'MISSING_PERMISSION', {
+                PERM: 'ADMINISTRATOR'
+            });
         if (guild) {
             const { id } = guild;
             if (!instance.isDBConnected()) {

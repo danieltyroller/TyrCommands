@@ -2,7 +2,7 @@
 const discord_js_1 = require("discord.js");
 module.exports = {
     description: 'Ermöglicht den Bot-Entwicklern, vorhandene Slash-Befehle zu verwalten',
-    category: 'Configutation',
+    category: 'Einstellungen',
     permissions: ['ADMINISTRATOR'],
     maxArgs: 1,
     expectedArgs: '[command-id]',

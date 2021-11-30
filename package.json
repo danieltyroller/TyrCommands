@@ -1,6 +1,6 @@
 {
   "name": "tyrcommands",
-  "version": "1.6.9",
+  "version": "1.7.0",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
   "scripts": {

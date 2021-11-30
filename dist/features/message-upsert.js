@@ -11,5 +11,5 @@ exports.default = (client) => {
 };
 exports.config = {
     displayName: 'Message Upsert',
-    dbName: 'MESSAGE-UPSERT'
+    dbName: 'MESSAGE-UPSERT',
 };

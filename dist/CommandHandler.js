@@ -47,14 +47,14 @@ class CommandHandler {
         this.setUp(instance, client, dir, disabledDefaultCommands, typeScript);
     }
     async setUp(instance, client, dir, disabledDefaultCommands, typeScript = false) {
-        // Do not pase in TS here because this should always compiled to JS
+        // Do not pass in TS here because this should always compiled to JS
         for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'commands'))) {
             if (disabledDefaultCommands.includes(fileName)) {
                 continue;
             }
-            this.registerCommand(instance, client, file, fileName, true);
+            await this.registerCommand(instance, client, file, fileName, true);
         }
-        // Do not pase in TS here because this should always compiled to JS
+        // Do not pass in TS here because this should always compiled to JS
         for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'))) {
             this._commandChecks.set(fileName, require(file));
         }
@@ -115,7 +115,7 @@ class CommandHandler {
                     return;
                 }
                 const { member, author: user, channel } = message;
-                for (const [checkName, checkFunction] of this._commandChecks.entries()) {
+                for (const [checkName, checkFunction,] of this._commandChecks.entries()) {
                     if (!(await checkFunction(guild, command, instance, member, user, (reply) => {
                         return replyFromCheck(reply, message);
                     }, args, name, channel))) {
@@ -133,7 +133,7 @@ class CommandHandler {
                             message,
                             info: {
                                 error: e,
-                            }
+                            },
                         });
                     }
                     else {
@@ -154,7 +154,7 @@ class CommandHandler {
     }
     async registerCommand(instance, client, file, fileName, builtIn = false) {
         let configuration = await require(file);
-        // persone is using 'export default' so we import the default instead
+        // person is using 'export default' so we import the default instead
         if (configuration.default && Object.keys(configuration).length === 1) {
             configuration = configuration.default;
         }
@@ -165,7 +165,7 @@ class CommandHandler {
         }
         let names = commands || aliases || [];
         if (!name && (!names || names.length === 0)) {
-            throw new Error(`Command located at "${file}" does not have a name, commands array, or aliases array set. Please set at least one property to specify th command name."`);
+            throw new Error(`Command located at "${file}" does not have a name, commands array, or aliases array set. Please set at lease one property to specify the command name.`);
         }
         if (typeof names === 'string') {
             names = [names];
@@ -179,7 +179,7 @@ class CommandHandler {
         if (requiredPermissions || permissions) {
             for (const perm of requiredPermissions || permissions) {
                 if (!permissions_1.permissionList.includes(perm)) {
-                    throw new Error(`Command located at "${file}" has an invalid permissions node: "${perm}". Permissions must be all upper case and be one of the following: "${[
+                    throw new Error(`Command located at "${file}" has an invalid permission node: "${perm}". Permissions must be all upper case and be one of the following: "${[
                         ...permissions_1.permissionList,
                     ].join('", "')}"`);
                 }
@@ -190,13 +190,13 @@ class CommandHandler {
             missing.push('Category');
         }
         if (!description) {
-            missing.push('Discription');
+            missing.push('Description');
         }
         if (missing.length && instance.showWarns) {
-            console.warn(`TyrCommands > Command "${names[0]} does not have the following properties: ${missing}.`);
+            console.warn(`TyrCommands > Command "${names[0]}" does not have the following properties: ${missing}.`);
         }
         if (testOnly && !instance.testServers.length) {
-            console.warn(`TyrCommands > Command "${names[0]}" has "testOnly" set to true, but no test servers are defiend.`);
+            console.warn(`TyrCommands > Command "${names[0]}" has "testOnly" set to true, but no test servers are defined.`);
         }
         if (slash !== undefined && typeof slash !== 'boolean' && slash !== 'both') {
             throw new Error(`TyrCommands > Command "${names[0]}" has a "slash" property that is not boolean "true" or string "both".`);
@@ -209,18 +209,18 @@ class CommandHandler {
                 throw new Error(`TyrCommands > A description is required for command "${names[0]}" because it is a slash command.`);
             }
             if (minArgs !== undefined && !expectedArgs) {
-                throw new Error(`TyrCommands > Command "${names[0]}" has "minArgs" property defiend without "expectedArgs" property as a slash command.`);
+                throw new Error(`TyrCommands > Command "${names[0]}" has "minArgs" property defined without "expectedArgs" property as a slash command.`);
             }
             if (options.length) {
                 for (const key in options) {
                     const name = options[key].name;
                     let lowerCase = name.toLowerCase();
                     if (name !== lowerCase && instance.showWarns) {
-                        console.log(`TyrCommands > Command "${names[0]}" has an option of "${name}". All option names must be lower case for slash commands TyrCommands will modify this for you.`);
+                        console.log(`TyrCommands > Command "${names[0]}" has an option of "${name}". All option names must be lower case for slash commands. TyrCommands will modify this for you.`);
                     }
                     if (lowerCase.match(/\s/g)) {
                         lowerCase = lowerCase.replace(/\s/g, '_');
-                        console.log(`TyrCommands > Command "${names[0]}" has an option of ${name}" with a white space in it. Option names should only be one word. TyrCommands will modify this for you.`);
+                        console.log(`TyrCommands > Command "${names[0]}" has an option of "${name}" with a white space in it. It is a best practice for option names to only be one word. TyrCommands will modify this for you.`);
                     }
                     options[key].name = lowerCase;
                 }
@@ -228,16 +228,16 @@ class CommandHandler {
             else if (expectedArgs) {
                 const split = expectedArgs
                     .substring(1, expectedArgs.length - 1)
-                    .split(/[>\] [<\[]]/);
-                for (let i = 0; i < split.length; ++i) {
-                    const item = split[i];
+                    .split(/[>\]] [<\[]/);
+                for (let a = 0; a < split.length; ++a) {
+                    const item = split[a];
                     options.push({
                         name: item.replace(/ /g, '-').toLowerCase(),
                         description: item,
-                        type: expectedArgsTypes && expectedArgsTypes.length >= i
-                            ? expectedArgsTypes[i]
+                        type: expectedArgsTypes && expectedArgsTypes.length >= a
+                            ? expectedArgsTypes[a]
                             : 'STRING',
-                        required: i < minArgs
+                        required: a < minArgs,
                     });
                 }
             }
@@ -265,7 +265,7 @@ class CommandHandler {
     get commands() {
         const results = [];
         const added = [];
-        this._commands.forEach(({ names, category = '', description = '', expectedArgs = '', hidden = false, testOnly = false }) => {
+        this._commands.forEach(({ names, category = '', description = '', expectedArgs = '', hidden = false, testOnly = false, }) => {
             if (!added.includes(names[0])) {
                 results.push({
                     names: [...names],
@@ -273,7 +273,7 @@ class CommandHandler {
                     description,
                     syntax: expectedArgs,
                     hidden,
-                    testOnly
+                    testOnly,
                 });
                 added.push(names[0]);
             }

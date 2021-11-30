@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const required_roles_1 = __importDefault(require("../models/required-roles"));
 module.exports = {
     description: 'Gibt an, welche Rolle jeder Befehl erfordert.',
-    category: 'Configuration',
+    category: 'Einstellungen',
     permissions: ['ADMINISTRATOR'],
     aliases: ['requiredroles', 'requirerole', 'requireroles'],
     minArgs: 2,

@@ -1,5 +1,5 @@
-import mongoose, { Connection } from 'mongoose'
 import TyrCommands from '.'
+import mongoose, { Connection } from 'mongoose'
 import Events from './enums/Events'
 
 const results: {
@@ -18,7 +18,7 @@ export default async (
 ) => {
   const options = {
     keepAlive: true,
-    ...dbOptions
+    ...dbOptions,
   }
   await mongoose.connect(mongoPath, options)
 

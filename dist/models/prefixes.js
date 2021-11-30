@@ -21,12 +21,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 const mongoose_1 = __importStar(require("mongoose"));
 const reqString = {
     type: String,
-    required: true
+    required: true,
 };
 const schema = new mongoose_1.Schema({
     // Guild ID
     _id: reqString,
-    prefix: reqString
+    prefix: reqString,
 });
 const name = 'tyrcommands-prefixes';
 module.exports = mongoose_1.default.models[name] || mongoose_1.default.model(name, schema, name);
