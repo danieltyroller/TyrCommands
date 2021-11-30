@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const channel_commands_1 = __importDefault(require("../models/channel-commands"));
 module.exports = {
     description: 'Lässt einen Befehl nur in einigen Kanälen funktionieren.',
-    category: 'Configuration',
+    category: 'Einstellungen',
     permissions: ['ADMINISTRATOR'],
     minArgs: 1,
     maxArgs: 2,
@@ -75,7 +75,7 @@ module.exports = {
             },
         }, {
             upsert: true,
-            new: true
+            new: true,
         });
         if (results) {
             command.setRequiredChannels(guild, commandName, results.channels);

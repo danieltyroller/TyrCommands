@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const disabled_commands_1 = __importDefault(require("../models/disabled-commands"));
 module.exports = {
     description: 'Aktiviert oder deaktiviert einen Befehl für diese Guild',
-    category: 'Configuration',
+    category: 'Einstellungen',
     permissions: ['ADMINISTRATOR'],
     minArgs: 2,
     maxArgs: 2,
@@ -14,7 +14,7 @@ module.exports = {
     slash: 'both',
     options: [
         {
-            name: 'Aktionen',
+            name: 'aktionen',
             description: 'Entweder "aktivieren" oder "deaktivieren"',
             required: true,
             type: 'STRING',
@@ -30,7 +30,7 @@ module.exports = {
             ]
         },
         {
-            name: 'Befehl',
+            name: 'befehl',
             description: 'Der Name des Befehls',
             required: true,
             type: 'STRING'

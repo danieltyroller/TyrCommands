@@ -14,7 +14,7 @@ class Command {
     _expectedArgs;
     _description;
     _requiredPermissions;
-    _requiredRoles = new Map(); // <Guild, RolesIDs[]
+    _requiredRoles = new Map(); // <GuildID, RoleIDs[]>
     _callback = () => { };
     _error = null;
     _disabled = [];
@@ -32,7 +32,7 @@ class Command {
     _slash = false;
     _requireRoles = false;
     _requiredChannels = new Map(); // <GuildID-Command, Channel IDs>
-    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, requireRoles = false }) {
+    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, requireRoles = false, }) {
         this.instance = instance;
         this.client = client;
         this._names = typeof names === 'string' ? [names] : names;
@@ -154,31 +154,31 @@ class Command {
         return this._globalCooldown;
     }
     get testOnly() {
-        return this.testOnly;
+        return this._testOnly;
     }
     verifyCooldown(cooldown, type) {
         if (typeof cooldown !== 'string') {
-            throw new Error(`Invalid ${type} formate! Must be a string, example: "10s" "5m" etc.`);
+            throw new Error(`Invalid ${type} format! Must be a string, examples: "10s" "5m" etc.`);
         }
         const results = cooldown.match(/[a-z]+|[^a-z]+/gi) || [];
         if (results.length !== 2) {
-            throw new Error(`Invalid ${type} formate! Please provide "<Duration><Type>", examples: "10s" "5m" etc.`);
+            throw new Error(`Invalid ${type} format! Please provide "<Duration><Type>", examples: "10s" "5m" etc.`);
         }
         this._cooldownDuration = +results[0];
         if (isNaN(this._cooldownDuration)) {
-            throw new Error(`Invalid ${type} formate! Number is invalid`);
+            throw new Error(`Invalid ${type} format! Number is invalid.`);
         }
         this._cooldownChar = results[1];
         if (this._cooldownChar !== 's' &&
             this._cooldownChar !== 'm' &&
             this._cooldownChar !== 'h' &&
             this._cooldownChar !== 'd') {
-            throw new Error(`Invalid ${type} formate! Please provide 's', 'm', 'h', or 'd' for seconds, minutes, hours, or days respectively.`);
+            throw new Error(`Invalid ${type} format! Unknown type. Please provide 's', 'm', 'h', or 'd' for seconds, minutes, hours, or days respectively.`);
         }
         if (type === 'global cooldown' &&
             this._cooldownChar === 's' &&
             this._cooldownDuration < 60) {
-            throw new Error(`Invalid ${type} formate! The minimum duration for a global cooldown is 1m.`);
+            throw new Error(`Invalid ${type} format! The minimum duration for a global cooldown is 1m.`);
         }
         const moreInfo = ' For more information please see https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/commands/command-cooldowns';
         if (this._cooldownDuration < 1) {
@@ -216,7 +216,7 @@ class Command {
     }
     /**
      * Decrements per-user and global cooldowns
-     * Deletes expierd cooldowns
+     * Deletes expired cooldowns
      */
     decrementCooldowns(guildId, userId) {
         for (const map of [this._userCooldowns, this._guildCooldowns]) {
@@ -304,7 +304,7 @@ class Command {
             result += `${hours}h `;
         }
         if (minutes) {
-            result += `${seconds}s `;
+            result += `${minutes}m `;
         }
         if (seconds) {
             result += `${seconds}s `;
@@ -351,7 +351,7 @@ class Command {
         return this._disabled.includes(guildId);
     }
     get error() {
-        return this.error;
+        return this._error;
     }
     get slash() {
         return this._slash;

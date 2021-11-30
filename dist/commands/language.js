@@ -6,7 +6,7 @@ const languages_1 = __importDefault(require("../models/languages"));
 const Events_1 = __importDefault(require("../enums/Events"));
 module.exports = {
     description: 'Zeigt die Sprache für diesen Discord-Server an oder legt sie fest',
-    category: 'Configuration',
+    category: 'Einstellungen',
     aliases: ['lang'],
     permissions: ['ADMINISTRATOR'],
     maxArgs: 1,

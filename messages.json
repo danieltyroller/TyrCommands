@@ -1,374 +1,382 @@
 {
-    "LANGUAGE_NOT_SUPPORTED": {
-      "english": "This bot does not have support for {LANGUAGE} at this time.",
-      "español": "Este bot no es compatible con {LANGUAGE} en este momento.",
-      "português": "Este bot não é compatível com {LANGUAGE} por enquanto.",
-      "русский": "Этот бот не поддерживает {LANGUAGE} в данный момент.",
-      "deutsch": "Der Bot unterstützt {LANGUAGE} zurzeit nicht.",
-      "nederlands": "Deze bot ondersteunt {LANGUAGE} nog niet.",
-      "français": "Ce robot ne supporte pas encore {LANGUAGE}."
+  "LANGUAGE_NOT_SUPPORTED": {
+    "en": "This bot does not have support for `{LANGUAGE}` at this time.",
+    "es": "Este bot no es compatible con `{LANGUAGE}` en este momento.",
+    "pt": "Este bot não é compatível com `{LANGUAGE}` por enquanto.",
+    "ru": "Этот бот не поддерживает `{LANGUAGE}` в данный момент.",
+    "de": "Der Bot unterstützt `{LANGUAGE}` zurzeit nicht.",
+    "nl": "Deze bot ondersteunt `{LANGUAGE}` nog niet.",
+    "fr": "Ce robot ne supporte pas encore `{LANGUAGE}`."
+  },
+  "CURRENT_LANGUAGE": {
+    "en": "The current language is set to `{LANGUAGE}`.",
+    "es": "El idioma actual está establecido en `{LANGUAGE}`.",
+    "pt": "O idioma atual está definido como `{LANGUAGE}`.",
+    "ru": "Текущий язык установлен на `{LANGUAGE}`.",
+    "de": "Die Sprache ist aktuell auf `{LANGUAGE}` gesetzt.",
+    "nl": "De huidige taal is ingesteld op `{LANGUAGE}`.",
+    "fr": "La langue actuelle est réglée sur `{LANGUAGE}`."
+  },
+  "NEW_LANGUAGE": {
+    "en": "Language set to `{LANGUAGE}`.",
+    "es": "Idioma configurado en `{LANGUAGE}`.",
+    "pt": "Idioma configurado para `{LANGUAGE}`.",
+    "ru": "Язык установлен на `{LANGUAGE}`.",
+    "de": "Die Sprache `{LANGUAGE}` wurde ausgewählt.",
+    "nl": "Taal ingesteld op `{LANGUAGE}`.",
+    "fr": "Langue réglée sur `{LANGUAGE}`."
+  },
+  "BOT_OWNERS_ONLY": {
+    "en": "Only the bot owner can run this command.",
+    "es": "Solo el propietario del bot puede ejecutar este comando.",
+    "pt": "Apenas o proprietário do bot pode executar este comando.",
+    "ru": "Только владелец бота может использовать эту команду.",
+    "de": "Nur der Besitzer des Bots kann diesen Befehl ausführen",
+    "nl": "Alleen de bot eigenaar kan dit commando uitvoeren.",
+    "fr": "Seul le propriétaire du bot peut exécuter cette commande."
+  },
+  "DISABLED_COMMAND": {
+    "en": "That command is currently disabled in this server.",
+    "es": "Ese comando está actualmente deshabilitado en este servidor.",
+    "pt": "Este comando está atualmente desabilitado neste servidor.",
+    "ru": "Эта команда в настоящее время отключена на этом сервере.",
+    "de": "Dieser Befehl ist auf dem Server zurzeit deaktiviert.",
+    "nl": "Dat commando is momenteel uitgeschakeld in deze server.",
+    "fr": "Cette commande est actuellement désactivée sur ce serveur."
+  },
+  "MISSING_PERMISSION": {
+    "en": "You must have the `{PERM}` permission in order to use this command.",
+    "es": "Debe tener el permiso `{PERM}` para poder utilizar este comando.",
+    "pt": "Você precisa ter a permissão `{PERM}` para utilizar este comando.",
+    "ru": "У вас должно быть право `{PERM}`, чтобы использовать эту команду. ",
+    "de": "Du benötigst die Berechtigung `{PERM}`, um diesen Befehl nutzen zu können.",
+    "nl": "Je moet de permissie `{PERM}` hebben om dit commando te kunnen gebruiken.",
+    "fr": "Vous devez avoir la permission `{PERM}` pour utiliser cette commande."
+  },
+  "MISSING_ROLES": {
+    "en": "You do not have the required roles to use this command! You need one of the following: {ROLES}",
+    "es": "¡No tienes los roles necesarios para usar este comando! Necesita uno de los siguientes: {ROLES}",
+    "pt": "Você não tem o cargo necessário para usar este comando! Você precisa de um dos seguintes: {ROLES}",
+    "ru": "У вас нет необходимых ролей для использования этой команды! Вам понадобится одно из следующего: {ROLES}",
+    "de": "Sie haben nicht die erforderlichen Rollen, um diesen Befehl zu verwenden! Sie benötigen eine der folgenden Möglichkeiten: {ROLES}",
+    "nl": "Je hebt de vereiste rollen om dit commando te gebruiken niet! Je hebt een van de volgende nodig: {ROLES}",
+    "fr": "Vous n'avez pas les rôles requis pour utiliser cette commande! Vous avez besoin de l'un des éléments suivants: {ROLES}"
+  },
+  "COOLDOWN": {
+    "en": "You must wait `{COOLDOWN}` before using that command again.",
+    "es": "Debe esperar `{COOLDOWN}` antes de usar ese comando nuevamente.",
+    "pt": "Você precisa esperar `{COOLDOWN}` antes de usar este comando novamente.",
+    "ru": "Вы должны подождать `{COOLDOWN}` перед использованием данной команды снова.",
+    "de": "Du musst `{COOLDOWN}` warten, bevor du diesen Befehl erneut nutzen kannst.",
+    "nl": "U moet `{COOLDOWN}` wachten voordat u dat commando weer gebruikt.",
+    "fr": "Vous devez attendre `{COOLDOWN}` avant d'utiliser cette commande à nouveau."
+  },
+  "ENABLE_DISABLE_STATE": {
+    "en": "The state must be either `enable` or `disable`.",
+    "es": "El estado debe ser `habilitar` o `deshabilitar`.",
+    "pt": "O estado deve ser `ativado` ou `desativado`.",
+    "ru": "Состояние должно быть либо `включено`, либо `отключено`.",
+    "de": "Der Zustand muss entweder `aktiviere` oder `deaktiviere` sein.",
+    "nl": "De status moet ofwel `inschakelen` of `uitschakelen` zijn.",
+    "fr": "L'état doit être soit `activé` soit `désactivé`."
+  },
+  "CANNOT_ENABLE_DISABLE_IN_DMS": {
+    "en": "You cannot enable or disable commands in private messages.",
+    "es": "No puede habilitar o deshabilitar comandos en mensajes privados.",
+    "pt": "Você não pode ativar ou desativar comandos em mensagens privadas.",
+    "ru": "Вы не можете включать или отключать команды в личных сообщениях.",
+    "de": "Du kannst keine Befehle in Privatnachrichten aktivieren oder deaktivieren.",
+    "nl": "U kunt geen commando's in- of uitschakelen in privéberichten.",
+    "fr": "Vous ne pouvez pas activer ou désactiver les commandes dans les messages privés."
+  },
+  "COMMAND_ALREADY_ENABLED": {
+    "en": "That command is already enabled!",
+    "es": "¡Ese comando ya está habilitado!",
+    "pt": "Este comando já está ativado!",
+    "ru": "Эта команда уже включена!",
+    "de": "Dieser Befehl ist bereits aktiviert!",
+    "nl": "Dat commando is al ingeschakeld!",
+    "fr": "Cette commande est déjà activée!"
+  },
+  "COMMAND_ALREADY_DISABLED": {
+    "en": "That command is already disabled!",
+    "es": "¡Ese comando ya está desactivado!",
+    "pt": "Este comando já está desativado!",
+    "ru": "Эта команда уже отключена!",
+    "de": "Dieser Befehl ist bereits deaktiviert!",
+    "nl": "Dat commando is al uitgeschakeld!",
+    "fr": "Cette commande est déjà désactivée!"
+  },
+  "COMMAND_NOW_ENABLED": {
+    "en": "`{COMMAND}` is now enabled!",
+    "es": "¡`{COMMAND}` ahora está habilitado!",
+    "pt": "`{COMMAND}` agora está ativado!",
+    "ru": "`{COMMAND}` теперь включена!",
+    "de": "`{COMMAND}` wurde aktiviert!",
+    "nl": "`{COMMAND}` is nu ingeschakeld!",
+    "fr": "`{COMMAND}` est maintenant activé!"
+  },
+  "COMMAND_NOW_DISABLED": {
+    "en": "`{COMMAND}` is now disabled!",
+    "es": "¡`{COMMAND}` ahora está deshabilitada!",
+    "pt": "`{COMMAND}` agora está desativado!",
+    "ru": "`{COMMAND}` теперь отключена!",
+    "de": "`{COMMAND}` wurde deaktiviert!",
+    "nl": "`{COMMAND}` is nu uitgeschakeld!",
+    "fr": "`{COMMAND}` est maintenant désactivé!"
+  },
+  "UNKNOWN_COMMAND": {
+    "en": "Could not find command `{COMMAND}`!",
+    "es": "¡No se pudo encontrar el comando `{COMMAND}`!",
+    "pt": "Não foi possível encontrar o comando `{COMMAND}`!",
+    "ru": "Не удалось найти команду `{COMMAND}`!",
+    "de": "Konnte den Befehl `{COMMAND}` nicht finden!",
+    "nl": "Kon commando `{COMMAND}` niet vinden!",
+    "fr": "Impossible de trouver la commande `{COMMAND}`!"
+  },
+  "CURRENT_PREFIX": {
+    "en": "The current prefix is `{PREFIX}`.",
+    "es": "El prefijo actual es `{PREFIX}`.",
+    "pt": "O prefixo atual é `{PREFIX}`.",
+    "ru": "Текущий префикс: `{PREFIX}`.",
+    "de": "Der aktuelle Prefix ist `{PREFIX}`.",
+    "nl": "De huidige prefix is `{PREFIX}`.",
+    "fr": "Le préfixe actuel est `{PREFIX}`."
+  },
+  "SET_PREFIX": {
+    "en": "Set the command prefix to `{PREFIX}`.",
+    "es": "Establezca el prefijo del comando en `{PREFIX}`.",
+    "pt": "Prefixo definido para `{PREFIX}`.",
+    "ru": "Установлен префикс команд на `{PREFIX}`.",
+    "de": "Das Prefix wurde auf `{PREFIX}` festgelegt.",
+    "nl": "Stel de prefix in op `{PREFIX}`.",
+    "fr": "Définir le préfixe de la commande à `{PREFIX}`."
+  },
+  "ALREADY_SET_PREFIX": {
+    "en": "The prefix you are trying to set is already the current prefix.",
+    "es": "El prefijo que está intentando establecer ya es el prefijo actual.",
+    "pt": "O prefixo que você está tentando definir já é o prefixo atual.",
+    "ru": "Префикс, который вы пытаетесь установить, уже является текущим префиксом.",
+    "de": "Das Prefix was du versuchst zu setzen ist bereits das aktuelle Prefix.",
+    "nl": "Het voorvoegsel dat u probeert in te stellen, is al het huidige voorvoegsel.",
+    "fr": "Le préfixe que vous essayez de définir est déjà le préfixe actuel."
+  },
+  "CANNOT_SET_PREFIX_IN_DMS": {
+    "en": "You cannot set a prefix in a private message.",
+    "es": "No puede establecer un prefijo en un mensaje privado.",
+    "pt": "Você não pode definir um prefixo em uma mensagem privada",
+    "ru": "Вы не можете установить префикс в личном сообщении.",
+    "de": "Du kannst den Prefix nicht in Privatnachrichten festlegen.",
+    "nl": "U kunt geen prefix instellen in een privébericht.",
+    "fr": "Vous ne pouvez pas définir un préfixe dans un message privé."
+  },
+  "CANNOT_CHANGE_REQUIRED_ROLES_IN_DMS": {
+    "en": "You cannot change required roles in private messages.",
+    "es": "No puede cambiar los roles requeridos en los mensajes privados.",
+    "pt": "Você não pode alterar as funções necessárias em mensagens privadas",
+    "ru": "Вы не можете изменить требуемые роли в личных сообщениях.",
+    "de": "Du kannst die benötigen Rolen nicht in Privatnachrichten festlegen.",
+    "nl": "U kunt vereiste rollen niet wijzigen in privéberichten.",
+    "fr": "Vous ne pouvez pas modifier les rôles requis dans les messages privés."
+  },
+  "REMOVED_ALL_REQUIRED_ROLES": {
+    "en": "Removed all required roles from command `{COMMAND}`.",
+    "es": "Se eliminaron todos los roles requeridos del comando `{COMMAND}`.",
+    "pt": "Removidas todas as permissões necessárias para o comando `{COMMAND}`.",
+    "ru": "Удалены все требуемые роли из команды `{COMMAND}`.",
+    "de": "Alle benötigen Rollen wurde vom Befehl `{COMMAND}` entfernt.",
+    "nl": "Alle vereiste rollen verwijderd van commando `{COMMAND}`.",
+    "fr": "A supprimé tous les rôles requis de la commande `{COMMAND}`."
+  },
+  "ADDED_REQUIRED_ROLE": {
+    "en": "Added role {ROLE} to command `{COMMAND}`.",
+    "es": "Se agregó el rol {ROLE} al comando `{COMMAND}`.",
+    "pt": "Adicionado o cargo {ROLE} para o comando `{COMMAND}`.",
+    "ru": "Добавлена роль {ROLE} в команду `{COMMAND}`.",
+    "de": "Die Rolle {ROLE} wurde dem Befehl `{COMMAND}` hinzugefügt.",
+    "nl": "Rol {ROLE} toegevoegd aan commando `{COMMAND}`.",
+    "fr": "Role {ROLE} ajouté à la commande `{COMMAND}`."
+  },
+  "SYNTAX_ERROR": {
+    "en": "Incorrect usage! Please use `{PREFIX}{COMMAND}` `{ARGUMENTS}`",
+    "es": "¡Uso incorrecto! Utilice `{PREFIX}{COMMAND}` `{ARGUMENTS}`",
+    "pt": "Uso incorreto! Utilize `{PREFIX{COMMAND}` `{ARGUMENTS}`",
+    "ru": "Неправильное использование, пожалуйста используйте `{PREFIX}{COMMAND}` `{ARGUMENTS}`",
+    "de": "Falsche Verwendung! Bitte nutze `{PREFIX}{COMMAND}` `{ARGUMENTS}`",
+    "nl": "Onjuist gebruik! Gebruik a.u.b. `{PREFIX}{COMMAND}` `{ARGUMENTS}`.",
+    "fr": "Utilisation incorrecte! Veuillez utiliser `{PREFIX}{COMMAND}` `{ARGUMENTS}`."
+  },
+  "NO_DATABASE_FOUND": {
+    "en": "No database connection found!",
+    "es": "¡No se encontró conexión a la base de datos!",
+    "pt": "Conexão ao banco de dados não econtrada!",
+    "ru": "Соединение с базой данных не найдено!",
+    "de": "Es wurde keine Verbindung zu einer Datenbank gefunden!",
+    "nl": "Geen databaseverbinding gevonden!",
+    "fr": "Aucune connexion à la base de données trouvée!"
+  },
+  "GUILD_ONLY_COMMAND": {
+    "en": "This command can only be used within a server.",
+    "es": "Este comando solo se puede utilizar dentro de un servidor.",
+    "pt": "Este comando só pode ser usado em um servidor.",
+    "ru": "Эта команда может быть использована только внутри сервера.",
+    "de": "Dieser Befehl kann nur in einem Server benutzt werden.",
+    "nl": "Dit commando kan alleen binnen een server gebruikt worden.",
+    "fr": "Cette commande ne peut être utilisée que dans un serveur."
+  },
+  "NO_REACT_PERMS": {
+    "en": "This bot needs the `Add Reactions` permission to use the help menu.",
+    "es": "Este bot necesita el permiso `Añadir reacciones` para usar el menú de ayuda.",
+    "pt": "Este bot precisa da permissão `Adicionar reações` para usar o menu de ajuda.",
+    "ru": "Этому боту требуется право `Добавлять реакции`, что-бы использовать меню помощи.",
+    "de": "Der Bot benötigt die Berechtigung `Reaktionen hinzufügen`, damit das Hilfemenü genutzt werden kann.",
+    "nl": "Deze bot heeft de toestemming `Reacties toevoegen` nodig om het helpmenu te gebruiken.",
+    "fr": "Ce robot a besoin de l'autorisation `d'ajouter des commentaires` pour utiliser le menu d'aide."
+  },
+  "EXCEPTION": {
+    "en": "An error occurred when running this command! This error has been reported to the developers.",
+    "es": "¡Se produjo un error al ejecutar este comando! Se ha informado de este error a los desarrolladores.",
+    "pt": "Ocorreu um erro ao executar este comando! Este erro foi relatado aos desenvolvedores.",
+    "ru": "Произошла ошибка при выполнении этой команды! Об этой ошибке было сообщено разработчикам.",
+    "de": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten! Dieser Fehler wurde den Entwicklern gemeldet.",
+    "nl": "Er is een fout opgetreden bij het uitvoeren van dit commando! Deze fout is gemeld aan de ontwikkelaars.",
+    "fr": "Une erreur s'est produite lors de l'exécution de cette commande! Cette erreur a été signalée aux développeurs."
+  },
+  "NO_TAGGED_CHANNELS": {
+    "en": "Please tag at least one channel.",
+    "es": "Etiqueta al menos un canal.",
+    "pt": "Marque pelo menos um canal.",
+    "ru": "Отметьте хотя бы один канал.",
+    "de": "Bitte taggen Sie mindestens einen Kanal.",
+    "nl": "Gelieve ten minste één kanaal te taggen.",
+    "fr": "Veuillez marquer au moins un canal."
+  },
+  "NOT_CHANNEL_COMMAND": {
+    "en": "That command is currently not limited to any channel.",
+    "es": "Ese comando actualmente no se limita a ningún canal.",
+    "pt": "Esse comando atualmente não está limitado a nenhum canal.",
+    "ru": "Эта команда в настоящее время не ограничена каким-либо каналом.",
+    "de": "Dieser Befehl ist derzeit nicht auf einen Kanal beschränkt.",
+    "nl": "Dat commando is momenteel niet gelimiteerd tot een kanaal.",
+    "fr": "Cette commande n'est pas actuellement limitée à un canal."
+  },
+  "NO_LONGER_CHANNEL_COMMAND": {
+    "en": "That command is no longer a channel specific command.",
+    "es": "Ese comando ya no es un comando específico de canal.",
+    "pt": "Esse comando não é mais um comando específico do canal.",
+    "ru": "Эта команда больше не является командой канала.",
+    "de": "Dieser Befehl ist kein kanalspezifischer Befehl mehr.",
+    "nl": "Dat commando is niet langer een kanaalspecifiek commando.",
+    "fr": "Cette commande n'est plus une commande spécifique à un canal."
+  },
+  "NOW_CHANNEL_COMMAND": {
+    "en": "`{COMMAND}` can now only be ran in `{CHANNELS}`.",
+    "es": "`{COMMAND}` ahora solo se puede ejecutar en `{CHANNELS}`.",
+    "pt": "`{COMMAND}` agora só pode ser executado em `{CHANNELS}`.",
+    "ru": "`{COMMAND}` теперь может выполняться только на `{CHANNELS}`.",
+    "de": "`{COMMAND}` kann jetzt nur noch in `{CHANNELS}` ausgeführt werden.",
+    "nl": "`{COMMAND}` kan nu alleen in `{CHANNELS}` worden uitgevoerd.",
+    "fr": "`{COMMAND}` ne peut maintenant être exécutée que dans `{CHANNELS}`."
+  },
+  "ALLOWED_CHANNELS": {
+    "en": "You can only use that command in the following: `{CHANNELS}`.",
+    "es": "Solo puede usar ese comando en lo siguiente: `{CHANNELS}`.",
+    "pt": "Você só pode usar esse comando nos seguintes: `{CHANNELS}`.",
+    "ru": "Вы можете использовать эту команду только в следующих случаях: `{CHANNELS}`.",
+    "de": "Sie können diesen Befehl nur im Folgenden verwenden: `{CHANNELS}`.",
+    "nl": "Je kunt dat commando alleen in het volgende gebruiken: `{CHANNELS}`.",
+    "fr": "Vous ne pouvez utiliser cette commande que dans les cas suivants: `{CHANNELS}`."
+  },
+  "CANNOT_DISABLE_THIS_COMMAND": {
+    "en": "This command cannot be disabled.",
+    "es": "Este comando no se puede desactivar.",
+    "pt": "Este comando não pode ser desabilitado.",
+    "ru": "Эту команду нельзя отключить.",
+    "de": "Dieser Befehl kann nicht deaktiviert werden.",
+    "nl": "Deze opdracht kan niet worden uitgeschakeld.",
+    "fr": "Cette commande ne peut pas être désactivée."
+  },
+  "INVALID_SLASH_COMMAND": {
+    "en": "This slash command is not properly registered.",
+    "es": "Este comando de barra no está registrado correctamente.",
+    "pt": "Este comando de barra não está registrado corretamente.",
+    "ru": "Эта команда косой черты не зарегистрирована должным образом.",
+    "de": "Dieser Slash-Befehl wurde nicht richtig registriert.",
+    "nl": "Deze slash-opdracht is niet correct geregistreerd.",
+    "fr": "Cette commande slash n'est pas correctement enregistrée."
+  },
+  "REQUIRE_ROLES": {
+    "en": "You must specify what roles can use this command with `{PREFIX}requiredroles {COMMAND} <role ID>`.",
+    "es": "Debe especificar qué roles pueden usar este comando con `{PREFIX} requiredroles {COMMAND} <ID de rol>`.",
+    "pt": "Você deve especificar quais funções podem usar este comando com `{PREFIX} funções necessárias {COMANDO} <ID da função>`.",
+    "ru": "Вы должны указать, какие роли могут использовать эту команду с `{PREFIX} requiredroles {COMMAND} <role ID>`.",
+    "de": "Du musst mit `{PREFIX}requiredroles {COMMAND} <Rollen-ID>` angeben, welche Rollen diesen Befehl verwenden können.",
+    "nl": "Je moet specificeren welke rollen dit commando kunnen gebruiken met `{PREFIX}requiredroles {COMMAND} <role ID>`.",
+    "fr": "Vous devez spécifier quels rôles peuvent utiliser cette commande avec `{PREFIX}requiredroles {COMMAND} <role ID>`."
+  },
+  "HELP_MENU": {
+    "TITLE": {
+      "en": "Help Menu",
+      "es": "Menú de ayuda",
+      "pt": "Menu de ajuda",
+      "ru": "Меню помощи",
+      "de": "Hilfemenü",
+      "nl": "Help Menu",
+      "fr": "Menu d'aide"
     },
-    "CURRENT_LANGUAGE": {
-      "english": "The current language is set to {LANGUAGE}.",
-      "español": "El idioma actual está establecido en {LANGUAGE}.",
-      "português": "O idioma atual está definido como {LANGUAGE}.",
-      "pрусский": "Текущий язык установлен на {LANGUAGE}.",
-      "deutsch": "Die Sprache ist aktuell auf {LANGUAGE} gesetzt.",
-      "nederlands": "De huidige taal is ingesteld op {LANGUAGE}.",
-      "français": "La langue actuelle est réglée sur {LANGUAGE}."
+    "SELECT_A_CATEGORY": {
+      "en": "Please select a command category by clicking it's reaction.",
+      "es": "Seleccione una categoría de comando haciendo clic en su reacción.",
+      "pt": "Selecione uma categoria de comando clicando em sua reação.",
+      "ru": "Пожалуйста, выберите категорию команд нажатием на её реакцию.",
+      "de": "Bitte wähle eine Befehlskategorie aus, indem du auf eine Reaktion klickst.",
+      "nl": "Selecteer een commando categorie door op de reactie te klikken.",
+      "fr": "Sélectionnez une catégorie de commande en cliquant sur la réaction."
     },
-    "NEW_LANGUAGE": {
-      "english": "Language set to {LANGUAGE}.",
-      "español": "Idioma configurado en {LANGUAGE}.",
-      "português": "Idioma configurado para {LANGUAGE}.",
-      "pрусский": "Язык установлен на {LANGUAGE}.",
-      "deutsch": "Die Sprache {LANGUAGE} wurde ausgewählt.",
-      "nederlands": "Taal ingesteld op {LANGUAGE}.",
-      "français": "Langue réglée sur {LANGUAGE}."
+    "COMMANDS": {
+      "en": "commands",
+      "es": "comandos",
+      "pt": "comandos",
+      "ru": "команды",
+      "de": "Befehle",
+      "nl": "commandos",
+      "fr": "commandes"
     },
-    "BOT_OWNERS_ONLY": {
-      "english": "Only the bot owner can run this command.",
-      "español": "Solo el propietario del bot puede ejecutar este comando.",
-      "português": "Apenas o proprietário do bot pode executar este comando.",
-      "pрусский": "Только владелец бота может использовать эту команду.",
-      "deutsch": "Nur der Besitzer des Bots kann diesen Befehl ausführen",
-      "nederlands": "Alleen de bot eigenaar kan dit commando uitvoeren.",
-      "français": "Seul le propriétaire du bot peut exécuter cette commande."
+    "DESCRIPTION_FIRST_LINE": {
+      "en": "Use 🚪 to return to the previous menu.",
+      "es": "Utilice 🚪 para volver al menú anterior.",
+      "pt": "Use 🚪 para retornar ao menu anterior",
+      "ru": "Используйте 🚪, что-бы вернуться в предыдущее меню.",
+      "de": "Benutze 🚪, um zum vorherigen Menü zurückzukehren.",
+      "nl": "Gebruik 🚪 om terug te keren naar het vorige menu.",
+      "fr": "Utilisez 🚪 pour revenir au menu précédent."
     },
-    "DISABLED_COMMAND": {
-      "english": "That command is currently disabled in this server.",
-      "español": "Ese comando está actualmente deshabilitado en este servidor.",
-      "português": "Este comando está atualmente desabilitado neste servidor.",
-      "pрусский": "Эта команда в настоящее время отключена на этом сервере.",
-      "deutsch": "Dieser Befehl ist auf dem Server zurzeit deaktiviert.",
-      "nederlands": "Dat commando is momenteel uitgeschakeld in deze server.",
-      "français": "Cette commande est actuellement désactivée sur ce serveur."
+    "DESCRIPTION_SECOND_LINE": {
+      "en": "Use ⬅ and ➡ to navigate between pages.",
+      "es": "Utilice ⬅ y ➡ para navegar entre páginas.",
+      "pt": "Use ⬅ e ➡ para navegar entre as páginas.",
+      "ru": "Используйте ⬅ and ➡ для перехода между страницами.",
+      "de": "Benutze ⬅ und ➡, um zwischen den Seiten hin und her zu wechseln.",
+      "nl": "Gebruik ⬅ en ➡ om tussen pagina's te navigeren.",
+      "fr": "Utilisez ⬅ et ➡ pour naviguer entre les pages."
     },
-    "MISSING_PERMISSION": {
-      "english": "You must have the {PERM} permission in order to use this command.",
-      "español": "Debe tener el permiso {PERM} para poder utilizar este comando.",
-      "português": "Você precisa ter a permissão {PERM} para utilizar este comando.",
-      "pрусский": "У вас должно быть право {PERM}, чтобы использовать эту команду. ",
-      "deutsch": "Du benötigst die Berechtigung {PERM}, um diesen Befehl nutzen zu können.",
-      "nederlands": "Je moet de permissie {PERM} hebben om dit commando te kunnen gebruiken.",
-      "français": "Vous devez avoir la permission {PERM} pour utiliser cette commande."
+    "ALIASES": {
+      "en": "Aliases",
+      "es": "Alias",
+      "pt": "Apelidos",
+      "ru": "Псевдонимы",
+      "de": "Aliase",
+      "nl": "Aliassen",
+      "fr": "Alias"
     },
-    "MISSING_ROLES": {
-      "english": "You do not have the required roles to use this command! You need one of the following: {ROLES}",
-      "español": "¡No tienes los roles necesarios para usar este comando! Necesita uno de los siguientes: {ROLES}",
-      "português": "Você não tem o cargo necessário para usar este comando! Você precisa de um dos seguintes: {ROLES}",
-      "pрусский": "У вас нет необходимых ролей для использования этой команды! Вам понадобится одно из следующего: {ROLES}",
-      "deutsch": "Du hast nicht die erforderlichen Rollen, um diesen Befehl zu verwenden! Du brauchst eine der folgenden Möglichkeiten: {ROLES}",
-      "nederlands": "Je hebt de vereiste rollen om dit commando te gebruiken niet! Je hebt een van de volgende nodig: {ROLES}",
-      "français": "Vous n'avez pas les rôles requis pour utiliser cette commande! Vous avez besoin de l'un des éléments suivants: {ROLES}"
-    },
-    "COOLDOWN": {
-      "english": "You must wait {COOLDOWN} before using that command again.",
-      "español": "Debe esperar {COOLDOWN} antes de usar ese comando nuevamente.",
-      "português": "Você precisa esperar {COOLDOWN} antes de usar este comando novamente.",
-      "pрусский": "Вы должны подождать {COOLDOWN} перед использованием данной команды снова.",
-      "deutsch": "Du musst {COOLDOWN} warten, bevor du diesen Befehl erneut nutzen kannst.",
-      "nederlands": "U moet {COOLDOWN} wachten voordat u dat commando weer gebruikt.",
-      "français": "Vous devez attendre {COOLDOWN} avant d'utiliser cette commande à nouveau."
-    },
-    "ENABLE_DISABLE_STATE": {
-      "english": "The state must be either \"enable\" or \"disable\".",
-      "español": "El estado debe ser \"habilitar\" o \"deshabilitar\".",
-      "português": "O estado deve ser \"ativado\" ou \"desativado\".",
-      "pрусский": "Состояние должно быть либо \"включено\", либо \"отключено\".",
-      "deutsch": "Der Zustand muss entweder \"aktiviere\" oder \"deaktiviere\" sein.",
-      "nederlands": "De status moet ofwel \"inschakelen\" of \"uitschakelen\" zijn.",
-      "français": "L'état doit être soit \"activé\" soit \"désactivé\"."
-    },
-    "CANNOT_ENABLE_DISABLE_IN_DMS": {
-      "english": "You cannot enable or disable commands in private messages.",
-      "español": "No puede habilitar o deshabilitar comandos en mensajes privados.",
-      "português": "Você não pode ativar ou desativar comandos em mensagens privadas.",
-      "pрусский": "Вы не можете включать или отключать команды в личных сообщениях.",
-      "deutsch": "Du kannst keine Befehle in Privatnachrichten aktivieren oder deaktivieren.",
-      "nederlands": "U kunt geen commando's in- of uitschakelen in privéberichten.",
-      "français": "Vous ne pouvez pas activer ou désactiver les commandes dans les messages privés."
-    },
-    "COMMAND_ALREADY_ENABLED": {
-      "english": "That command is already enabled!",
-      "español": "¡Ese comando ya está habilitado!",
-      "português": "Este comando já está ativado!",
-      "pрусский": "Эта команда уже включена!",
-      "deutsch": "Dieser Befehl ist bereits aktiviert!",
-      "nederlands": "Dat commando is al ingeschakeld!",
-      "français": "Cette commande est déjà activée!"
-    },
-    "COMMAND_ALREADY_DISABLED": {
-      "english": "That command is already disabled!",
-      "español": "¡Ese comando ya está desactivado!",
-      "português": "Este comando já está desativado!",
-      "pрусский": "Эта команда уже отключена!",
-      "deutsch": "Dieser Befehl ist bereits deaktiviert!",
-      "nederlands": "Dat commando is al uitgeschakeld!",
-      "français": "Cette commande est déjà désactivée!"
-    },
-    "COMMAND_NOW_ENABLED": {
-      "english": "{COMMAND} is now enabled!",
-      "español": "¡{COMMAND} ahora está habilitado!",
-      "português": "{COMMAND} agora está ativado!",
-      "pрусский": "{COMMAND} теперь включена!",
-      "deutsch": "{COMMAND} wurde aktiviert!",
-      "nederlands": "{COMMAND} is nu ingeschakeld!",
-      "français": "{COMMAND} est maintenant activé!"
-    },
-    "COMMAND_NOW_DISABLED": {
-      "english": "{COMMAND} is now disabled!",
-      "español": "¡{COMMAND} ahora está deshabilitada!",
-      "português": "{COMMAND} agora está desativado!",
-      "pрусский": "{COMMAND} теперь отключена!",
-      "deutsch": "{COMMAND} wurde deaktiviert!",
-      "nederlands": "{COMMAND} is nu uitgeschakeld!",
-      "français": "{COMMAND} est maintenant désactivé!"
-    },
-    "UNKNOWN_COMMAND": {
-      "english": "Could not find command {COMMAND}!",
-      "español": "¡No se pudo encontrar el comando {COMMAND}!",
-      "português": "Não foi possível encontrar o comando {COMMAND}!",
-      "pрусский": "Не удалось найти команду {COMMAND}!",
-      "deutsch": "Konnte den Befehl {COMMAND} nicht finden!",
-      "nederlands": "Kon commando {COMMAND} niet vinden!",
-      "français": "Impossible de trouver la commande {COMMAND}!"
-    },
-    "CURRENT_PREFIX": {
-      "english": "The current prefix is {PREFIX}.",
-      "español": "El prefijo actual es {PREFIX}.",
-      "português": "O prefixo atual é {PREFIX}.",
-      "pрусский": "Текущий префикс: {PREFIX}.",
-      "deutsch": "Der aktuelle Prefix ist {PREFIX}.",
-      "nederlands": "De huidige prefix is {PREFIX}.",
-      "français": "Le préfixe actuel est {PREFIX}."
-    },
-    "SET_PREFIX": {
-      "english": "Set the command prefix to {PREFIX}.",
-      "español": "Establezca el prefijo del comando en {PREFIX}.",
-      "português": "Prefixo definido para {PREFIX}.",
-      "pрусский": "Установлен префикс команд на {PREFIX}.",
-      "deutsch": "Der Prefix {PREFIX} wurde festgelegt.",
-      "nederlands": "Stel de prefix in op {PREFIX}.",
-      "français": "Définir le préfixe de la commande à {PREFIX}."
-    },
-    "CANNOT_SET_PREFIX_IN_DMS": {
-      "english": "You cannot set a prefix in a private message.",
-      "español": "No puede establecer un prefijo en un mensaje privado.",
-      "português": "Você não pode definir um prefixo em uma mensagem privada",
-      "pрусский": "Вы не можете установить префикс в личном сообщении.",
-      "deutsch": "Du kannst den Prefix nicht in Privatnachrichten festlegen.",
-      "nederlands": "U kunt geen prefix instellen in een privébericht.",
-      "français": "Vous ne pouvez pas définir un préfixe dans un message privé."
-    },
-    "CANNOT_CHANGE_REQUIRED_ROLES_IN_DMS": {
-      "english": "You cannot change required roles in private messages.",
-      "español": "No puede cambiar los roles requeridos en los mensajes privados.",
-      "português": "Você não pode alterar as funções necessárias em mensagens privadas",
-      "pрусский": "Вы не можете изменить требуемые роли в личных сообщениях.",
-      "deutsch": "Du kannst die benötigen Rolen nicht in Privatnachrichten festlegen.",
-      "nederlands": "U kunt vereiste rollen niet wijzigen in privéberichten.",
-      "français": "Vous ne pouvez pas modifier les rôles requis dans les messages privés."
-    },
-    "REMOVED_ALL_REQUIRED_ROLES": {
-      "english": "Removed all required roles from command {COMMAND}.",
-      "español": "Se eliminaron todos los roles requeridos del comando {COMMAND}.",
-      "português": "Removidas todas as permissões necessárias para o comando {COMMAND}.",
-      "pрусский": "Удалены все требуемые роли из команды {COMMAND}.",
-      "deutsch": "Alle benötigen Rollen wurde vom Befehl {COMMAND} entfernt.",
-      "nederlands": "Alle vereiste rollen verwijderd van commando {COMMAND}.",
-      "français": "A supprimé tous les rôles requis de la commande {COMMAND}."
-    },
-    "ADDED_REQUIRED_ROLE": {
-      "english": "Added role {ROLE} to command {COMMAND}.",
-      "español": "Se agregó el rol {ROLE} al comando {COMMAND}.",
-      "português": "Adicionado o cargo {ROLE} para o comando {COMMAND}.",
-      "pрусский": "Добавлена роль {ROLE} в команду {COMMAND}.",
-      "deutsch": "Die Rolle {ROLE} wurde dem Befehl {COMMAND} hinzugefügt.",
-      "nederlands": "Rol {ROLE} toegevoegd aan commando {COMMAND}.",
-      "français": "Role {ROLE} ajouté à la commande {COMMAND}."
-    },
-    "SYNTAX_ERROR": {
-      "english": "Incorrect usage! Please use \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
-      "español": "¡Uso incorrecto! Utilice \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
-      "português": "Uso incorreto! Utilize \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
-      "pрусский": "Неправильное использование, пожалуйста используйте \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
-      "deutsch": "Falsche Verwendung! Bitte nutze \"{PREFIX}{COMMAND} {ARGUMENTS}\"",
-      "nederlands": "Onjuist gebruik! Gebruik a.u.b. \"{PREFIX}{COMMAND} {ARGUMENTS}\".",
-      "français": "Utilisation incorrecte! Veuillez utiliser \"{PREFIX}{COMMAND} {ARGUMENTS}\"."
-    },
-    "NO_DATABASE_FOUND": {
-      "english": "No database connection found!",
-      "español": "¡No se encontró conexión a la base de datos!",
-      "português": "Conexão ao banco de dados não econtrada!",
-      "pрусский": "Соединение с базой данных не найдено!",
-      "deutsch": "Es wurde keine Verbindung zu einer Datenbank gefunden!",
-      "nederlands": "Geen databaseverbinding gevonden!",
-      "français": "Aucune connexion à la base de données trouvée!"
-    },
-    "GUILD_ONLY_COMMAND": {
-      "english": "This command can only be used within a server.",
-      "español": "Este comando solo se puede utilizar dentro de un servidor.",
-      "português": "Este comando só pode ser usado em um servidor.",
-      "pрусский": "Эта команда может быть использована только внутри сервера.",
-      "deutsch": "Dieser Befehl kann nur in einem Server benutzt werden.",
-      "nederlands": "Dit commando kan alleen binnen een server gebruikt worden.",
-      "français": "Cette commande ne peut être utilisée que dans un serveur."
-    },
-    "NO_REACT_PERMS": {
-      "english": "This bot needs the \"Add Reactions\" permission to use the help menu.",
-      "español": "Este bot necesita el permiso \"Añadir reacciones\" para usar el menú de ayuda.",
-      "português": "Este bot precisa da permissão \"Adicionar reações\" para usar o menu de ajuda.",
-      "pрусский": "Этому боту требуется право \"Добавлять реакции\", что-бы использовать меню помощи.",
-      "deutsch": "Der Bot benötigt die Berechtigung \"Reaktionen hinzufügen\", damit das Hilfemenü genutzt werden kann.",
-      "nederlands": "Deze bot heeft de toestemming \"Reacties toevoegen\" nodig om het helpmenu te gebruiken.",
-      "français": "Ce robot a besoin de l'autorisation \"d'ajouter des commentaires\" pour utiliser le menu d'aide."
-    },
-    "EXCEPTION": {
-      "english": "An error occurred when running this command! This error has been reported to the developers.",
-      "español": "¡Se produjo un error al ejecutar este comando! Se ha informado de este error a los desarrolladores.",
-      "português": "Ocorreu um erro ao executar este comando! Este erro foi relatado aos desenvolvedores.",
-      "pрусский": "Произошла ошибка при выполнении этой команды! Об этой ошибке было сообщено разработчикам.",
-      "deutsch": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten! Dieser Fehler wurde den Entwicklern gemeldet.",
-      "nederlands": "Er is een fout opgetreden bij het uitvoeren van dit commando! Deze fout is gemeld aan de ontwikkelaars.",
-      "français": "Une erreur s'est produite lors de l'exécution de cette commande! Cette erreur a été signalée aux développeurs."
-    },
-    "NO_TAGGED_CHANNELS": {
-      "english": "Please tag at least one channel.",
-      "español": "Etiqueta al menos un canal.",
-      "português": "Marque pelo menos um canal.",
-      "pрусский": "Отметьте хотя бы один канал.",
-      "deutsch": "Bitte taggen mindestens einen Kanal.",
-      "nederlands": "Gelieve ten minste één kanaal te taggen.",
-      "français": "Veuillez marquer au moins un canal."
-    },
-    "NOT_CHANNEL_COMMAND": {
-      "english": "That command is currently not limited to any channel.",
-      "español": "Ese comando actualmente no se limita a ningún canal.",
-      "português": "Esse comando atualmente não está limitado a nenhum canal.",
-      "pрусский": "Эта команда в настоящее время не ограничена каким-либо каналом.",
-      "deutsch": "Dieser Befehl ist derzeit nicht auf einen Kanal beschränkt.",
-      "nederlands": "Dat commando is momenteel niet gelimiteerd tot een kanaal.",
-      "français": "Cette commande n'est pas actuellement limitée à un canal."
-    },
-    "NO_LONGER_CHANNEL_COMMAND": {
-      "english": "That command is no longer a channel specific command.",
-      "español": "Ese comando ya no es un comando específico de canal.",
-      "português": "Esse comando não é mais um comando específico do canal.",
-      "pрусский": "Эта команда больше не является командой канала.",
-      "deutsch": "Dieser Befehl ist kein kanalspezifischer Befehl mehr.",
-      "nederlands": "Dat commando is niet langer een kanaalspecifiek commando.",
-      "français": "Cette commande n'est plus une commande spécifique à un canal."
-    },
-    "NOW_CHANNEL_COMMAND": {
-      "english": "\"{COMMAND}\" can now only be ran in {CHANNELS}.",
-      "español": "\"{COMMAND}\" ahora solo se puede ejecutar en {CHANNELS}.",
-      "português": "\"{COMMAND}\" agora só pode ser executado em {CHANNELS}.",
-      "pрусский": "\"{COMMAND}\" теперь может выполняться только на {CHANNELS}.",
-      "deutsch": "\"{COMMAND}\" kann jetzt nur noch in {CHANNELS} ausgeführt werden.",
-      "nederlands": "\"{COMMAND}\" kan nu alleen in {CHANNELS} worden uitgevoerd.",
-      "français": "\"{COMMAND}\" ne peut maintenant être exécutée que dans {CHANNELS}."
-    },
-    "ALLOWED_CHANNELS": {
-      "english": "You can only use that command in the following: {CHANNELS}.",
-      "español": "Solo puede usar ese comando en lo siguiente: {CHANNELS}.",
-      "português": "Você só pode usar esse comando nos seguintes: {CHANNELS}.",
-      "pрусский": "Вы можете использовать эту команду только в следующих случаях: {CHANNELS}.",
-      "deutsch": "Du kannst diesen Befehl nur im Folgenden verwenden: {CHANNELS}.",
-      "nederlands": "Je kunt dat commando alleen in het volgende gebruiken: {CHANNELS}.",
-      "français": "Vous ne pouvez utiliser cette commande que dans les cas suivants: {CHANNELS}."
-    },
-    "CANNOT_DISABLE_THIS_COMMAND": {
-      "english": "This command cannot be disabled.",
-      "español": "Este comando no se puede desactivar.",
-      "português": "Este comando não pode ser desabilitado.",
-      "pрусский": "Эту команду нельзя отключить.",
-      "deutsch": "Dieser Befehl kann nicht deaktiviert werden.",
-      "nederlands": "Deze opdracht kan niet worden uitgeschakeld.",
-      "français": "Cette commande ne peut pas être désactivée."
-    },
-    "INVALID_SLASH_COMMAND": {
-      "english": "This slash command is not properly registered.",
-      "español": "Este comando de barra no está registrado correctamente.",
-      "português": "Este comando de barra não está registrado corretamente.",
-      "pрусский": "Эта команда косой черты не зарегистрирована должным образом.",
-      "deutsch": "Dieser Schrägstrichbefehl ist nicht richtig registriert.",
-      "nederlands": "Deze slash-opdracht is niet correct geregistreerd.",
-      "français": "Cette commande slash n'est pas correctement enregistrée."
-    },
-    "REQUIRE_ROLES": {
-      "english": "You must specify what roles can use this command with `{PREFIX}requiredroles {COMMAND} <role ID>`.",
-      "español": "Debe especificar qué roles pueden usar este comando con `{PREFIX} requiredroles {COMMAND} <ID de rol>`.",
-      "português": "Você deve especificar quais funções podem usar este comando com `{PREFIX} funções necessárias {COMANDO} <ID da função>`.",
-      "pрусский": "Вы должны указать, какие роли могут использовать эту команду с `{PREFIX} requiredroles {COMMAND} <role ID>`.",
-      "deutsch": "Du musst mit `{PREFIX}requiredroles {COMMAND} <Rollen-ID>` angeben, welche Rollen diesen Befehl verwenden können.",
-      "nederlands": "Je moet specificeren welke rollen dit commando kunnen gebruiken met `{PREFIX}requiredroles {COMMAND} <role ID>`.",
-      "français": "Vous devez spécifier quels rôles peuvent utiliser cette commande avec `{PREFIX}requiredroles {COMMAND} <role ID>`."
-    },
-    "HELP_MENU": {
-      "TITLE": {
-        "english": "Help Menu",
-        "español": "Menú de ayuda",
-        "português": "Menu de ajuda",
-        "pрусский": "Меню помощи",
-        "deutsch": "Hilfemenü",
-        "nederlands": "Help Menu",
-        "français": "Menu d'aide"
-      },
-      "SELECT_A_CATEGORY": {
-        "english": "Please select a command category by clicking it's reaction.",
-        "español": "Seleccione una categoría de comando haciendo clic en su reacción.",
-        "português": "Selecione uma categoria de comando clicando em sua reação.",
-        "pрусский": "Пожалуйста, выберите категорию команд нажатием на её реакцию.",
-        "deutsch": "Bitte wähle eine Befehlskategorie aus, indem du auf eine Reaktion klickst.",
-        "nederlands": "Selecteer een commando categorie door op de reactie te klikken.",
-        "français": "Sélectionnez une catégorie de commande en cliquant sur la réaction."
-      },
-      "COMMANDS": {
-        "english": "commands",
-        "español": "comandos",
-        "português": "comandos",
-        "pрусский": "команды",
-        "deutsch": "Befehle",
-        "nederlands": "commandos",
-        "français": "commandes"
-      },
-      "DESCRIPTION_FIRST_LINE": {
-        "english": "Use 🚪 to return to the previous menu.",
-        "español": "Utilice 🚪 para volver al menú anterior.",
-        "português": "Use 🚪 para retornar ao menu anterior",
-        "pрусский": "Используйте 🚪, что-бы вернуться в предыдущее меню.",
-        "deutsch": "Benutze 🚪, um zum vorherigen Menü zurückzukehren.",
-        "nederlands": "Gebruik 🚪 om terug te keren naar het vorige menu.",
-        "français": "Utilisez 🚪 pour revenir au menu précédent."
-      },
-      "DESCRIPTION_SECOND_LINE": {
-        "english": "Use ⬅ and ➡ to navigate between pages.",
-        "español": "Utilice ⬅ y ➡ para navegar entre páginas.",
-        "português": "Use ⬅ e ➡ para navegar entre as páginas.",
-        "pрусский": "Используйте ⬅ and ➡ для перехода между страницами.",
-        "deutsch": "Benutze ⬅ und ➡, um zwischen den Seiten hin und her zu wechseln.",
-        "nederlands": "Gebruik ⬅ en ➡ om tussen pagina's te navigeren.",
-        "français": "Utilisez ⬅ et ➡ pour naviguer entre les pages."
-      },
-      "ALIASES": {
-        "english": "Aliases",
-        "español": "Alias",
-        "português": "Apelidos",
-        "pрусский": "Псевдонимы",
-        "deutsch": "Aliase",
-        "nederlands": "Aliassen",
-        "français": "Alias"
-      },
-      "SYNTAX": {
-        "english": "Syntax",
-        "español": "Sintaxis",
-        "português": "Sintaxe",
-        "pрусский": "Синтаксис",
-        "deutsch": "Syntax",
-        "nederlands": "Syntax",
-        "français": "Syntaxe"
-      }
+    "SYNTAX": {
+      "en": "Syntax",
+      "es": "Sintaxis",
+      "pt": "Sintaxe",
+      "ru": "Синтаксис",
+      "de": "Syntax",
+      "nl": "Syntax",
+      "fr": "Syntaxe"
     }
   }
-  
+}

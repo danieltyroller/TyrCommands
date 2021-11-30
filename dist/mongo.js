@@ -15,7 +15,7 @@ const results = {
 exports.default = async (mongoPath, instance, dbOptions = {}) => {
     const options = {
         keepAlive: true,
-        ...dbOptions
+        ...dbOptions,
     };
     await mongoose_1.default.connect(mongoPath, options);
     const { connection } = mongoose_1.default;

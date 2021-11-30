@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.permissionList = void 0;
 const permissionList = [
-    'CREATE_INSTANCE_INVITE',
+    'CREATE_INSTANT_INVITE',
     'KICK_MEMBERS',
     'BAN_MEMBERS',
     'ADMINISTRATOR',
@@ -32,6 +32,6 @@ const permissionList = [
     'MANAGE_NICKNAMES',
     'MANAGE_ROLES',
     'MANAGE_WEBHOOKS',
-    'MANAGE_EMOJIS'
+    'MANAGE_EMOJIS',
 ];
 exports.permissionList = permissionList;

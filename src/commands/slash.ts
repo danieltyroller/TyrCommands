@@ -3,121 +3,121 @@ import { ApplicationCommand, MessageEmbed } from 'discord.js'
 import { ICallbackObject, ICommand } from '../..'
 
 export = {
-    description: 'Ermöglicht den Bot-Entwicklern, vorhandene Slash-Befehle zu verwalten',
-    category: 'Configutation',
+  description: 'Ermöglicht den Bot-Entwicklern, vorhandene Slash-Befehle zu verwalten',
+  category: 'Einstellungen',
 
-    permissions: ['ADMINISTRATOR'],
+  permissions: ['ADMINISTRATOR'],
 
-    maxArgs: 1,
-    expectedArgs: '[command-id]',
+  maxArgs: 1,
+  expectedArgs: '[command-id]',
 
-    ownerOnly: true,
-    hidden: true,
+  ownerOnly: true,
+  hidden: true,
 
-    slash: 'both',
+  slash: 'both',
 
-    callback: async (options: ICallbackObject) => {
-        const { channel, instance, text } = options
+  callback: async (options: ICallbackObject) => {
+    const { channel, instance, text } = options
 
-        const { guild } = channel
-        const { slashCommands } = instance
+    const { guild } = channel
+    const { slashCommands } = instance
 
-        const global = await slashCommands.get()
+    const global = await slashCommands.get()
 
-        if (text) {
-            let useGuild = true
+    if (text) {
+      let useGuild = true
 
-            try {
-                global?.forEach((cmd: ApplicationCommand) => {
-                    if (cmd.id === text) {
-                        useGuild = false
-                        throw new Error('')
-                    }
-                })
-            } catch (ignored) { }
+      try {
+        global?.forEach((cmd: ApplicationCommand) => {
+          if (cmd.id === text) {
+            useGuild = false
+            throw new Error('')
+          }
+        })
+      } catch (ignored) { }
 
-            slashCommands.delete(text, useGuild ? guild.id : undefined)
+      slashCommands.delete(text, useGuild ? guild.id : undefined)
 
-            if (useGuild) {
-                return `Slash command with the ID "${text}" has been deleted from the guild "${guild.id}".`
-            }
+      if (useGuild) {
+        return `Slash command with the ID "${text}" has been deleted from the guild "${guild.id}".`
+      }
 
-            return `Slash command with the ID "${text}" has been deleted. This may take up to 1 hour to be seen on all servers using your bot.`
-        }
-
-        let counter = 0
-        let allSlashCommands: string[] = []
-
-        if (global.size) {
-            global.forEach((cmd: ApplicationCommand) => {
-                if (cmd && cmd.name) {
-                    const newString = `${cmd.name}: ${cmd.id}\n`
-
-                    if (
-                        (allSlashCommands[counter] || []).length + newString.length <
-                        1024
-                    ) {
-                        allSlashCommands[counter] ??= ''
-                        allSlashCommands[counter] += newString
-                    } else {
-                        ++counter
-                        allSlashCommands[counter] ??= ''
-                        allSlashCommands[counter] += newString
-                    }
-                }
-            })
-        } else {
-            allSlashCommands.push('None')
-        }
-
-        const embed = new MessageEmbed().addField(
-            'How to delete a slash command:',
-            `${instance.getPrefix(guild)}slash <command-id>`
-        )
-
-        for (let a = 0; a < allSlashCommands.length; a++) {
-            embed.addField(
-                `Global slash commands:${a === 0 ? '' : ' (Continued)'}`,
-                allSlashCommands[a]
-            )
-        }
-
-        if (guild) {
-            const guildOnly = await slashCommands.get(guild.id)
-
-            counter = 0
-            let guildOnlyCommands: string[] = []
-
-            if (guildOnly.size) {
-                guildOnly.forEach((cmd: ApplicationCommand) => {
-                    if (cmd && cmd.name) {
-                        const newString = `${cmd.name}: ${cmd.id}\n`
-                        
-                        if (
-                            (guildOnlyCommands[counter] || []).length + newString.length <
-                            1024
-                        ) {
-                            guildOnlyCommands[counter] ??= ''
-                            guildOnlyCommands[counter] += newString
-                        }
-                    }
-                })
-            } else {
-                guildOnlyCommands[0] = 'None'
-            }
-
-            for (let a = 0; a < guildOnlyCommands.length; a++) {
-                embed.addField(
-                    `Guild slash commands:${a === 0 ? '' : ' (Continued)'}`,
-                    guildOnlyCommands[a]
-                )
-            }
-        }
-
-        if (instance.color) {
-            embed.setColor(instance.color)
-        }
-
-        return embed
+      return `Slash command with the ID "${text}" has been deleted. This may take up to 1 hour to be seen on all servers using your bot.`
     }
+
+    let counter = 0
+    let allSlashCommands: string[] = []
+
+    if (global.size) {
+      global.forEach((cmd: ApplicationCommand) => {
+        if (cmd && cmd.name) {
+          const newString = `${cmd.name}: ${cmd.id}\n`
+
+          if (
+            (allSlashCommands[counter] || []).length + newString.length <
+            1024
+          ) {
+            allSlashCommands[counter] ??= ''
+            allSlashCommands[counter] += newString
+          } else {
+            ++counter
+            allSlashCommands[counter] ??= ''
+            allSlashCommands[counter] += newString
+          }
+        }
+      })
+    } else {
+      allSlashCommands.push('None')
+    }
+
+    const embed = new MessageEmbed().addField(
+      'How to delete a slash command:',
+      `${instance.getPrefix(guild)}slash <command-id>`
+    )
+
+    for (let a = 0; a < allSlashCommands.length; a++) {
+      embed.addField(
+        `Global slash commands:${a === 0 ? '' : ' (Continued)'}`,
+        allSlashCommands[a]
+      )
+    }
+
+    if (guild) {
+      const guildOnly = await slashCommands.get(guild.id)
+
+      counter = 0
+      let guildOnlyCommands: string[] = []
+
+      if (guildOnly.size) {
+        guildOnly.forEach((cmd: ApplicationCommand) => {
+          if (cmd && cmd.name) {
+            const newString = `${cmd.name}: ${cmd.id}\n`
+
+            if (
+              (guildOnlyCommands[counter] || []).length + newString.length <
+              1024
+            ) {
+              guildOnlyCommands[counter] ??= ''
+              guildOnlyCommands[counter] += newString
+            }
+          }
+        })
+      } else {
+        guildOnlyCommands[0] = 'None'
+      }
+
+      for (let a = 0; a < guildOnlyCommands.length; a++) {
+        embed.addField(
+          `Guild slash commands:${a === 0 ? '' : ' (Continued)'}`,
+          guildOnlyCommands[a]
+        )
+      }
+    }
+
+    if (instance.color) {
+      embed.setColor(instance.color)
+    }
+
+    return embed
+  }
 } as ICommand
