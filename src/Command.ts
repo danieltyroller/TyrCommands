@@ -1,4 +1,10 @@
-import { Client, Guild, Message, MessageEmbed } from 'discord.js'
+import {
+  Client,
+  Guild,
+  Message,
+  MessageEmbed,
+  ApplicationCommandType
+} from 'discord.js'
 
 import TyrCommands from '.'
 import permissions from './permissions'
@@ -32,6 +38,7 @@ class Command {
   private _guildOnly = false
   private _testOnly = false
   private _slash: boolean | string = false
+  private _type: ApplicationCommandType
   private _requireRoles = false
   private _requiredChannels: Map<String, String[]> = new Map() // <GuildID-Command, Channel IDs>
 
@@ -57,6 +64,7 @@ class Command {
       guildOnly = false,
       testOnly = false,
       slash = false,
+      type = "CHAT_INPUT",
       requireRoles = false,
     }: ICommand
   ) {
@@ -79,6 +87,7 @@ class Command {
     this._callback = callback
     this._error = error
     this._slash = slash
+    this._type = type
     this._requireRoles = requireRoles
 
     if (this.cooldown && this.globalCooldown) {
@@ -488,6 +497,10 @@ class Command {
 
   public get slash(): boolean | string {
     return this._slash
+  }
+
+  public get type(): ApplicationCommandType {
+    return this._type
   }
 
   public get doesRequireRoles(): boolean {

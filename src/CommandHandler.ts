@@ -246,6 +246,7 @@ export default class CommandHandler {
       requiredPermissions,
       permissions,
       slash,
+      type,
       expectedArgs,
       expectedArgsTypes,
       minArgs,
@@ -382,12 +383,23 @@ export default class CommandHandler {
       }
 
       const slashCommands = instance.slashCommands
+
       if (testOnly) {
-        for (const id of instance.testServers) {
-          await slashCommands.create(names[0], description, options, id)
+        if (type === 'MESSAGE' || type === 'USER') {
+          for (const id of instance.testServers) {
+            await slashCommands.create(names[0], type, options, id)
+          }
+        } else {
+          for (const id of instance.testServers) {
+            await slashCommands.create(names[0], type, options, id, description)
+          }
         }
       } else {
-        await slashCommands.create(names[0], description, options)
+        if (type === 'MESSAGE' || type === 'USER') {
+          await slashCommands.create(names[0], type, options)
+        } else {
+          await slashCommands.create(names[0], type, options, description)
+        }
       }
     }
 

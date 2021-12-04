@@ -1,5 +1,6 @@
 import {
   ApplicationCommandOptionData,
+  ApplicationCommandType,
   Client,
   CommandInteraction,
   Guild,
@@ -160,7 +161,7 @@ export interface ICommand {
   names?: string[] | string
   aliases?: string[] | string
   category: string
-  description: string
+  description?: string
   callback?(obj: ICallbackObject): any
   error?(obj: IErrorObject): any
   minArgs?: number
@@ -178,6 +179,7 @@ export interface ICommand {
   guildOnly?: boolean
   testOnly?: boolean
   slash?: boolean | 'both'
+  type?: ApplicationCommandType
   options?: ApplicationCommandOptionData[]
   requireRoles?: boolean
 }

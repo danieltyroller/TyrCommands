@@ -30,9 +30,10 @@ class Command {
     _guildOnly = false;
     _testOnly = false;
     _slash = false;
+    _type;
     _requireRoles = false;
     _requiredChannels = new Map(); // <GuildID-Command, Channel IDs>
-    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, requireRoles = false, }) {
+    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, type = "CHAT_INPUT", requireRoles = false, }) {
         this.instance = instance;
         this.client = client;
         this._names = typeof names === 'string' ? [names] : names;
@@ -52,6 +53,7 @@ class Command {
         this._callback = callback;
         this._error = error;
         this._slash = slash;
+        this._type = type;
         this._requireRoles = requireRoles;
         if (this.cooldown && this.globalCooldown) {
             throw new Error(`Command "${names[0]}" has both a global and per-user cooldown. Commands can only have up to one of these properties.`);
@@ -355,6 +357,9 @@ class Command {
     }
     get slash() {
         return this._slash;
+    }
+    get type() {
+        return this._type;
     }
     get doesRequireRoles() {
         return this._requireRoles;

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const path_1 = __importDefault(require("path"));
 const get_all_files_1 = __importDefault(require("./get-all-files"));
-class SlashCommands {
+class AppCommands {
     _client;
     _instance;
     _commandChecks = new Map();
@@ -13,6 +13,7 @@ class SlashCommands {
         this._client = instance.client;
         this.setUp(listen, typeScript);
     }
+    // Set up an listen to App Commands
     async setUp(listen, typeScript = false) {
         // Do not pase in TS here because this should always compiled to JS
         for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'))) {
@@ -44,9 +45,10 @@ class SlashCommands {
                 });
             }
         };
+        // Listen if App Command were Executed
         if (listen) {
             this._client.on('interactionCreate', async (interaction) => {
-                if (!interaction.isCommand() || !interaction.isContextMenu()) {
+                if (!interaction.isCommand()) {
                     return;
                 }
                 const { user, commandName, options, guild, channelId } = interaction;
@@ -55,7 +57,7 @@ class SlashCommands {
                 const command = this._instance.commandHandler.getCommand(commandName);
                 if (!command) {
                     interaction.reply({
-                        content: this._instance.messageHandler.get(guild, 'INVALID_SLASH_COMMAND'),
+                        content: this._instance.messageHandler.get(guild, 'INVALID_APP_COMMAND'),
                         ephemeral: this._instance.ephemeral,
                     });
                     return;
@@ -75,12 +77,14 @@ class SlashCommands {
             });
         }
     }
+    // Get Application Commands
     getCommands(guildId) {
         if (guildId) {
             return this._client.guilds.cache.get(guildId)?.commands;
         }
         return this._client.application?.commands;
     }
+    // Get App Commands
     async get(guildId) {
         const commands = this.getCommands(guildId);
         if (commands) {
@@ -90,6 +94,7 @@ class SlashCommands {
         }
         return new Map();
     }
+    // Check if options changed on a App Command
     didOptionsChange(command, options) {
         return (command.options?.filter((opt, index) => {
             return (opt?.required !== options[index]?.required &&
@@ -97,59 +102,8 @@ class SlashCommands {
                 opt?.options?.length !== options.length);
         }).length !== 0);
     }
-    // public async create(
-    //   name: string,
-    //   description: string,
-    //   options: ApplicationCommandOptionData[],
-    //   guildId?: string
-    // ): Promise<ApplicationCommand<{}> | undefined> {
-    //   let commands
-    //   if (guildId) {
-    //     commands = this._client.guilds.cache.get(guildId)?.commands
-    //   } else {
-    //     commands = this._client.application?.commands
-    //   }
-    //   if (!commands) {
-    //     return
-    //   }
-    //   // @ts-ignore
-    //   await commands.fetch()
-    //   const cmd = commands.cache.find(
-    //     (cmd) => cmd.name === name
-    //   ) as ApplicationCommand
-    //   if (cmd) {
-    //     const optionsChanged = this.didOptionsChange(cmd, options)
-    //     if (
-    //       cmd.description !== description ||
-    //       cmd.options.length !== options.length ||
-    //       optionsChanged
-    //     ) {
-    //       console.log(
-    //         `TyrCommands > Updating${guildId ? ' guild' : ''
-    //         } slash command "${name}"`
-    //       )
-    //       return commands?.edit(cmd.id, {
-    //         name,
-    //         description,
-    //         options
-    //       })
-    //     }
-    //     return Promise.resolve(cmd)
-    //   }
-    //   if (commands) {
-    //     console.log(
-    //       `TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`
-    //     )
-    //     const newCommand = await commands.create({
-    //       name,
-    //       description,
-    //       options
-    //     })
-    //     return newCommand
-    //   }
-    //   return Promise.resolve(undefined)
-    // }
-    async create(name, type, options, guildId, description) {
+    // Creating or Updating App Command 
+    async create(name, description, type, options, guildId) {
         let commands;
         if (guildId) {
             commands = this._client.guilds.cache.get(guildId)?.commands;
@@ -169,49 +123,41 @@ class SlashCommands {
                 cmd.type !== type ||
                 cmd.options.length !== options.length ||
                 optionsChanged) {
-                console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} ${type} command "${name}"`);
+                console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} app command "${name}"`);
                 return commands?.edit(cmd.id, {
                     name,
+                    description,
                     type,
-                    options,
-                    description
+                    options
                 });
             }
             return Promise.resolve(cmd);
         }
         if (commands) {
-            console.log(`TyrCommands > Creating${guildId ? ' guild' : ''} ${type} command "${name}"`);
-            if (type === 'MESSAGE' || type === 'USER') {
-                const newCommand = await commands.create({
-                    name,
-                    type,
-                    options
-                });
-                return newCommand;
-            }
-            else {
-                const newCommand = await commands.create({
-                    name,
-                    type,
-                    options,
-                    description
-                });
-                return newCommand;
-            }
+            console.log(`TyrCommands > Creating${guildId ? ' guild' : ''} app command "${name}"`);
+            const newCommand = await commands.create({
+                name,
+                description,
+                type,
+                options
+            });
+            return newCommand;
         }
         return Promise.resolve(undefined);
     }
+    // Deleting App Command
     async delete(commandId, guildId) {
         const commands = this.getCommands(guildId);
         if (commands) {
             const cmd = commands.cache.get(commandId);
             if (cmd) {
-                console.log(`TyrCommands > Deleting${guildId ? ' guild' : ''} slash command "${cmd.name}"`);
+                console.log(`TyrCommands > Deleting${guildId ? ' guild' : ''} app command "${cmd.name}"`);
                 cmd.delete();
             }
         }
         return Promise.resolve(undefined);
     }
+    // Invoke App Commands
     async invokeCommand(interaction, commandName, options, args) {
         const command = this._instance.commandHandler.getCommand(commandName);
         if (!command || !command.callback) {
@@ -253,4 +199,4 @@ class SlashCommands {
         }
     }
 }
-module.exports = SlashCommands;
+module.exports = AppCommands;

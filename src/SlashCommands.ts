@@ -1,6 +1,7 @@
 import {
   ApplicationCommand,
   ApplicationCommandOptionData,
+  ApplicationCommandType,
   Channel,
   Client,
   CommandInteraction,
@@ -68,7 +69,7 @@ class SlashCommands {
 
     if (listen) {
       this._client.on('interactionCreate', async (interaction) => {
-        if (!interaction.isCommand()) {
+        if (!interaction.isCommand() && !interaction.isApplicationCommand()) {
           return
         }
 
@@ -156,11 +157,77 @@ class SlashCommands {
     )
   }
 
+  // public async create(
+  //   name: string,
+  //   description: string,
+  //   options: ApplicationCommandOptionData[],
+  //   guildId?: string
+  // ): Promise<ApplicationCommand<{}> | undefined> {
+  //   let commands
+
+  //   if (guildId) {
+  //     commands = this._client.guilds.cache.get(guildId)?.commands
+  //   } else {
+  //     commands = this._client.application?.commands
+  //   }
+
+  //   if (!commands) {
+  //     return
+  //   }
+
+  //   // @ts-ignore
+  //   await commands.fetch()
+
+  //   const cmd = commands.cache.find(
+  //     (cmd) => cmd.name === name
+  //   ) as ApplicationCommand
+
+  //   if (cmd) {
+  //     const optionsChanged = this.didOptionsChange(cmd, options)
+
+  //     if (
+  //       cmd.description !== description ||
+  //       cmd.options.length !== options.length ||
+  //       optionsChanged
+  //     ) {
+  //       console.log(
+  //         `TyrCommands > Updating${guildId ? ' guild' : ''
+  //         } slash command "${name}"`
+  //       )
+
+  //       return commands?.edit(cmd.id, {
+  //         name,
+  //         description,
+  //         options
+  //       })
+  //     }
+
+  //     return Promise.resolve(cmd)
+  //   }
+
+  //   if (commands) {
+  //     console.log(
+  //       `TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`
+  //     )
+
+  //     const newCommand = await commands.create({
+  //       name,
+  //       description,
+  //       options
+  //     })
+
+  //     return newCommand
+  //   }
+
+  //   return Promise.resolve(undefined)
+  // }
+
   public async create(
     name: string,
-    description: string,
+    type: ApplicationCommandType,
     options: ApplicationCommandOptionData[],
-    guildId?: string
+    guildId?: string,
+    description?: string
   ): Promise<ApplicationCommand<{}> | undefined> {
     let commands
 
@@ -183,39 +250,46 @@ class SlashCommands {
 
     if (cmd) {
       const optionsChanged = this.didOptionsChange(cmd, options)
-
       if (
         cmd.description !== description ||
+        cmd.type !== type ||
         cmd.options.length !== options.length ||
         optionsChanged
       ) {
         console.log(
           `TyrCommands > Updating${guildId ? ' guild' : ''
-          } slash command "${name}"`
+          } ${type} command "${name}"`
         )
-
         return commands?.edit(cmd.id, {
           name,
-          description,
-          options
+          type,
+          options,
+          description
         })
       }
-
       return Promise.resolve(cmd)
     }
 
     if (commands) {
       console.log(
-        `TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`
+        `TyrCommands > Creating${guildId ? ' guild' : ''} ${type} command "${name}"`
       )
-
-      const newCommand = await commands.create({
-        name,
-        description,
-        options
-      })
-
-      return newCommand
+      if (type === 'MESSAGE' || type === 'USER') {
+        const newCommand = await commands.create({
+          name,
+          type,
+          options
+        })
+        return newCommand
+      } else {
+        const newCommand = await commands.create({
+          name,
+          type,
+          options,
+          description
+        })
+        return newCommand
+      }
     }
 
     return Promise.resolve(undefined)
