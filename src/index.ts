@@ -170,7 +170,7 @@ export default class TyrCommands extends EventEmitter {
     console.log('TyrCommands > Your bot is now running.')
   }
 
-  public setMongoPath(mongoPath: string | undefined): TyrCommands {
+  public setMongoPath(): TyrCommands {
     console.warn(
       'TyrCommands > .setMongoPath() no longer works as expected. Please pass in your mongo URI as a "mongoUri" property using the options object. For more information: https://tyrcommands.gitbook.io/tyrcommands/-MlFbHlJOkfMSgIyI_xq/databases/mongodb'
     )
