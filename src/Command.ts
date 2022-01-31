@@ -1,4 +1,4 @@
-import { Client, Guild, Message, MessageEmbed } from 'discord.js'
+import { Client, Guild, Message } from 'discord.js'
 
 import TyrCommands from '.'
 import permissions from './permissions'
