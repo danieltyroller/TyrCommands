@@ -216,7 +216,7 @@ class Command {
     return this._testOnly
   }
 
-  public verifyCooldown(cooldown: string, type: string) {
+  public verifyCooldown(cooldown: string, type: string): void  {
     if (typeof cooldown !== 'string') {
       throw new Error(
         `Invalid ${type} format! Must be a string, examples: "10s" "5m" etc.`
@@ -300,7 +300,7 @@ class Command {
     return this._ownerOnly
   }
 
-  public verifyDatabaseCooldowns() {
+  public verifyDatabaseCooldowns(): void  {
     if (
       this._cooldownChar === 'd' ||
       this._cooldownChar === 'h' ||
@@ -320,7 +320,7 @@ class Command {
    * Decrements per-user and global cooldowns
    * Deletes expired cooldowns
    */
-  public decrementCooldowns(guildId?: string, userId?: string) {
+  public decrementCooldowns(guildId?: string, userId?: string): void  {
     for (const map of [this._userCooldowns, this._guildCooldowns]) {
       if (typeof map !== 'string') {
         map.forEach((value, key) => {
@@ -368,7 +368,7 @@ class Command {
     }
   }
 
-  public setCooldown(guildId: string, userId: string, customCooldown?: number) {
+  public setCooldown(guildId: string, userId: string, customCooldown?: number): void  {
     const target = this.globalCooldown || this.cooldown
 
     if (target) {
@@ -435,7 +435,7 @@ class Command {
     return result.substring(0, result.length - 1)
   }
 
-  public addRequiredRole(guildId: string, roleId: string) {
+  public addRequiredRole(guildId: string, roleId: string): void  {
     const array = this._requiredRoles?.get(guildId) || []
     if (!array.includes(roleId)) {
       array.push(roleId)
@@ -443,7 +443,7 @@ class Command {
     }
   }
 
-  public removeRequiredRole(guildId: string, roleId: string) {
+  public removeRequiredRole(guildId: string, roleId: string): void  {
     if (roleId === 'none') {
       this._requiredRoles?.delete(guildId)
       return
@@ -465,20 +465,20 @@ class Command {
     return this._callback
   }
 
-  public disable(guildId: string) {
+  public disable(guildId: string): void  {
     if (!this._disabled.includes(guildId)) {
       this._disabled.push(guildId)
     }
   }
 
-  public enable(guildId: string) {
+  public enable(guildId: string): void  {
     const index = this._disabled.indexOf(guildId)
     if (index >= 0) {
       this._disabled.splice(index, 1)
     }
   }
 
-  public isDisabled(guildId: string) {
+  public isDisabled(guildId: string): boolean  {
     return this._disabled.includes(guildId)
   }
 
@@ -502,7 +502,7 @@ class Command {
     guild: Guild | null,
     command: string,
     channels: String[]
-  ) {
+  ): void  {
     if (!guild) {
       return
     }

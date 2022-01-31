@@ -17,7 +17,7 @@ const /**
      * @param message The message to react to
      * @param reactions A list of reactions to add
      */
-  addReactions = (message: Message | PartialMessage, reactions: string[]) => {
+  addReactions = (message: Message | PartialMessage, reactions: string[]): void  => {
     const emoji = reactions.shift()
 
     if (emoji) {
@@ -87,7 +87,7 @@ class ReactionHandler {
   /**
    * @returns If the user is allowed to interact with this help menu
    */
-  canUserInteract = () => {
+  canUserInteract = (): boolean  => {
     // Check if the title of the embed is correct
     const displayName = this.instance.displayName
       ? this.instance.displayName + ' '
@@ -122,7 +122,7 @@ class ReactionHandler {
   /**
    * Invoked when the user returns to the main menu
    */
-  returnToMainMenu = () => {
+  returnToMainMenu = (): void  => {
     const { embed: newEmbed, reactions } = getFirstEmbed(
       this.message,
       this.instance
@@ -188,7 +188,7 @@ class ReactionHandler {
     command: ICommand,
     instance: TyrCommands,
     guild: Guild | null
-  ) => {
+  ): string  => {
     const { description, syntax, names } = command
     if (names === undefined) {
       console.error(
@@ -222,7 +222,7 @@ class ReactionHandler {
   /**
    * Generates the actual menu
    */
-  generateMenu = (page: number, maxPages: number) => {
+  generateMenu = (page: number, maxPages: number): void  => {
     const { length, commands, commandsString, category } = this.getCommands()
 
     const hasMultiplePages = length > this.pageLimit
@@ -288,7 +288,7 @@ class ReactionHandler {
   /**
    * Handles the input from the emoji
    */
-  handleEmoji = () => {
+  handleEmoji = (): void  => {
     if (this.emojiName === this.door) {
       this.returnToMainMenu()
       return

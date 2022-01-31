@@ -13,7 +13,7 @@ export = (
   reply: Function,
   args: string[],
   name: string
-) => {
+): boolean  => {
   const { minArgs, maxArgs, expectedArgs, error } = command
   const prefix = instance.getPrefix(guild).toLowerCase()
 

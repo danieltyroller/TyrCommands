@@ -11,7 +11,7 @@ export = (
   member: GuildMember,
   user: User,
   reply: Function
-) => {
+): boolean  => {
   const { cooldown, globalCooldown, error } = command
 
   if ((cooldown || globalCooldown) && user) {

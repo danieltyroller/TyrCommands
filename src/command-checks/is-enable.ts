@@ -14,7 +14,7 @@ export = (
   member: GuildMember,
   user: User,
   reply: Function
-) => {
+): boolean  => {
   if (!guild || !command.isDisabled(guild.id)) {
     return true
   }

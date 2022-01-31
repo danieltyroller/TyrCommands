@@ -1,6 +1,6 @@
 import { Client } from 'discord.js'
 
-export default (client: Client) => {
+export default (client: Client): void  => {
   client.on('messageCreate', (message) => {
     client.emit('messageUpsert', message)
   })

@@ -10,7 +10,7 @@ export = (
   member: GuildMember,
   user: User,
   reply: Function
-) => {
+): boolean  => {
   const { ownerOnly } = command
 
   if (!ownerOnly) {
