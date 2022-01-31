@@ -2,7 +2,6 @@ import { Guild } from 'discord.js'
 
 import TyrCommands from '.'
 import languageSchema from './models/languages'
-import Events from './enums/Events'
 
 const defualtMessages = require('../messages.json')
 
