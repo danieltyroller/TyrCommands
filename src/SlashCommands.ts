@@ -27,7 +27,7 @@ class SlashCommands {
     this.setUp(listen, typeScript)
   }
 
-  private async setUp(listen: boolean, typeScript = false) {
+  private async setUp(listen: boolean) {
     // Do not pase in TS here because this should always compiled to JS
     for (const [file, fileName] of getAllFiles(
       path.join(__dirname, 'command-checks')
