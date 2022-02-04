@@ -10,7 +10,7 @@ export = {
 
   minArgs: 2,
   maxArgs: 2,
-  expectedArgs: '<command> <none-or-roleId',
+  expectedArgs: '<command> <none-oder-role>',
 
   cooldown: '2s',
 

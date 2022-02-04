@@ -24,7 +24,7 @@ export default class TyrCommands extends EventEmitter {
   private _mongoConnection: Connection | null
   private _displayName: string
   private _prefixes: { [name: string]: string }
-  private _categories: Map<String, String | GuildEmoji>
+  private _categories: Map<String, String>
   private _hiddenCategories: string[]
   private _color: string
   private _commandHandler: CommandHandler
@@ -51,17 +51,16 @@ export default class TyrCommands extends EventEmitter {
   public setDefaultPrefix(defaultPrefix: string): TyrCommands
   public getPrefix(guild: Guild | null): string
   public setPrefix(guild: Guild | null, prefix: string): TyrCommands
-  public get categories(): Map<String, String | GuildEmoji>
+  public get categories(): Map<String, String>
   public get hiddenCategories(): string[]
   public get color(): string
   public setColor(color: string): TyrCommands
-  public getEmoji(category: string): string
-  public getCategory(emoji: string): string
+  public getThumbnail(category: string): string
+  public getCategory(thumbnail: string): string
   public setCategorySettings(
     category: string | Array<Record<string, any>>,
-    emoji?: string
+    thumbnail?: string
   ): TyrCommands
-  public isEmojiUsed(emoji: string): boolean
   public get commandHandler(): CommandHandler
   public get mongoConnection(): Connection | null
   public isDBConnected(): boolean
@@ -92,6 +91,7 @@ interface OptionsWithS {
   defaultLanguage?: string
   ignoreBots?: boolean
   dbOptions?: {}
+  mysqlOptions?: mysqlOptionsObject
   testServers?: string | string[]
   botOwners?: string | string[]
   disabledDefaultCommands?: string | string[]
@@ -112,7 +112,7 @@ interface OptionsWithoutS {
   delErrMsgCooldown?: number
   defaultLanguage?: string
   ignoreBots?: boolean
-  dbOptions?: {}
+  dbOptions?: mysqlOptionsObject
   testServers?: string | string[]
   botOwners?: string | string[]
   disabledDefaultCommands?: string | string[]
@@ -195,9 +195,8 @@ export interface ISlashCommand {
 
 export interface ICategorySetting {
   name: string
-  emoji: string
+  thumbnail: string
   hidden?: boolean
-  customEmoji?: boolean
 }
 
 export enum CommandErrors {

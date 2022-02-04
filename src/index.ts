@@ -1,4 +1,4 @@
-import { Client, ColorResolvable, Guild, GuildEmoji } from 'discord.js'
+import { Client, ColorResolvable, Guild } from 'discord.js'
 import { Connection } from 'mongoose'
 import { EventEmitter } from 'events'
 
@@ -12,7 +12,6 @@ import Events from './enums/Events'
 
 import CommandHandler from './CommandHandler'
 
-
 export default class TyrCommands extends EventEmitter {
   private _client: Client
   private _defaultPrefix = '!'
@@ -21,7 +20,7 @@ export default class TyrCommands extends EventEmitter {
   private _mongoConnection: Connection | null = null
   private _displayName = ''
   private _prefixes: { [name: string]: string } = {}
-  private _categories: Map<String, String | GuildEmoji> = new Map() // <Category Name, Emoji Icon>
+  private _categories: Map<String, string> = new Map() // <Category Name, Thumbnail>
   private _hiddenCategories: string[] = []
   private _color: ColorResolvable | null = null
   private _commandHandler: CommandHandler | null = null
@@ -152,11 +151,11 @@ export default class TyrCommands extends EventEmitter {
     this.setCategorySettings([
       {
         name: 'Einstellungen',
-        emoji: '⚙',
+        thumbnail: ''
       },
       {
         name: 'Help',
-        emoji: '❓',
+        thumbnail: ''
       },
     ])
 
@@ -214,7 +213,7 @@ export default class TyrCommands extends EventEmitter {
     return this
   }
 
-  public get categories(): Map<String, String | GuildEmoji> {
+  public get categories(): Map<String, string> {
     return this._categories
   }
 
@@ -231,52 +230,15 @@ export default class TyrCommands extends EventEmitter {
     return this
   }
 
-  public getEmoji(category: string): string {
-    const emoji = this._categories.get(category) || ''
-    if (typeof emoji === 'object') {
-      // @ts-ignore
-      return `<:${emoji.name}:${emoji.id}>`
-    }
-
-    return emoji
-  }
-
-  public getCategory(emoji: string | null): string {
-    let result = ''
-
-    this._categories.forEach((value, key) => {
-      // == is intended here
-      if (emoji == value) {
-        // @ts-ignore
-        result = key
-        return false
-      }
-    })
-
-    return result
+  public getThumbnail(category: string) {
+    const thumbnail = this._categories.get(category)
+    return thumbnail
   }
 
   public setCategorySettings(category: ICategorySetting[]): TyrCommands {
-    for (let { emoji, name, hidden, customEmoji } of category) {
-      if (emoji.startsWith('<:') && emoji.endsWith('>')) {
-        customEmoji = true
-        emoji = emoji.split(':')[2]
-        emoji = emoji.substring(0, emoji.length - 1)
-      }
+    for (let { thumbnail, name, hidden } of category) {
 
-      let targetEmoji: string | GuildEmoji | undefined = emoji
-
-      if (customEmoji) {
-        targetEmoji = this._client.emojis.cache.get(emoji)
-      }
-
-      if (this.isEmojiUsed(targetEmoji)) {
-        console.warn(
-          `TyrCommands > The emoji "${targetEmoji}" for category "${name}" is already used.`
-        )
-      }
-
-      this._categories.set(name, targetEmoji || this.categories.get(name) || '')
+      this._categories.set(name, thumbnail || this.categories.get(name) || '')
 
       if (hidden) {
         this._hiddenCategories.push(name)
@@ -284,22 +246,6 @@ export default class TyrCommands extends EventEmitter {
     }
 
     return this
-  }
-
-  private isEmojiUsed(emoji: string | GuildEmoji | undefined): boolean {
-    if (!emoji) {
-      return false
-    }
-
-    let isUsed = false
-
-    this._categories.forEach((value) => {
-      if (value === emoji) {
-        isUsed = true
-      }
-    })
-
-    return isUsed
   }
 
   public get commandHandler(): CommandHandler {

@@ -1,8 +1,8 @@
 import { Client, Guild, Message, MessageEmbed } from 'discord.js'
 import fs from 'fs'
+import TyrCommands from '.'
 import path from 'path'
 
-import TyrCommands from '.'
 import Command from './Command'
 import getAllFiles from './get-all-files'
 import disabledCommands from './models/disabled-commands'
@@ -246,7 +246,6 @@ export default class CommandHandler {
       requiredPermissions,
       permissions,
       slash,
-      type,
       expectedArgs,
       expectedArgsTypes,
       minArgs,
@@ -383,23 +382,12 @@ export default class CommandHandler {
       }
 
       const slashCommands = instance.slashCommands
-
       if (testOnly) {
-        if (type === 'MESSAGE' || type === 'USER') {
-          for (const id of instance.testServers) {
-            await slashCommands.create(names[0], type, options, id)
-          }
-        } else {
-          for (const id of instance.testServers) {
-            await slashCommands.create(names[0], type, options, id, description)
-          }
+        for (const id of instance.testServers) {
+          await slashCommands.create(names[0], description, options, id)
         }
       } else {
-        if (type === 'MESSAGE' || type === 'USER') {
-          await slashCommands.create(names[0], type, options)
-        } else {
-          await slashCommands.create(names[0], type, options, description)
-        }
+        await slashCommands.create(names[0], description, options)
       }
     }
 

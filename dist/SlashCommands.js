@@ -14,7 +14,7 @@ class SlashCommands {
         this.setUp(listen, typeScript);
     }
     async setUp(listen, typeScript = false) {
-        // Do not pase in TS here because this should always compiled to JS
+        // Do not pass in TS here because this should always compiled to JS
         for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'))) {
             this._commandChecks.set(fileName, require(file));
         }
@@ -27,7 +27,7 @@ class SlashCommands {
             if (typeof reply === 'string') {
                 return interaction.reply({
                     content: reply,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
             else {
@@ -40,13 +40,13 @@ class SlashCommands {
                 }
                 return interaction.reply({
                     embeds,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
         };
         if (listen) {
             this._client.on('interactionCreate', async (interaction) => {
-                if (!interaction.isCommand() || !interaction.isContextMenu()) {
+                if (!interaction.isCommand()) {
                     return;
                 }
                 const { user, commandName, options, guild, channelId } = interaction;
@@ -64,7 +64,7 @@ class SlashCommands {
                 options.data.forEach(({ value }) => {
                     args.push(String(value));
                 });
-                for (const [checkName, checkFunction] of this._commandChecks.entries()) {
+                for (const [checkName, checkFunction,] of this._commandChecks.entries()) {
                     if (!(await checkFunction(guild, command, this._instance, member, user, (reply) => {
                         return replyFromCheck(reply, interaction);
                     }, args, commandName, channel))) {
@@ -97,59 +97,7 @@ class SlashCommands {
                 opt?.options?.length !== options.length);
         }).length !== 0);
     }
-    // public async create(
-    //   name: string,
-    //   description: string,
-    //   options: ApplicationCommandOptionData[],
-    //   guildId?: string
-    // ): Promise<ApplicationCommand<{}> | undefined> {
-    //   let commands
-    //   if (guildId) {
-    //     commands = this._client.guilds.cache.get(guildId)?.commands
-    //   } else {
-    //     commands = this._client.application?.commands
-    //   }
-    //   if (!commands) {
-    //     return
-    //   }
-    //   // @ts-ignore
-    //   await commands.fetch()
-    //   const cmd = commands.cache.find(
-    //     (cmd) => cmd.name === name
-    //   ) as ApplicationCommand
-    //   if (cmd) {
-    //     const optionsChanged = this.didOptionsChange(cmd, options)
-    //     if (
-    //       cmd.description !== description ||
-    //       cmd.options.length !== options.length ||
-    //       optionsChanged
-    //     ) {
-    //       console.log(
-    //         `TyrCommands > Updating${guildId ? ' guild' : ''
-    //         } slash command "${name}"`
-    //       )
-    //       return commands?.edit(cmd.id, {
-    //         name,
-    //         description,
-    //         options
-    //       })
-    //     }
-    //     return Promise.resolve(cmd)
-    //   }
-    //   if (commands) {
-    //     console.log(
-    //       `TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`
-    //     )
-    //     const newCommand = await commands.create({
-    //       name,
-    //       description,
-    //       options
-    //     })
-    //     return newCommand
-    //   }
-    //   return Promise.resolve(undefined)
-    // }
-    async create(name, type, options, guildId, description) {
+    async create(name, description, options, guildId) {
         let commands;
         if (guildId) {
             commands = this._client.guilds.cache.get(guildId)?.commands;
@@ -166,38 +114,25 @@ class SlashCommands {
         if (cmd) {
             const optionsChanged = this.didOptionsChange(cmd, options);
             if (cmd.description !== description ||
-                cmd.type !== type ||
                 cmd.options.length !== options.length ||
                 optionsChanged) {
-                console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} ${type} command "${name}"`);
+                console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} slash command "${name}"`);
                 return commands?.edit(cmd.id, {
                     name,
-                    type,
+                    description,
                     options,
-                    description
                 });
             }
             return Promise.resolve(cmd);
         }
         if (commands) {
-            console.log(`TyrCommands > Creating${guildId ? ' guild' : ''} ${type} command "${name}"`);
-            if (type === 'MESSAGE' || type === 'USER') {
-                const newCommand = await commands.create({
-                    name,
-                    type,
-                    options
-                });
-                return newCommand;
-            }
-            else {
-                const newCommand = await commands.create({
-                    name,
-                    type,
-                    options,
-                    description
-                });
-                return newCommand;
-            }
+            console.log(`TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`);
+            const newCommand = await commands.create({
+                name,
+                description,
+                options,
+            });
+            return newCommand;
         }
         return Promise.resolve(undefined);
     }
@@ -224,10 +159,11 @@ class SlashCommands {
             args,
             text: args.join(' '),
             client: this._client,
+            prefix: this._instance.getPrefix(interaction.guild),
             instance: this._instance,
             interaction,
             options,
-            user: interaction.user
+            user: interaction.user,
         });
         if (reply) {
             if (typeof reply === 'string') {

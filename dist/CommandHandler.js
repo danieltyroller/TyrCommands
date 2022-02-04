@@ -158,7 +158,7 @@ class CommandHandler {
         if (configuration.default && Object.keys(configuration).length === 1) {
             configuration = configuration.default;
         }
-        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, type, expectedArgs, expectedArgsTypes, minArgs, options = [], } = configuration;
+        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, expectedArgs, expectedArgsTypes, minArgs, options = [], } = configuration;
         const { testOnly } = configuration;
         if (run || execute) {
             throw new Error(`Command located at "${file}" has either a "run" or "execute" function. Please rename that function to "callback".`);
@@ -243,24 +243,12 @@ class CommandHandler {
             }
             const slashCommands = instance.slashCommands;
             if (testOnly) {
-                if (type === 'MESSAGE' || type === 'USER') {
-                    for (const id of instance.testServers) {
-                        await slashCommands.create(names[0], type, options, id);
-                    }
-                }
-                else {
-                    for (const id of instance.testServers) {
-                        await slashCommands.create(names[0], type, options, id, description);
-                    }
+                for (const id of instance.testServers) {
+                    await slashCommands.create(names[0], description, options, id);
                 }
             }
             else {
-                if (type === 'MESSAGE' || type === 'USER') {
-                    await slashCommands.create(names[0], type, options);
-                }
-                else {
-                    await slashCommands.create(names[0], type, options, description);
-                }
+                await slashCommands.create(names[0], description, options);
             }
         }
         if (callback) {

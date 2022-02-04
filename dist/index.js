@@ -38,7 +38,7 @@ class TyrCommands extends events_1.EventEmitter {
     _mongoConnection = null;
     _displayName = '';
     _prefixes = {};
-    _categories = new Map(); // <Category Name, Emoji Icon>
+    _categories = new Map(); // <Category Name, Thumbnail>
     _hiddenCategories = [];
     _color = null;
     _commandHandler = null;
@@ -116,11 +116,11 @@ class TyrCommands extends events_1.EventEmitter {
         this.setCategorySettings([
             {
                 name: 'Einstellungen',
-                emoji: '⚙',
+                thumbnail: ''
             },
             {
                 name: 'Help',
-                emoji: '❓',
+                thumbnail: ''
             },
         ]);
         this._featureHandler = new FeatureHandler_1.default(client, this, this._featuresDir, typeScript);
@@ -172,58 +172,18 @@ class TyrCommands extends events_1.EventEmitter {
         this._color = color;
         return this;
     }
-    getEmoji(category) {
-        const emoji = this._categories.get(category) || '';
-        if (typeof emoji === 'object') {
-            // @ts-ignore
-            return `<:${emoji.name}:${emoji.id}>`;
-        }
-        return emoji;
-    }
-    getCategory(emoji) {
-        let result = '';
-        this._categories.forEach((value, key) => {
-            // == is intended here
-            if (emoji == value) {
-                // @ts-ignore
-                result = key;
-                return false;
-            }
-        });
-        return result;
+    getThumbnail(category) {
+        const thumbnail = this._categories.get(category);
+        return thumbnail;
     }
     setCategorySettings(category) {
-        for (let { emoji, name, hidden, customEmoji } of category) {
-            if (emoji.startsWith('<:') && emoji.endsWith('>')) {
-                customEmoji = true;
-                emoji = emoji.split(':')[2];
-                emoji = emoji.substring(0, emoji.length - 1);
-            }
-            let targetEmoji = emoji;
-            if (customEmoji) {
-                targetEmoji = this._client.emojis.cache.get(emoji);
-            }
-            if (this.isEmojiUsed(targetEmoji)) {
-                console.warn(`TyrCommands > The emoji "${targetEmoji}" for category "${name}" is already used.`);
-            }
-            this._categories.set(name, targetEmoji || this.categories.get(name) || '');
+        for (let { thumbnail, name, hidden } of category) {
+            this._categories.set(name, thumbnail || this.categories.get(name) || '');
             if (hidden) {
                 this._hiddenCategories.push(name);
             }
         }
         return this;
-    }
-    isEmojiUsed(emoji) {
-        if (!emoji) {
-            return false;
-        }
-        let isUsed = false;
-        this._categories.forEach((value) => {
-            if (value === emoji) {
-                isUsed = true;
-            }
-        });
-        return isUsed;
     }
     get commandHandler() {
         return this._commandHandler;
