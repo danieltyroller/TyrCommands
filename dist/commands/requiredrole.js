@@ -10,7 +10,7 @@ module.exports = {
     aliases: ['requiredroles', 'requirerole', 'requireroles'],
     minArgs: 2,
     maxArgs: 2,
-    expectedArgs: '<command> <none-or-roleId',
+    expectedArgs: '<command> <none-oder-role>',
     cooldown: '2s',
     slash: 'both',
     callback: async (options) => {

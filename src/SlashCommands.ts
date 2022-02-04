@@ -9,8 +9,8 @@ import {
 } from 'discord.js'
 import path from 'path'
 
-import TyrCommands from '.'
 import getAllFiles from './get-all-files'
+import TyrCommands from '.'
 
 class SlashCommands {
   private _client: Client
@@ -24,8 +24,13 @@ class SlashCommands {
     this.setUp(listen, typeScript)
   }
 
+<<<<<<< HEAD
+  private async setUp(listen: boolean, typeScript = false) {
+    // Do not pass in TS here because this should always compiled to JS
+=======
   private async setUp(listen: boolean) {
     // Do not pase in TS here because this should always compiled to JS
+>>>>>>> 24f3ef0846467c01b74c96b9e4aeca14c42bba64
     for (const [file, fileName] of getAllFiles(
       path.join(__dirname, 'command-checks')
     )) {
@@ -45,7 +50,7 @@ class SlashCommands {
       if (typeof reply === 'string') {
         return interaction.reply({
           content: reply,
-          ephemeral: this._instance.ephemeral
+          ephemeral: this._instance.ephemeral,
         })
       } else {
         let embeds = []
@@ -58,7 +63,7 @@ class SlashCommands {
 
         return interaction.reply({
           embeds,
-          ephemeral: this._instance.ephemeral
+          ephemeral: this._instance.ephemeral,
         })
       }
     }
@@ -93,7 +98,7 @@ class SlashCommands {
 
         for (const [
           checkName,
-          checkFunction
+          checkFunction,
         ] of this._commandChecks.entries()) {
           if (
             !(await checkFunction(
@@ -194,7 +199,7 @@ class SlashCommands {
         return commands?.edit(cmd.id, {
           name,
           description,
-          options
+          options,
         })
       }
 
@@ -203,13 +208,14 @@ class SlashCommands {
 
     if (commands) {
       console.log(
-        `TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`
+        `TyrCommands > Creating${guildId ? ' guild' : ''
+        } slash command "${name}"`
       )
 
       const newCommand = await commands.create({
         name,
         description,
-        options
+        options,
       })
 
       return newCommand
@@ -227,7 +233,8 @@ class SlashCommands {
       const cmd = commands.cache.get(commandId)
       if (cmd) {
         console.log(
-          `TyrCommands > Deleting${guildId ? ' guild' : ''} slash command "${cmd.name}"`
+          `TyrCommands > Deleting${guildId ? ' guild' : ''} slash command "${cmd.name
+          }"`
         )
 
         cmd.delete()
@@ -256,10 +263,11 @@ class SlashCommands {
       args,
       text: args.join(' '),
       client: this._client,
+      prefix: this._instance.getPrefix(interaction.guild),
       instance: this._instance,
       interaction,
       options,
-      user: interaction.user
+      user: interaction.user,
     })
 
     if (reply) {

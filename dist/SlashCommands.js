@@ -14,7 +14,7 @@ class SlashCommands {
         this.setUp(listen, typeScript);
     }
     async setUp(listen, typeScript = false) {
-        // Do not pase in TS here because this should always compiled to JS
+        // Do not pass in TS here because this should always compiled to JS
         for (const [file, fileName] of (0, get_all_files_1.default)(path_1.default.join(__dirname, 'command-checks'))) {
             this._commandChecks.set(fileName, require(file));
         }
@@ -27,7 +27,7 @@ class SlashCommands {
             if (typeof reply === 'string') {
                 return interaction.reply({
                     content: reply,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
             else {
@@ -40,7 +40,7 @@ class SlashCommands {
                 }
                 return interaction.reply({
                     embeds,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
         };
@@ -64,7 +64,7 @@ class SlashCommands {
                 options.data.forEach(({ value }) => {
                     args.push(String(value));
                 });
-                for (const [checkName, checkFunction] of this._commandChecks.entries()) {
+                for (const [checkName, checkFunction,] of this._commandChecks.entries()) {
                     if (!(await checkFunction(guild, command, this._instance, member, user, (reply) => {
                         return replyFromCheck(reply, interaction);
                     }, args, commandName, channel))) {
@@ -120,7 +120,7 @@ class SlashCommands {
                 return commands?.edit(cmd.id, {
                     name,
                     description,
-                    options
+                    options,
                 });
             }
             return Promise.resolve(cmd);
@@ -130,7 +130,7 @@ class SlashCommands {
             const newCommand = await commands.create({
                 name,
                 description,
-                options
+                options,
             });
             return newCommand;
         }
@@ -159,10 +159,11 @@ class SlashCommands {
             args,
             text: args.join(' '),
             client: this._client,
+            prefix: this._instance.getPrefix(interaction.guild),
             instance: this._instance,
             interaction,
             options,
-            user: interaction.user
+            user: interaction.user,
         });
         if (reply) {
             if (typeof reply === 'string') {

@@ -1,8 +1,8 @@
 import { Client, Guild, Message, MessageEmbed } from 'discord.js'
 import fs from 'fs'
+import TyrCommands from '.'
 import path from 'path'
 
-import TyrCommands from '.'
 import Command from './Command'
 import getAllFiles from './get-all-files'
 import disabledCommands from './models/disabled-commands'
