@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Client,
   Guild,
@@ -5,6 +6,9 @@ import {
   MessageEmbed,
   ApplicationCommandType
 } from 'discord.js'
+=======
+import { Client, Guild, Message } from 'discord.js'
+>>>>>>> 24f3ef0846467c01b74c96b9e4aeca14c42bba64
 
 import TyrCommands from '.'
 import permissions from './permissions'
@@ -16,8 +20,8 @@ class Command {
   private client: Client
   private _names: string[] = []
   private _category = ''
-  private _minArgs: number = 0
-  private _maxArgs: number = -1
+  private _minArgs = 0
+  private _maxArgs = -1
   private _syntaxError?: { [key: string]: string }
   private _expectedArgs?: string
   private _description?: string

@@ -8,7 +8,6 @@
     "compile": "tsc && node index.js",
     "dev": "nodemon -e ts --exec \"npm run compile\""
   },
-  "keywords": [],
   "author": "Daniel Tyroller",
   "license": "ISC",
   "dependencies": {
