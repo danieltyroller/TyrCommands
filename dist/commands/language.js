@@ -5,16 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const languages_1 = __importDefault(require("../models/languages"));
 const Events_1 = __importDefault(require("../enums/Events"));
 module.exports = {
-    description: 'Zeigt die Sprache für diesen Discord-Server an oder legt sie fest',
-    category: 'Einstellungen',
+    description: 'Displays or sets the language for this Discord server',
+    category: 'Configuration',
     aliases: ['lang'],
     permissions: ['ADMINISTRATOR'],
     maxArgs: 1,
     expectedArgs: '[language]',
+    expectedArgsTypes: ['STRING'],
     cooldown: '2s',
     slash: 'both',
-    callback: async (options) => {
-        const { channel, text, instance } = options;
+    callback: async ({ channel, text, instance }) => {
         const { guild } = channel;
         if (!guild) {
             return;

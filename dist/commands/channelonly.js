@@ -4,31 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const channel_commands_1 = __importDefault(require("../models/channel-commands"));
 module.exports = {
-    description: 'Lässt einen Befehl nur in einigen Kanälen funktionieren.',
-    category: 'Einstellungen',
+    description: 'Makes a command only work in some channels.',
+    category: 'Configuration',
     permissions: ['ADMINISTRATOR'],
     minArgs: 1,
     maxArgs: 2,
-    expectedArgs: '<Befehlsname> [Kanal-Tag]',
+    expectedArgs: '<Command name> [Channel tag]',
+    expectedArgsTypes: ['STRING', 'CHANNEL'],
     cooldown: '2s',
     guildOnly: true,
     slash: 'both',
-    options: [
-        {
-            name: 'befehl',
-            description: 'Der Befehlsname',
-            type: 'STRING',
-            required: true
-        },
-        {
-            name: 'kanal',
-            description: 'Das Tag des Kanals',
-            type: 'CHANNEL',
-            required: false
-        }
-    ],
-    callback: async (options) => {
-        const { message, channel, args, instance, interaction } = options;
+    callback: async ({ message, channel, args, instance, interaction }) => {
         const { guild } = channel;
         const { messageHandler } = instance;
         let commandName = (args.shift() || '').toLowerCase();
@@ -38,17 +24,17 @@ module.exports = {
         }
         if (!command || !command.names) {
             return messageHandler.get(guild, 'UNKNOWN_COMMAND', {
-                COMMAND: commandName,
+                COMMAND: commandName
             });
         }
         commandName = command.names[0];
         if (args.length === 0) {
             const results = await channel_commands_1.default.deleteMany({
                 guildId: guild?.id,
-                command: commandName,
+                command: commandName
             });
             // @ts-ignore
-            if (results.deletedCount === 0) {
+            if (results.n === 0) {
                 return messageHandler.get(guild, 'NOT_CHANNEL_COMMAND');
             }
             command.setRequiredChannels(guild, commandName, []);
@@ -66,23 +52,23 @@ module.exports = {
         }
         const results = await channel_commands_1.default.findOneAndUpdate({
             guildId: guild?.id,
-            command: commandName,
+            command: commandName
         }, {
             guildId: guild?.id,
             command: commandName,
             $addToSet: {
-                channels,
-            },
+                channels
+            }
         }, {
             upsert: true,
-            new: true,
+            new: true
         });
         if (results) {
             command.setRequiredChannels(guild, commandName, results.channels);
         }
         return messageHandler.get(guild, 'NOW_CHANNEL_COMMAND', {
             COMMAND: commandName,
-            CHANNELS: args.join(' '),
+            CHANNELS: args.join(' ')
         });
-    },
+    }
 };

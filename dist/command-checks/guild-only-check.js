@@ -1,7 +1,7 @@
 "use strict";
-module.exports = (guild, command, instance, member, user, reply) => {
+module.exports = (guild, command, instance, reply) => {
     const { guildOnly } = command;
-    // If this command doesn't car if it's in a guild or not then just simple return true
+    // If this command doesn't care if it's in a guild or not then just simply return true
     if (!guildOnly) {
         return true;
     }
