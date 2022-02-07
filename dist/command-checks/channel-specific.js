@@ -1,5 +1,5 @@
 "use strict";
-module.exports = (guild, command, instance, member, user, reply, args, name, channel) => {
+module.exports = (guild, command, instance, reply, channel) => {
     if (!guild || !command || !command.names) {
         return true;
     }
@@ -12,7 +12,7 @@ module.exports = (guild, command, instance, member, user, reply, args, name, cha
         }
         channelList = channelList.substring(0, channelList.length - 2);
         reply(instance.messageHandler.get(guild, 'ALLOWED_CHANNELS', {
-            CHANNELS: channelList,
+            CHANNELS: channelList
         })).then((message) => {
             if (!message) {
                 return;

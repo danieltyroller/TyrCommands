@@ -4,14 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const prefixes_1 = __importDefault(require("../models/prefixes"));
 module.exports = {
-    description: 'Zeigt das Prefix für das aktuelle Guild an oder legt es fest',
-    category: 'Einstellungen',
+    description: 'Displays or sets the prefix for the current guild',
+    category: 'Configuration',
     maxArgs: 1,
     expectedArgs: '[prefix]',
     cooldown: '2s',
     slash: 'both',
-    callback: async (options) => {
-        const { channel, args, text, instance, member } = options;
+    callback: async ({ channel, args, text, instance, member }) => {
         const { guild } = channel;
         if (args.length === 0) {
             return instance.messageHandler.get(guild, 'CURRENT_PREFIX', {
@@ -28,12 +27,12 @@ module.exports = {
                 return instance.messageHandler.get(guild, 'NO_DATABASE_FOUND');
             }
             await prefixes_1.default.findOneAndUpdate({
-                _id: id,
+                _id: id
             }, {
                 _id: id,
                 prefix: text
             }, {
-                upsert: true,
+                upsert: true
             });
             instance.setPrefix(guild, text);
             return instance.messageHandler.get(guild, 'SET_PREFIX', {

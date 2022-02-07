@@ -17,30 +17,30 @@ export default class MessageHandler {
 
   constructor(instance: TyrCommands, messagePath: string) {
     this._instance = instance
-      ; (async () => {
-        this._messages = messagePath ? await import(messagePath) : defualtMessages
+    ;(async () => {
+      this._messages = messagePath ? await import(messagePath) : defualtMessages
 
-        for (const messageId of Object.keys(this._messages)) {
-          for (const language of Object.keys(this._messages[messageId])) {
-            this._languages.push(language.toLowerCase())
-          }
+      for (const messageId of Object.keys(this._messages)) {
+        for (const language of Object.keys(this._messages[messageId])) {
+          this._languages.push(language.toLowerCase())
         }
+      }
 
-        if (!this._languages.includes(instance.defaultLanguage)) {
-          throw new Error(
-            `The current default language defined is not supported.`
-          )
+      if (!this._languages.includes(instance.defaultLanguage)) {
+        throw new Error(
+          `The current default language defined is not supported.`
+        )
+      }
+
+      if (instance.isDBConnected()) {
+        const results = await languageSchema.find()
+
+        // @ts-ignore
+        for (const { _id: guildId, language } of results) {
+          this._guildLanguages.set(guildId, language)
         }
-
-        if (instance.isDBConnected()) {
-          const results = await languageSchema.find()
-
-          // @ts-ignore
-          for (const { _id: guildId, language } of results) {
-            this._guildLanguages.set(guildId, language)
-          }
-        }
-      })()
+      }
+    })()
   }
 
   public languages(): string[] {
@@ -73,7 +73,7 @@ export default class MessageHandler {
     const translations = this._messages[messageId]
     if (!translations) {
       console.error(
-        `TyrCommands > Could not find the correct message to send for "${messageId}"`
+        `WOKCommands > Could not find the correct message to send for "${messageId}"`
       )
       return 'Could not find the correct message to send. Please report this to the bot developer.'
     }
@@ -99,7 +99,7 @@ export default class MessageHandler {
     const items = this._messages[embedId]
     if (!items) {
       console.error(
-        `TyrCommands > Could not find the correct item to send for "${embedId}" -> "${itemId}"`
+        `WOKCommands > Could not find the correct item to send for "${embedId}" -> "${itemId}"`
       )
       return 'Could not find the correct message to send. Please report this to the bot developer.'
     }
@@ -107,7 +107,7 @@ export default class MessageHandler {
     const translations = items[itemId]
     if (!translations) {
       console.error(
-        `TyrCommands > Could not find the correct message to send for "${embedId}"`
+        `WOKCommands > Could not find the correct message to send for "${embedId}"`
       )
       return 'Could not find the correct message to send. Please report this to the bot developer.'
     }

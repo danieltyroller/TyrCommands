@@ -1,6 +1,5 @@
 import {
   ApplicationCommandOptionData,
-  ApplicationCommandType,
   Client,
   CommandInteraction,
   Guild,
@@ -12,10 +11,9 @@ import {
   User,
 } from 'discord.js'
 import { EventEmitter } from 'events'
-
 import TyrCommands from './src'
 
-export default class TyrCommands extends EventEmitter {
+export default class WOKCommands extends EventEmitter {
   private _client: Client
   private _defaultPrefix: string
   private _commandsDir: string
@@ -24,7 +22,7 @@ export default class TyrCommands extends EventEmitter {
   private _mongoConnection: Connection | null
   private _displayName: string
   private _prefixes: { [name: string]: string }
-  private _categories: Map<String, String>
+  private _categories: Map<String, String | GuildEmoji>
   private _hiddenCategories: string[]
   private _color: string
   private _commandHandler: CommandHandler
@@ -51,16 +49,17 @@ export default class TyrCommands extends EventEmitter {
   public setDefaultPrefix(defaultPrefix: string): TyrCommands
   public getPrefix(guild: Guild | null): string
   public setPrefix(guild: Guild | null, prefix: string): TyrCommands
-  public get categories(): Map<String, String>
+  public get categories(): Map<String, String | GuildEmoji>
   public get hiddenCategories(): string[]
   public get color(): string
   public setColor(color: string): TyrCommands
-  public getThumbnail(category: string): string
-  public getCategory(thumbnail: string): string
+  public getEmoji(category: string): string
+  public getCategory(emoji: string): string
   public setCategorySettings(
     category: string | Array<Record<string, any>>,
-    thumbnail?: string
+    emoji?: string
   ): TyrCommands
+  public isEmojiUsed(emoji: string): boolean
   public get commandHandler(): CommandHandler
   public get mongoConnection(): Connection | null
   public isDBConnected(): boolean
@@ -91,7 +90,6 @@ interface OptionsWithS {
   defaultLanguage?: string
   ignoreBots?: boolean
   dbOptions?: {}
-  mysqlOptions?: mysqlOptionsObject
   testServers?: string | string[]
   botOwners?: string | string[]
   disabledDefaultCommands?: string | string[]
@@ -112,7 +110,7 @@ interface OptionsWithoutS {
   delErrMsgCooldown?: number
   defaultLanguage?: string
   ignoreBots?: boolean
-  dbOptions?: mysqlOptionsObject
+  dbOptions?: {}
   testServers?: string | string[]
   botOwners?: string | string[]
   disabledDefaultCommands?: string | string[]
@@ -161,7 +159,7 @@ export interface ICommand {
   names?: string[] | string
   aliases?: string[] | string
   category: string
-  description?: string
+  description: string
   callback?(obj: ICallbackObject): any
   error?(obj: IErrorObject): any
   minArgs?: number
@@ -179,7 +177,6 @@ export interface ICommand {
   guildOnly?: boolean
   testOnly?: boolean
   slash?: boolean | 'both'
-  type?: ApplicationCommandType
   options?: ApplicationCommandOptionData[]
   requireRoles?: boolean
 }
@@ -195,8 +192,9 @@ export interface ISlashCommand {
 
 export interface ICategorySetting {
   name: string
-  thumbnail: string
+  emoji: string
   hidden?: boolean
+  customEmoji?: boolean
 }
 
 export enum CommandErrors {

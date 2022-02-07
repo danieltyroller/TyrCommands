@@ -1,8 +1,8 @@
 "use strict";
 const discord_js_1 = require("discord.js");
 module.exports = {
-    description: 'Ermöglicht den Bot-Entwicklern, vorhandene Slash-Befehle zu verwalten',
-    category: 'Einstellungen',
+    description: 'Allows the bot developers to manage existing slash commands',
+    category: 'Configuration',
     permissions: ['ADMINISTRATOR'],
     maxArgs: 1,
     expectedArgs: '[command-id]',
@@ -37,8 +37,7 @@ module.exports = {
             global.forEach((cmd) => {
                 if (cmd && cmd.name) {
                     const newString = `${cmd.name}: ${cmd.id}\n`;
-                    if ((allSlashCommands[counter] || []).length + newString.length <
-                        1024) {
+                    if ((allSlashCommands[counter] || []).length + newString.length < 1024) {
                         allSlashCommands[counter] ??= '';
                         allSlashCommands[counter] += newString;
                     }
@@ -65,8 +64,7 @@ module.exports = {
                 guildOnly.forEach((cmd) => {
                     if (cmd && cmd.name) {
                         const newString = `${cmd.name}: ${cmd.id}\n`;
-                        if ((guildOnlyCommands[counter] || []).length + newString.length <
-                            1024) {
+                        if ((guildOnlyCommands[counter] || []).length + newString.length < 1024) {
                             guildOnlyCommands[counter] ??= '';
                             guildOnlyCommands[counter] += newString;
                         }

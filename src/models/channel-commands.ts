@@ -1,17 +1,17 @@
 import mongoose, { Schema } from 'mongoose'
 
 const reqString = {
-  type: String,
-  required: true,
+   type: String,
+   required: true
 }
 
 const schema = new Schema({
-  guildId: reqString,
-  command: reqString,
-  channels: {
-    type: [String],
-    required: true,
-  },
+   guildId: reqString,
+   command: reqString,
+   channels: {
+      type: [String],
+      required: true
+   }
 })
 
 const name = 'tyrcommands-channel-commands'

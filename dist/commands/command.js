@@ -4,40 +4,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const disabled_commands_1 = __importDefault(require("../models/disabled-commands"));
 module.exports = {
-    description: 'Aktiviert oder deaktiviert einen Befehl für diese Guild',
-    category: 'Einstellungen',
+    description: 'Enables or disables a command for this guild',
+    category: 'Configuration',
     permissions: ['ADMINISTRATOR'],
     minArgs: 2,
     maxArgs: 2,
-    expectedArgs: '<"aktivieren" oder "deaktivieren"> <Befehlsname>',
+    expectedArgs: '<"enable" or "disable"> <Command Name>',
     cooldown: '2s',
     slash: 'both',
     options: [
         {
-            name: 'aktionen',
-            description: 'Entweder "aktivieren" oder "deaktivieren"',
+            name: 'action',
+            description: 'Either "enable" or "disable"',
             required: true,
             type: 'STRING',
             choices: [
                 {
-                    name: 'Aktivieren',
-                    value: 'aktivieren'
+                    name: 'Enable',
+                    value: 'enable'
                 },
-                {
-                    name: 'Deaktivieren',
-                    value: 'deaktivieren'
-                }
+                { name: 'Disable', value: 'disable' }
             ]
         },
         {
-            name: 'befehl',
-            description: 'Der Name des Befehls',
+            name: 'command',
+            description: 'The name of the command',
             required: true,
             type: 'STRING'
         }
     ],
-    callback: async (options) => {
-        const { channel, args, instance } = options;
+    callback: async ({ channel, args, instance }) => {
         const { messageHandler } = instance;
         const { guild } = channel;
         const newState = args.shift()?.toLowerCase();
@@ -48,7 +44,7 @@ module.exports = {
         if (!instance.isDBConnected()) {
             return messageHandler.get(guild, 'NO_DATABASE_FOUND');
         }
-        if (newState !== 'aktivieren' && newState !== 'deaktivieren') {
+        if (newState !== 'enable' && newState !== 'disable') {
             return messageHandler.get(guild, 'ENABLE_DISABLE_STATE');
         }
         const command = instance.commandHandler.getCommand(name);
@@ -58,17 +54,17 @@ module.exports = {
                 return messageHandler.get(guild, 'CANNOT_DISABLE_THIS_COMMAND');
             }
             const isDisabled = command.isDisabled(guild.id);
-            if (newState === 'aktivieren') {
+            if (newState === 'enable') {
                 if (!isDisabled) {
                     return messageHandler.get(guild, 'COMMAND_ALREADY_ENABLED');
                 }
                 await disabled_commands_1.default.deleteOne({
-                    guildid: guild.id,
+                    guildId: guild.id,
                     command: mainCommand,
                 });
                 command.enable(guild.id);
                 return messageHandler.get(guild, 'COMMAND_NOW_ENABLED', {
-                    COMMAND: mainCommand
+                    COMMAND: mainCommand,
                 });
             }
             if (isDisabled) {
@@ -80,11 +76,11 @@ module.exports = {
             }).save();
             command.disable(guild.id);
             return messageHandler.get(guild, 'COMMAND_NOW_DISABLED', {
-                COMMAND: mainCommand
+                COMMAND: mainCommand,
             });
         }
         return messageHandler.get(guild, 'UNKNOWN_COMMAND', {
-            COMMAND: name
+            COMMAND: name,
         });
     }
 };

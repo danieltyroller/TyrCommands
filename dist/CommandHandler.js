@@ -6,23 +6,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const Command_1 = __importDefault(require("./Command"));
-const get_all_files_1 = __importDefault(require("./get-all-files"));
-const disabled_commands_1 = __importDefault(require("./models/disabled-commands"));
-const required_roles_1 = __importDefault(require("./models/required-roles"));
-const cooldown_1 = __importDefault(require("./models/cooldown"));
-const channel_commands_1 = __importDefault(require("./models/channel-commands"));
-const permissions_1 = require("./permissions");
 const CommandErrors_1 = __importDefault(require("./enums/CommandErrors"));
 const Events_1 = __importDefault(require("./enums/Events"));
+const get_all_files_1 = __importDefault(require("./get-all-files"));
+const channel_commands_1 = __importDefault(require("./models/channel-commands"));
+const cooldown_1 = __importDefault(require("./models/cooldown"));
+const disabled_commands_1 = __importDefault(require("./models/disabled-commands"));
+const required_roles_1 = __importDefault(require("./models/required-roles"));
+const permissions_1 = require("./permissions");
 const replyFromCheck = async (reply, message) => {
     if (!reply) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             resolve('No reply provided.');
         });
     }
     if (typeof reply === 'string') {
         return message.reply({
-            content: reply,
+            content: reply
         });
     }
     else {
@@ -34,7 +34,7 @@ const replyFromCheck = async (reply, message) => {
             embeds.push(reply);
         }
         return message.reply({
-            embeds,
+            embeds
         });
     }
 };
@@ -64,7 +64,7 @@ class CommandHandler {
             }
             const files = (0, get_all_files_1.default)(dir, typeScript ? '.ts' : '');
             const amount = files.length;
-            console.log(`TyrCommands > Loaded ${amount} command${amount === 1 ? '' : 's'}.`);
+            console.log(`WOKCommands > Loaded ${amount} command${amount === 1 ? '' : 's'}.`);
             for (const [file, fileName] of files) {
                 await this.registerCommand(instance, client, file, fileName);
             }
@@ -78,7 +78,7 @@ class CommandHandler {
                 if (instance.isDBConnected()) {
                     const results = await cooldown_1.default.find({
                         name: command.names[0],
-                        type: command.globalCooldown ? 'global' : 'per-user',
+                        type: command.globalCooldown ? 'global' : 'per-user'
                     });
                     for (const { _id, cooldown } of results) {
                         const [name, guildId, userId] = _id.split('-');
@@ -115,7 +115,7 @@ class CommandHandler {
                     return;
                 }
                 const { member, author: user, channel } = message;
-                for (const [checkName, checkFunction,] of this._commandChecks.entries()) {
+                for (const [checkName, checkFunction] of this._commandChecks.entries()) {
                     if (!(await checkFunction(guild, command, instance, member, user, (reply) => {
                         return replyFromCheck(reply, message);
                     }, args, name, channel))) {
@@ -132,8 +132,8 @@ class CommandHandler {
                             command,
                             message,
                             info: {
-                                error: e,
-                            },
+                                error: e
+                            }
                         });
                     }
                     else {
@@ -145,7 +145,7 @@ class CommandHandler {
             });
         }
         const decrementCountdown = () => {
-            this._commands.forEach((command) => {
+            this._commands.forEach(command => {
                 command.decrementCooldowns();
             });
             setTimeout(decrementCountdown, 1000);
@@ -158,7 +158,7 @@ class CommandHandler {
         if (configuration.default && Object.keys(configuration).length === 1) {
             configuration = configuration.default;
         }
-        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, expectedArgs, expectedArgsTypes, minArgs, options = [], } = configuration;
+        const { name = fileName, category, commands, aliases, init, callback, run, execute, error, description, requiredPermissions, permissions, slash, expectedArgs, expectedArgsTypes, minArgs, options = [] } = configuration;
         const { testOnly } = configuration;
         if (run || execute) {
             throw new Error(`Command located at "${file}" has either a "run" or "execute" function. Please rename that function to "callback".`);
@@ -180,7 +180,7 @@ class CommandHandler {
             for (const perm of requiredPermissions || permissions) {
                 if (!permissions_1.permissionList.includes(perm)) {
                     throw new Error(`Command located at "${file}" has an invalid permission node: "${perm}". Permissions must be all upper case and be one of the following: "${[
-                        ...permissions_1.permissionList,
+                        ...permissions_1.permissionList
                     ].join('", "')}"`);
                 }
             }
@@ -193,51 +193,47 @@ class CommandHandler {
             missing.push('Description');
         }
         if (missing.length && instance.showWarns) {
-            console.warn(`TyrCommands > Command "${names[0]}" does not have the following properties: ${missing}.`);
+            console.warn(`WOKCommands > Command "${names[0]}" does not have the following properties: ${missing}.`);
         }
         if (testOnly && !instance.testServers.length) {
-            console.warn(`TyrCommands > Command "${names[0]}" has "testOnly" set to true, but no test servers are defined.`);
+            console.warn(`WOKCommands > Command "${names[0]}" has "testOnly" set to true, but no test servers are defined.`);
         }
         if (slash !== undefined && typeof slash !== 'boolean' && slash !== 'both') {
-            throw new Error(`TyrCommands > Command "${names[0]}" has a "slash" property that is not boolean "true" or string "both".`);
+            throw new Error(`WOKCommands > Command "${names[0]}" has a "slash" property that is not boolean "true" or string "both".`);
         }
         if (!slash && options.length) {
-            throw new Error(`TyrCommands > Command "${names[0]}" has an "options" property but is not a slash command.`);
+            throw new Error(`WOKCommands > Command "${names[0]}" has an "options" property but is not a slash command.`);
         }
         if (slash && !(builtIn && !instance.isDBConnected())) {
             if (!description) {
-                throw new Error(`TyrCommands > A description is required for command "${names[0]}" because it is a slash command.`);
+                throw new Error(`WOKCommands > A description is required for command "${names[0]}" because it is a slash command.`);
             }
             if (minArgs !== undefined && !expectedArgs) {
-                throw new Error(`TyrCommands > Command "${names[0]}" has "minArgs" property defined without "expectedArgs" property as a slash command.`);
+                throw new Error(`WOKCommands > Command "${names[0]}" has "minArgs" property defined without "expectedArgs" property as a slash command.`);
             }
             if (options.length) {
                 for (const key in options) {
                     const name = options[key].name;
                     let lowerCase = name.toLowerCase();
                     if (name !== lowerCase && instance.showWarns) {
-                        console.log(`TyrCommands > Command "${names[0]}" has an option of "${name}". All option names must be lower case for slash commands. TyrCommands will modify this for you.`);
+                        console.log(`WOKCommands > Command "${names[0]}" has an option of "${name}". All option names must be lower case for slash commands. WOKCommands will modify this for you.`);
                     }
                     if (lowerCase.match(/\s/g)) {
                         lowerCase = lowerCase.replace(/\s/g, '_');
-                        console.log(`TyrCommands > Command "${names[0]}" has an option of "${name}" with a white space in it. It is a best practice for option names to only be one word. TyrCommands will modify this for you.`);
+                        console.log(`WOKCommands > Command "${names[0]}" has an option of "${name}" with a white space in it. It is a best practice for option names to only be one word. WOKCommands will modify this for you.`);
                     }
                     options[key].name = lowerCase;
                 }
             }
             else if (expectedArgs) {
-                const split = expectedArgs
-                    .substring(1, expectedArgs.length - 1)
-                    .split(/[>\]] [<\[]/);
+                const split = expectedArgs.substring(1, expectedArgs.length - 1).split(/[>\]] [<\[]/);
                 for (let a = 0; a < split.length; ++a) {
                     const item = split[a];
                     options.push({
                         name: item.replace(/ /g, '-').toLowerCase(),
                         description: item,
-                        type: expectedArgsTypes && expectedArgsTypes.length >= a
-                            ? expectedArgsTypes[a]
-                            : 'STRING',
-                        required: a < minArgs,
+                        type: expectedArgsTypes && expectedArgsTypes.length >= a ? expectedArgsTypes[a] : 'STRING',
+                        required: a < minArgs
                     });
                 }
             }
@@ -265,7 +261,7 @@ class CommandHandler {
     get commands() {
         const results = [];
         const added = [];
-        this._commands.forEach(({ names, category = '', description = '', expectedArgs = '', hidden = false, testOnly = false, }) => {
+        this._commands.forEach(({ names, category = '', description = '', expectedArgs = '', hidden = false, testOnly = false }) => {
             if (!added.includes(names[0])) {
                 results.push({
                     names: [...names],
@@ -273,7 +269,7 @@ class CommandHandler {
                     description,
                     syntax: expectedArgs,
                     hidden,
-                    testOnly,
+                    testOnly
                 });
                 added.push(names[0]);
             }
@@ -296,7 +292,7 @@ class CommandHandler {
         return this._commands.get(name);
     }
     getICommand(name) {
-        return this.commands.find((command) => command.names?.includes(name));
+        return this.commands.find(command => command.names?.includes(name));
     }
     async fetchDisabledCommands() {
         const results = await disabled_commands_1.default.find({});

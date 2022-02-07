@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const required_roles_1 = __importDefault(require("../models/required-roles"));
 module.exports = {
-    description: 'Gibt an, welche Rolle jeder Befehl erfordert.',
-    category: 'Einstellungen',
+    description: 'Specifies what role each command requires.',
+    category: 'Configuration',
     permissions: ['ADMINISTRATOR'],
     aliases: ['requiredroles', 'requirerole', 'requireroles'],
     minArgs: 2,
@@ -30,7 +30,7 @@ module.exports = {
                 command.removeRequiredRole(guild.id, roleId);
                 await required_roles_1.default.deleteOne({
                     guildId: guild.id,
-                    command: command.names[0],
+                    command: command.names[0]
                 });
                 return instance.messageHandler.get(guild, 'REMOVE_ALL_REQUIRED_ROLES', {
                     COMMAND: command.names[0]
@@ -51,11 +51,11 @@ module.exports = {
             });
             return instance.messageHandler.get(guild, 'ADDED_REQUIRED_ROLE', {
                 ROLE: roleId,
-                COMMAND: command.names[0],
+                COMMAND: command.names[0]
             });
         }
         return instance.messageHandler.get(guild, 'UNKNOWN_COMMAND', {
-            COMMAND: name,
+            COMMAND: name
         });
     }
 };
