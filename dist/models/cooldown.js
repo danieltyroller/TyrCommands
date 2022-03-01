@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -21,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 const mongoose_1 = __importStar(require("mongoose"));
 const reqString = {
     type: String,
-    required: true
+    required: true,
 };
 const schema = new mongoose_1.Schema({
     // Command-GuildID or Command-GuildID-UserID
@@ -30,8 +34,8 @@ const schema = new mongoose_1.Schema({
     type: reqString,
     cooldown: {
         type: Number,
-        required: true
-    }
+        required: true,
+    },
 });
-const name = 'tyrcommands-cooldowns';
+const name = 'TyrCommands-cooldowns';
 module.exports = mongoose_1.default.models[name] || mongoose_1.default.model(name, schema, name);

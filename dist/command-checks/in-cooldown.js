@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const CommandErrors_1 = __importDefault(require("../enums/CommandErrors"));
-module.exports = (guild, command, instance, user, reply) => {
+module.exports = (guild, command, instance, member, user, reply) => {
     const { cooldown, globalCooldown, error } = command;
     if ((cooldown || globalCooldown) && user) {
         const guildId = guild ? guild.id : 'dm';
@@ -15,13 +15,13 @@ module.exports = (guild, command, instance, user, reply) => {
                     command,
                     message: null,
                     info: {
-                        timeLeft
-                    }
+                        timeLeft,
+                    },
                 });
             }
             else {
                 reply(instance.messageHandler.get(guild, 'COOLDOWN', {
-                    COOLDOWN: timeLeft
+                    COOLDOWN: timeLeft,
                 })).then((message) => {
                     if (!message) {
                         return;

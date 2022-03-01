@@ -3,13 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const CommandErrors_1 = __importDefault(require("../enums/CommandErrors"));
-module.exports = (guild, command, instance, reply, args, name) => {
+module.exports = (guild, command, instance, member, user, reply, args, name) => {
     const { minArgs, maxArgs, expectedArgs, error } = command;
     const prefix = instance.getPrefix(guild).toLowerCase();
-    if ((minArgs !== undefined && args.length < minArgs) || (maxArgs !== undefined && maxArgs !== -1 && args.length > maxArgs)) {
+    if ((minArgs !== undefined && args.length < minArgs) ||
+        (maxArgs !== undefined && maxArgs !== -1 && args.length > maxArgs)) {
         const syntaxError = command.syntaxError || {};
         const { messageHandler } = instance;
-        let errorMsg = syntaxError[messageHandler.getLanguage(guild)] || instance.messageHandler.get(guild, 'SYNTAX_ERROR');
+        let errorMsg = syntaxError[messageHandler.getLanguage(guild)] ||
+            instance.messageHandler.get(guild, 'SYNTAX_ERROR');
         // Replace {PREFIX} with the actual prefix
         if (errorMsg) {
             errorMsg = errorMsg.replace(/{PREFIX}/g, prefix);
@@ -28,8 +30,8 @@ module.exports = (guild, command, instance, reply, args, name) => {
                     minArgs,
                     maxArgs,
                     length: args.length,
-                    errorMsg
-                }
+                    errorMsg,
+                },
             });
         }
         else {

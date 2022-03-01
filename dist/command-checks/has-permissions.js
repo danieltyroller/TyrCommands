@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const CommandErrors_1 = __importDefault(require("../enums/CommandErrors"));
-module.exports = (guild, command, instance, member, reply) => {
+module.exports = (guild, command, instance, member, user, reply) => {
     if (!guild || !member) {
         return true;
     }
@@ -14,12 +14,12 @@ module.exports = (guild, command, instance, member, reply) => {
             if (error) {
                 error({
                     error: CommandErrors_1.default.MISSING_PERMISSIONS,
-                    command
+                    command,
                 });
             }
             else {
                 reply(instance.messageHandler.get(guild, 'MISSING_PERMISSION', {
-                    PERM: perm
+                    PERM: perm,
                 })).then((message) => {
                     if (!message) {
                         return;

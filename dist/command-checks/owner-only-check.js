@@ -1,5 +1,5 @@
 "use strict";
-module.exports = (guild, command, instance, user, reply) => {
+module.exports = (guild, command, instance, member, user, reply) => {
     const { ownerOnly } = command;
     if (!ownerOnly) {
         return true;

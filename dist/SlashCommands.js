@@ -20,14 +20,14 @@ class SlashCommands {
         }
         const replyFromCheck = async (reply, interaction) => {
             if (!reply) {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     resolve('No reply provided.');
                 });
             }
             if (typeof reply === 'string') {
                 return interaction.reply({
                     content: reply,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
             else {
@@ -40,7 +40,7 @@ class SlashCommands {
                 }
                 return interaction.reply({
                     embeds,
-                    ephemeral: this._instance.ephemeral
+                    ephemeral: this._instance.ephemeral,
                 });
             }
         };
@@ -56,7 +56,7 @@ class SlashCommands {
                 if (!command) {
                     interaction.reply({
                         content: this._instance.messageHandler.get(guild, 'INVALID_SLASH_COMMAND'),
-                        ephemeral: this._instance.ephemeral
+                        ephemeral: this._instance.ephemeral,
                     });
                     return;
                 }
@@ -64,7 +64,7 @@ class SlashCommands {
                 options.data.forEach(({ value }) => {
                     args.push(String(value));
                 });
-                for (const [checkName, checkFunction] of this._commandChecks.entries()) {
+                for (const [checkName, checkFunction,] of this._commandChecks.entries()) {
                     if (!(await checkFunction(guild, command, this._instance, member, user, (reply) => {
                         return replyFromCheck(reply, interaction);
                     }, args, commandName, channel))) {
@@ -92,7 +92,9 @@ class SlashCommands {
     }
     didOptionsChange(command, options) {
         return (command.options?.filter((opt, index) => {
-            return opt?.required !== options[index]?.required && opt?.name !== options[index]?.name && opt?.options?.length !== options.length;
+            return (opt?.required !== options[index]?.required &&
+                opt?.name !== options[index]?.name &&
+                opt?.options?.length !== options.length);
         }).length !== 0);
     }
     async create(name, description, options, guildId) {
@@ -108,25 +110,27 @@ class SlashCommands {
         }
         // @ts-ignore
         await commands.fetch();
-        const cmd = commands.cache.find(cmd => cmd.name === name);
+        const cmd = commands.cache.find((cmd) => cmd.name === name);
         if (cmd) {
             const optionsChanged = this.didOptionsChange(cmd, options);
-            if (cmd.description !== description || cmd.options.length !== options.length || optionsChanged) {
-                console.log(`WOKCommands > Updating${guildId ? ' guild' : ''} slash command "${name}"`);
+            if (cmd.description !== description ||
+                cmd.options.length !== options.length ||
+                optionsChanged) {
+                console.log(`TyrCommands > Updating${guildId ? ' guild' : ''} slash command "${name}"`);
                 return commands?.edit(cmd.id, {
                     name,
                     description,
-                    options
+                    options,
                 });
             }
             return Promise.resolve(cmd);
         }
         if (commands) {
-            console.log(`WOKCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`);
+            console.log(`TyrCommands > Creating${guildId ? ' guild' : ''} slash command "${name}"`);
             const newCommand = await commands.create({
                 name,
                 description,
-                options
+                options,
             });
             return newCommand;
         }
@@ -137,7 +141,7 @@ class SlashCommands {
         if (commands) {
             const cmd = commands.cache.get(commandId);
             if (cmd) {
-                console.log(`WOKCommands > Deleting${guildId ? ' guild' : ''} slash command "${cmd.name}"`);
+                console.log(`TyrCommands > Deleting${guildId ? ' guild' : ''} slash command "${cmd.name}"`);
                 cmd.delete();
             }
         }
@@ -149,22 +153,21 @@ class SlashCommands {
             return;
         }
         const reply = await command.callback({
-            interaction,
+            member: interaction.member,
+            guild: interaction.guild,
             channel: interaction.channel,
             args,
             text: args.join(' '),
             client: this._client,
-            prefix: this._instance.getPrefix(interaction.guild),
             instance: this._instance,
+            interaction,
+            options,
             user: interaction.user,
-            member: interaction.member,
-            guild: interaction.guild,
-            options
         });
         if (reply) {
             if (typeof reply === 'string') {
                 interaction.reply({
-                    content: reply
+                    content: reply,
                 });
             }
             else if (typeof reply === 'object') {

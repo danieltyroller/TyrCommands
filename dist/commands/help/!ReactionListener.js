@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addReactions = void 0;
 const _get_first_embed_1 = __importDefault(require("./!get-first-embed"));
 const /**
-    * Recursively adds reactions to the message
-    * @param message The message to react to
-    * @param reactions A list of reactions to add
-    */ addReactions = (message, reactions) => {
+   * Recursively adds reactions to the message
+   * @param message The message to react to
+   * @param reactions A list of reactions to add
+   */ addReactions = (message, reactions) => {
     const emoji = reactions.shift();
     if (emoji) {
         message.react(emoji);
@@ -56,15 +56,19 @@ class ReactionHandler {
      * @returns If the bot has access to remove reactions from the help menu
      */
     canBotRemoveReaction = () => {
-        return this.message.channel.type !== 'DM' && this.message.member?.permissions.has('MANAGE_MESSAGES');
+        return (this.message.channel.type !== 'DM' &&
+            this.message.member?.permissions.has('MANAGE_MESSAGES'));
     };
     /**
      * @returns If the user is allowed to interact with this help menu
      */
     canUserInteract = () => {
         // Check if the title of the embed is correct
-        const displayName = this.instance.displayName ? this.instance.displayName + ' ' : '';
-        const isSameTitle = this.embed.title === `${displayName}${this.instance.messageHandler.getEmbed(this.guild, 'HELP_MENU', 'TITLE')}`;
+        const displayName = this.instance.displayName
+            ? this.instance.displayName + ' '
+            : '';
+        const isSameTitle = this.embed.title ===
+            `${displayName}${this.instance.messageHandler.getEmbed(this.guild, 'HELP_MENU', 'TITLE')}`;
         if (!isSameTitle) {
             return false;
         }
@@ -126,13 +130,13 @@ class ReactionHandler {
             length: commands.length,
             commands,
             commandsString,
-            category
+            category,
         };
     };
     static getHelp = (command, instance, guild) => {
         const { description, syntax, names } = command;
         if (names === undefined) {
-            console.error('WOKCommands > A command does not have a name assigned to it.');
+            console.error('TyrCommands > A command does not have a name assigned to it.');
             return '';
         }
         const mainName = typeof names === 'string' ? names : names.shift();
