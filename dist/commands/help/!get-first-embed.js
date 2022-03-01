@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const getFirstEmbed = (message, instance) => {
     const { guild, member } = message;
-    const { commandHandler: { commands }, messageHandler } = instance;
+    const { commandHandler: { commands }, messageHandler, } = instance;
     const embed = new discord_js_1.MessageEmbed()
         .setTitle(`${instance.displayName} ${messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE')}`)
         .setDescription(messageHandler.getEmbed(guild, 'HELP_MENU', 'SELECT_A_CATEGORY'))
@@ -14,7 +14,9 @@ const getFirstEmbed = (message, instance) => {
     const categories = {};
     const isAdmin = member && member.permissions.has('ADMINISTRATOR');
     for (const { category, testOnly } of commands) {
-        if (!category || (testOnly && guild && !instance.testServers.includes(guild.id)) || (!isAdmin && instance.hiddenCategories.includes(category))) {
+        if (!category ||
+            (testOnly && guild && !instance.testServers.includes(guild.id)) ||
+            (!isAdmin && instance.hiddenCategories.includes(category))) {
             continue;
         }
         if (categories[category]) {
@@ -23,7 +25,7 @@ const getFirstEmbed = (message, instance) => {
         else {
             categories[category] = {
                 amount: 1,
-                emoji: instance.getEmoji(category)
+                emoji: instance.getEmoji(category),
             };
         }
     }
@@ -33,7 +35,7 @@ const getFirstEmbed = (message, instance) => {
         const key = keys[a];
         const { emoji } = categories[key];
         if (!emoji) {
-            console.warn(`WOKCommands > Category "${key}" does not have an emoji icon.`);
+            console.warn(`TyrCommands > Category "${key}" does not have an emoji icon.`);
             continue;
         }
         const visibleCommands = instance.commandHandler.getCommandsByCategory(key, true);
@@ -43,11 +45,12 @@ const getFirstEmbed = (message, instance) => {
         }
         const reaction = emoji;
         reactions.push(reaction);
-        embed.setDescription(embed.description + `\n\n**${reaction} - ${key}** - ${amount} command${amount === 1 ? '' : 's'}`);
+        embed.setDescription(embed.description +
+            `\n\n**${reaction} - ${key}** - ${amount} command${amount === 1 ? '' : 's'}`);
     }
     return {
         embed,
-        reactions
+        reactions,
     };
 };
 exports.default = getFirstEmbed;

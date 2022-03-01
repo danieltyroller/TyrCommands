@@ -32,7 +32,7 @@ class Command {
     _slash = false;
     _requireRoles = false;
     _requiredChannels = new Map(); // <GuildID-Command, Channel IDs>
-    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, requireRoles = false }) {
+    constructor(instance, client, names, callback, error, { category, minArgs, maxArgs, syntaxError, expectedArgs, description, requiredPermissions, permissions, cooldown, globalCooldown, ownerOnly = false, hidden = false, guildOnly = false, testOnly = false, slash = false, requireRoles = false, }) {
         this.instance = instance;
         this.client = client;
         this._names = typeof names === 'string' ? [names] : names;
@@ -89,14 +89,14 @@ class Command {
             guild: message.guild,
             cancelCoolDown: () => {
                 this.decrementCooldowns(message.guild?.id, message.author.id);
-            }
+            },
         });
         if (!reply) {
             return;
         }
         if (typeof reply === 'string') {
             message.reply({
-                content: reply
+                content: reply,
             });
         }
         else if (typeof reply === 'object') {
@@ -112,7 +112,7 @@ class Command {
                     embeds.push(reply);
                 }
                 message.reply({
-                    embeds
+                    embeds,
                 });
             }
         }
@@ -169,17 +169,23 @@ class Command {
             throw new Error(`Invalid ${type} format! Number is invalid.`);
         }
         this._cooldownChar = results[1];
-        if (this._cooldownChar !== 's' && this._cooldownChar !== 'm' && this._cooldownChar !== 'h' && this._cooldownChar !== 'd') {
+        if (this._cooldownChar !== 's' &&
+            this._cooldownChar !== 'm' &&
+            this._cooldownChar !== 'h' &&
+            this._cooldownChar !== 'd') {
             throw new Error(`Invalid ${type} format! Unknown type. Please provide 's', 'm', 'h', or 'd' for seconds, minutes, hours, or days respectively.`);
         }
-        if (type === 'global cooldown' && this._cooldownChar === 's' && this._cooldownDuration < 60) {
+        if (type === 'global cooldown' &&
+            this._cooldownChar === 's' &&
+            this._cooldownDuration < 60) {
             throw new Error(`Invalid ${type} format! The minimum duration for a global cooldown is 1m.`);
         }
         const moreInfo = ' For more information please see https://docs.wornoffkeys.com/commands/command-cooldowns';
         if (this._cooldownDuration < 1) {
             throw new Error(`Invalid ${type} format! Durations must be at least 1.${moreInfo}`);
         }
-        if ((this._cooldownChar === 's' || this._cooldownChar === 'm') && this._cooldownDuration > 60) {
+        if ((this._cooldownChar === 's' || this._cooldownChar === 'm') &&
+            this._cooldownDuration > 60) {
             throw new Error(`Invalid ${type} format! Second or minute durations cannot exceed 60.${moreInfo}`);
         }
         if (this._cooldownChar === 'h' && this._cooldownDuration > 24) {
@@ -199,10 +205,12 @@ class Command {
         return this._ownerOnly;
     }
     verifyDatabaseCooldowns() {
-        if (this._cooldownChar === 'd' || this._cooldownChar === 'h' || (this._cooldownChar === 'm' && this._cooldownDuration >= 5)) {
+        if (this._cooldownChar === 'd' ||
+            this._cooldownChar === 'h' ||
+            (this._cooldownChar === 'm' && this._cooldownDuration >= 5)) {
             this._databaseCooldown = true;
             if (!this.instance.isDBConnected()) {
-                console.warn(`WOKCommands > A database connection is STRONGLY RECOMMENDED for cooldowns of 5 minutes or more.`);
+                console.warn(`TyrCommands > A database connection is STRONGLY RECOMMENDED for cooldowns of 5 minutes or more.`);
             }
         }
     }
@@ -241,12 +249,12 @@ class Command {
                 await cooldown_1.default.findOneAndUpdate({
                     _id,
                     name: this.names[0],
-                    type
+                    type,
                 }, {
                     _id,
                     name: this.names[0],
                     type,
-                    cooldown
+                    cooldown,
                 }, { upsert: true });
             }
         }
@@ -278,7 +286,9 @@ class Command {
         }
     }
     getCooldownSeconds(guildId, userId) {
-        let seconds = this.globalCooldown ? this._guildCooldowns.get(guildId) : this._userCooldowns.get(`${guildId}-${userId}`);
+        let seconds = this.globalCooldown
+            ? this._guildCooldowns.get(guildId)
+            : this._userCooldowns.get(`${guildId}-${userId}`);
         if (!seconds) {
             return '';
         }

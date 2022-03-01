@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const CommandErrors_1 = __importDefault(require("../enums/CommandErrors"));
-module.exports = async (guild, command, instance, member, reply) => {
+module.exports = async (guild, command, instance, member, user, reply) => {
     if (!guild || !member) {
         return true;
     }
@@ -26,13 +26,13 @@ module.exports = async (guild, command, instance, member, reply) => {
                     command,
                     message: null,
                     info: {
-                        missingRoles
-                    }
+                        missingRoles,
+                    },
                 });
             }
             else {
                 reply(instance.messageHandler.get(guild, 'MISSING_ROLES', {
-                    ROLES: missingRolesNames.join(', ')
+                    ROLES: missingRolesNames.join(', '),
                 })).then((message) => {
                     if (!message) {
                         return;
@@ -51,7 +51,7 @@ module.exports = async (guild, command, instance, member, reply) => {
     else if (command.doesRequireRoles) {
         reply(instance.messageHandler.get(guild, 'REQUIRE_ROLES', {
             PREFIX: instance.getPrefix(guild),
-            COMMAND: command.names[0]
+            COMMAND: command.names[0],
         })).then((message) => {
             if (!message) {
                 return;

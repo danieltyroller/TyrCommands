@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const CommandErrors_1 = __importDefault(require("../enums/CommandErrors"));
-module.exports = (guild, command, instance, reply) => {
+module.exports = (guild, command, instance, member, user, reply) => {
     if (!guild || !command.isDisabled(guild.id)) {
         return true;
     }
@@ -11,7 +11,7 @@ module.exports = (guild, command, instance, reply) => {
     if (error) {
         error({
             error: CommandErrors_1.default.COMMAND_DISABLED,
-            command
+            command,
         });
     }
     else {

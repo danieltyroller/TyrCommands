@@ -10,12 +10,12 @@ const results = {
     0: 'Disconnected',
     1: 'Connected',
     2: 'Connecting',
-    3: 'Disconnecting'
+    3: 'Disconnecting',
 };
 exports.default = async (mongoPath, instance, dbOptions = {}) => {
     const options = {
         keepAlive: true,
-        ...dbOptions
+        ...dbOptions,
     };
     await mongoose_1.default.connect(mongoPath, options);
     const { connection } = mongoose_1.default;

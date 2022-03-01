@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -71,7 +75,7 @@ class MessageHandler {
         const language = this.getLanguage(guild);
         const translations = this._messages[messageId];
         if (!translations) {
-            console.error(`WOKCommands > Could not find the correct message to send for "${messageId}"`);
+            console.error(`TyrCommands > Could not find the correct message to send for "${messageId}"`);
             return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         let result = translations[language];
@@ -85,12 +89,12 @@ class MessageHandler {
         const language = this.getLanguage(guild);
         const items = this._messages[embedId];
         if (!items) {
-            console.error(`WOKCommands > Could not find the correct item to send for "${embedId}" -> "${itemId}"`);
+            console.error(`TyrCommands > Could not find the correct item to send for "${embedId}" -> "${itemId}"`);
             return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         const translations = items[itemId];
         if (!translations) {
-            console.error(`WOKCommands > Could not find the correct message to send for "${embedId}"`);
+            console.error(`TyrCommands > Could not find the correct message to send for "${embedId}"`);
             return 'Could not find the correct message to send. Please report this to the bot developer.';
         }
         let result = translations[language];

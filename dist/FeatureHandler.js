@@ -28,9 +28,9 @@ class FeatureHandler {
         const files = (0, get_all_files_1.default)(dir, typeScript ? '.ts' : '');
         const amount = files.length;
         if (amount > 0) {
-            console.log(`WOKCommands > Loading ${amount} listener${amount === 1 ? '' : 's'}...`);
+            console.log(`TyrCommands > Loading ${amount} listener${amount === 1 ? '' : 's'}...`);
             for (const [file, fileName] of files) {
-                const debug = `WOKCommands DEBUG > Feature "${fileName}" load time`;
+                const debug = `TyrCommands DEBUG > Feature "${fileName}" load time`;
                 if (this._instance.debug) {
                     console.time(debug);
                 }
@@ -41,7 +41,7 @@ class FeatureHandler {
             }
         }
         else {
-            console.log(`WOKCommands > Loaded ${amount} listener${amount === 1 ? '' : 's'}.`);
+            console.log(`TyrCommands > Loaded ${amount} listener${amount === 1 ? '' : 's'}.`);
         }
     };
     registerFeature = (file, fileName) => {
@@ -62,11 +62,11 @@ class FeatureHandler {
             if (!dbName)
                 missing.push('dbName');
             if (missing.length && this._instance.showWarns) {
-                console.warn(`WOKCommands > Feature "${fileName}" has a config file that doesn't contain the following properties: ${missing}`);
+                console.warn(`TyrCommands > Feature "${fileName}" has a config file that doesn't contain the following properties: ${missing}`);
             }
         }
         else if (this._instance.showWarns) {
-            console.warn(`WOKCommands > Feature "${fileName}" does not export a config object.`);
+            console.warn(`TyrCommands > Feature "${fileName}" does not export a config object.`);
         }
         if (typeof func !== 'function') {
             return;
@@ -78,7 +78,7 @@ class FeatureHandler {
             return this.isEnabled(guildId, file);
         };
         if (config && config.loadDBFirst === true) {
-            console.warn(`WOKCommands > config.loadDBFirst in features is no longer required. MongoDB is now connected to before any features or commands are loaded.`);
+            console.warn(`TyrCommands > config.loadDBFirst in features is no longer required. MongoDB is now connected to before any features or commands are loaded.`);
         }
         func(this._client, this._instance, isEnabled);
     };

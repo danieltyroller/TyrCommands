@@ -10,11 +10,25 @@ module.exports = {
     minArgs: 1,
     maxArgs: 2,
     expectedArgs: '<Command name> [Channel tag]',
-    expectedArgsTypes: ['STRING', 'CHANNEL'],
     cooldown: '2s',
     guildOnly: true,
     slash: 'both',
-    callback: async ({ message, channel, args, instance, interaction }) => {
+    options: [
+        {
+            name: 'command',
+            description: 'The command name',
+            type: 'STRING',
+            required: true,
+        },
+        {
+            name: 'channel',
+            description: 'The tag of the channel',
+            type: 'CHANNEL',
+            required: false,
+        },
+    ],
+    callback: async (options) => {
+        const { message, channel, args, instance, interaction } = options;
         const { guild } = channel;
         const { messageHandler } = instance;
         let commandName = (args.shift() || '').toLowerCase();
@@ -24,14 +38,14 @@ module.exports = {
         }
         if (!command || !command.names) {
             return messageHandler.get(guild, 'UNKNOWN_COMMAND', {
-                COMMAND: commandName
+                COMMAND: commandName,
             });
         }
         commandName = command.names[0];
         if (args.length === 0) {
             const results = await channel_commands_1.default.deleteMany({
                 guildId: guild?.id,
-                command: commandName
+                command: commandName,
             });
             // @ts-ignore
             if (results.n === 0) {
@@ -52,23 +66,23 @@ module.exports = {
         }
         const results = await channel_commands_1.default.findOneAndUpdate({
             guildId: guild?.id,
-            command: commandName
+            command: commandName,
         }, {
             guildId: guild?.id,
             command: commandName,
             $addToSet: {
-                channels
-            }
+                channels,
+            },
         }, {
             upsert: true,
-            new: true
+            new: true,
         });
         if (results) {
             command.setRequiredChannels(guild, commandName, results.channels);
         }
         return messageHandler.get(guild, 'NOW_CHANNEL_COMMAND', {
             COMMAND: commandName,
-            CHANNELS: args.join(' ')
+            CHANNELS: args.join(' '),
         });
-    }
+    },
 };

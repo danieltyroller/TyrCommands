@@ -1,7 +1,3 @@
 node_modules
-./src
-./tsconfig.json
-.npmignore
-.prettierrc
-./yarn.lock
-./typings.d.ts
+src
+yarn.lock

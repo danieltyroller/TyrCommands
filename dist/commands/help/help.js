@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -29,9 +33,9 @@ const sendHelpMenu = (message, instance) => {
     const { embed, reactions } = (0, _get_first_embed_1.default)(message, instance);
     message.channel
         .send({
-        embeds: [embed]
+        embeds: [embed],
     })
-        .then(message => {
+        .then((message) => {
         (0, _ReactionListener_1.addReactions)(message, reactions);
     });
 };
@@ -46,10 +50,11 @@ module.exports = {
             new _ReactionListener_1.default(instance, reaction, user);
         });
     },
-    callback: ({ message, channel, instance, args }) => {
+    callback: (options) => {
+        const { message, channel, instance, args } = options;
         const { guild } = channel;
         if (guild && !guild.me?.permissions.has('SEND_MESSAGES')) {
-            console.warn(`WOKCommands > Could not send message due to no permissions in channel for ${guild.name}`);
+            console.warn(`TyrCommands > Could not send message due to no permissions in channel for ${guild.name}`);
             return;
         }
         if (guild && !guild.me?.permissions.has('ADD_REACTIONS')) {
@@ -66,14 +71,16 @@ module.exports = {
         const command = instance.commandHandler.getICommand(arg);
         if (!command) {
             return instance.messageHandler.get(guild, 'UNKNOWN_COMMAND', {
-                COMMAND: arg
+                COMMAND: arg,
             });
         }
         const description = _ReactionListener_1.default.getHelp(command, instance, guild);
-        const embed = new discord_js_1.MessageEmbed().setTitle(`${instance.displayName} ${instance.messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE')} - ${arg}`).setDescription(description);
+        const embed = new discord_js_1.MessageEmbed()
+            .setTitle(`${instance.displayName} ${instance.messageHandler.getEmbed(guild, 'HELP_MENU', 'TITLE')} - ${arg}`)
+            .setDescription(description);
         if (instance.color) {
             embed.setColor(instance.color);
         }
         return embed;
-    }
+    },
 };

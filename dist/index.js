@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -23,13 +27,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const events_1 = require("events");
-const CommandHandler_1 = __importDefault(require("./CommandHandler"));
-const Events_1 = __importDefault(require("./enums/Events"));
 const FeatureHandler_1 = __importDefault(require("./FeatureHandler"));
-const message_handler_1 = __importDefault(require("./message-handler"));
-const prefixes_1 = __importDefault(require("./models/prefixes"));
 const mongo_1 = __importStar(require("./mongo"));
+const prefixes_1 = __importDefault(require("./models/prefixes"));
+const message_handler_1 = __importDefault(require("./message-handler"));
 const SlashCommands_1 = __importDefault(require("./SlashCommands"));
+const Events_1 = __importDefault(require("./enums/Events"));
+const CommandHandler_1 = __importDefault(require("./CommandHandler"));
 class TyrCommands extends events_1.EventEmitter {
     _client;
     _defaultPrefix = '!';
@@ -49,7 +53,7 @@ class TyrCommands extends events_1.EventEmitter {
     _ignoreBots = true;
     _botOwner = [];
     _testServers = [];
-    _defaultLanguage = 'english';
+    _defaultLanguage = 'en';
     _ephemeral = true;
     _debug = false;
     _messageHandler = null;
@@ -63,7 +67,7 @@ class TyrCommands extends events_1.EventEmitter {
         if (!client) {
             throw new Error('No Discord JS Client provided as first argument!');
         }
-        let { commandsDir = '', commandDir = '', featuresDir = '', featureDir = '', messagesPath, mongoUri, showWarns = true, delErrMsgCooldown = -1, defaultLanguage = 'english', ignoreBots = true, dbOptions, testServers, botOwners, disabledDefaultCommands = [], typeScript = false, ephemeral = true, debug = false } = options || {};
+        let { commandsDir = '', commandDir = '', featuresDir = '', featureDir = '', messagesPath, mongoUri, showWarns = true, delErrMsgCooldown = -1, defaultLanguage = 'en', ignoreBots = true, dbOptions, testServers, botOwners, disabledDefaultCommands = [], typeScript = false, ephemeral = true, debug = false, } = options || {};
         if (mongoUri) {
             await (0, mongo_1.default)(mongoUri, this, dbOptions);
             this._mongoConnection = (0, mongo_1.getMongoConnection)();
@@ -75,7 +79,7 @@ class TyrCommands extends events_1.EventEmitter {
         }
         else {
             if (showWarns) {
-                console.warn('WOKCommands > No MongoDB connection URI provided. Some features might not work! See this for more details:\nhttps://docs.wornoffkeys.com/databases/mongodb');
+                console.warn('TyrCommands > No MongoDB connection URI provided. Some features might not work! See this for more details:\nhttps://docs.wornoffkeys.com/databases/mongodb');
             }
             this.emit(Events_1.default.DATABASE_CONNECTED, null, '');
         }
@@ -83,11 +87,13 @@ class TyrCommands extends events_1.EventEmitter {
         this._featuresDir = featuresDir || featureDir || this._featuresDir;
         this._ephemeral = ephemeral;
         this._debug = debug;
-        if (this._commandsDir && !(this._commandsDir.includes('/') || this._commandsDir.includes('\\'))) {
-            throw new Error("WOKCommands > The 'commands' directory must be an absolute path. This can be done by using the 'path' module. More info: https://docs.wornoffkeys.com/setup-and-options-object");
+        if (this._commandsDir &&
+            !(this._commandsDir.includes('/') || this._commandsDir.includes('\\'))) {
+            throw new Error("TyrCommands > The 'commands' directory must be an absolute path. This can be done by using the 'path' module. More info: https://docs.wornoffkeys.com/setup-and-options-object");
         }
-        if (this._featuresDir && !(this._featuresDir.includes('/') || this._featuresDir.includes('\\'))) {
-            throw new Error("WOKCommands > The 'features' directory must be an absolute path. This can be done by using the 'path' module. More info: https://docs.wornoffkeys.com/setup-and-options-object");
+        if (this._featuresDir &&
+            !(this._featuresDir.includes('/') || this._featuresDir.includes('\\'))) {
+            throw new Error("TyrCommands > The 'features' directory must be an absolute path. This can be done by using the 'path' module. More info: https://docs.wornoffkeys.com/setup-and-options-object");
         }
         if (testServers) {
             if (typeof testServers === 'string') {
@@ -114,18 +120,18 @@ class TyrCommands extends events_1.EventEmitter {
         this.setCategorySettings([
             {
                 name: 'Configuration',
-                emoji: '⚙'
+                emoji: '⚙',
             },
             {
                 name: 'Help',
-                emoji: '❓'
-            }
+                emoji: '❓',
+            },
         ]);
         this._featureHandler = new FeatureHandler_1.default(client, this, this._featuresDir, typeScript);
-        console.log('WOKCommands > Your bot is now running.');
+        console.log('TyrCommands > Your bot is now running.');
     }
     setMongoPath(mongoPath) {
-        console.warn('WOKCommands > .setMongoPath() no longer works as expected. Please pass in your mongo URI as a "mongoUri" property using the options object. For more information: https://docs.wornoffkeys.com/databases/mongodb');
+        console.warn('TyrCommands > .setMongoPath() no longer works as expected. Please pass in your mongo URI as a "mongoUri" property using the options object. For more information: https://docs.wornoffkeys.com/databases/mongodb');
         return this;
     }
     get client() {
@@ -202,7 +208,7 @@ class TyrCommands extends events_1.EventEmitter {
                 targetEmoji = this._client.emojis.cache.get(emoji);
             }
             if (this.isEmojiUsed(targetEmoji)) {
-                console.warn(`WOKCommands > The emoji "${targetEmoji}" for category "${name}" is already used.`);
+                console.warn(`TyrCommands > The emoji "${targetEmoji}" for category "${name}" is already used.`);
             }
             this._categories.set(name, targetEmoji || this.categories.get(name) || '');
             if (hidden) {
@@ -216,7 +222,7 @@ class TyrCommands extends events_1.EventEmitter {
             return false;
         }
         let isUsed = false;
-        this._categories.forEach(value => {
+        this._categories.forEach((value) => {
             if (value === emoji) {
                 isUsed = true;
             }
@@ -253,7 +259,7 @@ class TyrCommands extends events_1.EventEmitter {
         return this._botOwner;
     }
     setBotOwner(botOwner) {
-        console.log('WOKCommands > setBotOwner() is deprecated. Please specify your bot owners in the object constructor instead. See https://docs.wornoffkeys.com/setup-and-options-object');
+        console.log('TyrCommands > setBotOwner() is deprecated. Please specify your bot owners in the object constructor instead. See https://docs.wornoffkeys.com/setup-and-options-object');
         if (typeof botOwner === 'string') {
             botOwner = [botOwner];
         }
