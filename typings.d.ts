@@ -13,7 +13,11 @@ import {
 import { EventEmitter } from 'events'
 import TyrCommands from './src'
 
+<<<<<<< HEAD
 export default class TyrCommands extends EventEmitter {
+=======
+export default class WOKCommands extends EventEmitter {
+>>>>>>> 5cc01649de479fe0d0cd6a2756f4e5411632c040
   private _client: Client
   private _defaultPrefix: string
   private _commandsDir: string
