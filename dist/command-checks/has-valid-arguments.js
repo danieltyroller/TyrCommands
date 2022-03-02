@@ -17,9 +17,15 @@ module.exports = (guild, command, instance, member, user, reply, args, name) => 
             errorMsg = errorMsg.replace(/{PREFIX}/g, prefix);
             // Replace {COMMAND} with the name of the command that was ran
             errorMsg = errorMsg.replace(/{COMMAND}/g, name);
+            let args = '';
+            if (expectedArgs) {
+                expectedArgs.split(' ').forEach((arg) => {
+                    args += ` \`${arg}\``;
+                });
+            }
             // Replace {ARGUMENTS} with the expectedArgs property from the command
             // If one was not provided then replace {ARGUMENTS} with an empty string
-            errorMsg = errorMsg.replace(/ {ARGUMENTS}/g, expectedArgs ? ` ${expectedArgs}` : '');
+            errorMsg = errorMsg.replace(/ {ARGUMENTS}/g, args ? ` ${args}` : '');
         }
         if (error) {
             error({
