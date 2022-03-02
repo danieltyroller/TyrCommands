@@ -27,13 +27,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const events_1 = require("events");
-const FeatureHandler_1 = __importDefault(require("./FeatureHandler"));
-const mongo_1 = __importStar(require("./mongo"));
-const prefixes_1 = __importDefault(require("./models/prefixes"));
-const message_handler_1 = __importDefault(require("./message-handler"));
-const SlashCommands_1 = __importDefault(require("./SlashCommands"));
-const Events_1 = __importDefault(require("./enums/Events"));
 const CommandHandler_1 = __importDefault(require("./CommandHandler"));
+const Events_1 = __importDefault(require("./enums/Events"));
+const FeatureHandler_1 = __importDefault(require("./FeatureHandler"));
+const message_handler_1 = __importDefault(require("./message-handler"));
+const prefixes_1 = __importDefault(require("./models/prefixes"));
+const mongo_1 = __importStar(require("./mongo"));
+const SlashCommands_1 = __importDefault(require("./SlashCommands"));
 class TyrCommands extends events_1.EventEmitter {
     _client;
     _defaultPrefix = '!';
